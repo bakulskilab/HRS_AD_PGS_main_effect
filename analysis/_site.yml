@@ -1,0 +1,17 @@
+name: "HRS_AD_PGS_main_effect"
+output_dir: ../docs
+navbar:
+  title: "HRS_AD_PGS_main_effect"
+  left:
+  - text: Home
+    href: index.html
+  - text: About
+    href: about.html
+  - text: License
+    href: license.html
+output:
+  workflowr::wflow_html:
+    toc: yes
+    toc_float: yes
+    theme: cosmo
+    highlight: textmate
