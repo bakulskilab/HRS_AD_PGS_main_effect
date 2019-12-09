@@ -1,0 +1,1598 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Kelly Bakulski" />
+
+<meta name="date" content="2019-10-29" />
+
+<title>Alzheimer’s disease PGS, APOE status, and summary cognitive status in the HRS</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">HRS_AD_PGS_main_effect</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Alzheimer’s disease PGS, APOE status, and summary cognitive status in the HRS</h1>
+<h3 class="subtitle">Sensitivity Logistic Regression</h3>
+<h4 class="author">Kelly Bakulski</h4>
+<h4 class="date">October 29, 2019</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2019-12-09
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>HRS_AD_PGS_main_effect/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.4.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20191209code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20191209)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20191209code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20191209)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrong972d40b"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> 972d40b </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrong972d40b" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .DS_Store
+    Ignored:    .Rproj.user/
+
+Untracked files:
+    Untracked:  Icon
+    Untracked:  analysis/Icon
+    Untracked:  code/Icon
+    Untracked:  data/Icon
+    Untracked:  docs/Icon
+    Untracked:  output/Icon
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+<p>
+There are no past versions. Publish this analysis with <code>wflow_publish()</code> to start tracking its development.
+</p>
+<hr>
+</div>
+</div>
+</div>
+<div id="goal-sensitivity-regression-models" class="section level2">
+<h2>Goal: Sensitivity regression models:</h2>
+</div>
+<div id="sensitivity-1-model-3-cohort" class="section level2">
+<h2>Sensitivity 1: model 3 + COHORT</h2>
+</div>
+<div id="sensitivity-2-model-3-subset-to-health-behaviors-and-model-4" class="section level2">
+<h2>Sensitivity 2: model 3 (subset to health behaviors) and model 4</h2>
+</div>
+<div id="sensitivity-3-model-1-apoe-dose-and-model-1-apoe-dose-pgs" class="section level2">
+<h2>Sensitivity 3: model 1 + APOE dose and model 1 + APOE dose + PGS</h2>
+<pre class="r"><code>#Setting file paths for data, output, scripts
+
+source_dir&lt;-&quot;~/Google Drive/AD_R01_WB/Data/&quot; #location of the parent dataset
+
+results_dir&lt;-&quot;~/Google Drive/AD_R01_WB/AD_PGS_main_effect/Results/&quot; #location of output tables
+  
+derived_data_dir&lt;-&quot;~/Google Drive/AD_R01_WB/AD_PGS_main_effect/Derived_Datasets/&quot; #location of any new datasets I&#39;m building specifically for this paper
+
+script_dir&lt;-&quot;~/Google Drive/AD_R01_WB/AD_PGS_main_effect/Scripts/&quot; #location of this script, redundant with the knitr option above
+
+date&lt;-format(Sys.Date(), &quot;%Y%m%d&quot;)</code></pre>
+<p>#Load in the dataset from Rda: HRS 1995-2014</p>
+<pre class="r"><code>load(file=paste0(derived_data_dir, &quot;HRS_PGS_AD_Analytic_Sample_20190814.rda&quot;))
+dim(hrs)</code></pre>
+<pre><code>[1] 43232  1158</code></pre>
+<pre class="r"><code># [1] 43232  1196
+load(file = paste0(derived_data_dir, &quot;HRS_PGS_AD_Euro_Analytic_Sample_20190814.rda&quot;))
+dim(ea)</code></pre>
+<pre><code>[1] 8399 1158</code></pre>
+<pre class="r"><code>load(file = paste0(derived_data_dir,&quot;HRS_PGS_AD_Afri_Analytic_Sample_20190814.rda&quot;))
+dim(aa)</code></pre>
+<pre><code>[1] 1605 1158</code></pre>
+<pre class="r"><code>library(epiDisplay)</code></pre>
+<pre><code>Loading required package: foreign</code></pre>
+<pre><code>Loading required package: survival</code></pre>
+<pre><code>Loading required package: MASS</code></pre>
+<pre><code>Loading required package: nnet</code></pre>
+<pre class="r"><code>ea.sens1&lt;-hrs[hrs$sens1==&quot;Include&quot; &amp; hrs$ancestry==&quot;European&quot;,]
+table(hrs$sens1)</code></pre>
+<pre><code>
+Exclude Include 
+  35329    7903 </code></pre>
+<pre class="r"><code>dim(ea.sens1)</code></pre>
+<pre><code>[1] 6492 1158</code></pre>
+<pre class="r"><code>table(ea$sens1)</code></pre>
+<pre><code>
+Exclude Include 
+   1907    6492 </code></pre>
+<pre class="r"><code>table(hrs$ancestry, hrs$DC_60_2V.fac.relevel,  hrs$sens1)</code></pre>
+<pre><code>, ,  = Exclude
+
+          
+           Normal Borderline Impaired Dementia
+  African      31         28       79       92
+  European    905        419      324      449
+
+, ,  = Include
+
+          
+           Normal Borderline Impaired Dementia
+  African     655        291      278      187
+  European   4909        872      409      302</code></pre>
+<pre class="r"><code>#PH13_KunkleOK2_PT_0.01
+#PH13_KunkleFULL_PT_0.01
+
+#Subset to people not in AHEAD or CODA, ea.sens1
+
+output&lt;-data.frame(matrix(NA, nrow=12, ncol=13))
+colnames(output)&lt;-c(&quot;Ancestry&quot;, &quot;Variable&quot;, &quot;Outcome&quot;, &quot;n.3&quot;,&quot;OR.3&quot;, &quot;LCI.3&quot;, &quot;UCI.3&quot;, &quot;p.3&quot;,&quot;n.3.cohort&quot;, &quot;OR.3.cohort&quot;, &quot;LCI.3.cohort&quot;, &quot;UCI.3.cohort&quot;, &quot;p.3.cohort&quot;)
+output$Ancestry&lt;-c(rep(&quot;European&quot;, 6), rep(&quot;African&quot;, 6))
+output$Variable&lt;-c(rep(&quot;PGS&quot;, 3), rep(&quot;APOE&quot;, 3), rep(&quot;PGS&quot;, 3), rep(&quot;APOE&quot;, 3))
+output$Outcome&lt;-c(rep(c(&quot;Borderline&quot;,&quot;CIND&quot;, &quot;Dementia&quot;),4))
+
+# European ancestry
+for (i in 2:4) {
+# Model 3 PGS
+  #Rows 1-3
+
+#Model 3 PGS, original sample
+model3&lt;-glm(DC_60_2V.fac.relevel ~ PH13_KunkleOK2_PT_0.01 + APOE2010_bin + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + EA_2010_PC1 + EA_2010_PC2, data=ea[ea$DC_60_2V.relevel==i | ea$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model3)
+output[i-1,4]&lt;-length(model3$residuals)
+output[i-1,5]&lt;-round(logistic.display(model3, decimal=2)$table[1,1], digits=2)
+output[i-1,6]&lt;-round(logistic.display(model3, decimal=2)$table[1,2], digits=2)
+output[i-1,7]&lt;-round(logistic.display(model3, decimal=2)$table[1,3], digits=2)
+output[i-1,8]&lt;-round(logistic.display(model3, decimal=2)$table[1,4], digits=3)
+
+#Model 3 APOE, original sample
+output[i+2,4]&lt;-length(model3$residuals)
+output[i+2,5]&lt;-round(logistic.display(model3, decimal=2)$table[2,1], digits=2)
+output[i+2,6]&lt;-round(logistic.display(model3, decimal=2)$table[2,2], digits=2)
+output[i+2,7]&lt;-round(logistic.display(model3, decimal=2)$table[2,3], digits=2)
+output[i+2,8]&lt;-round(logistic.display(model3, decimal=2)$table[2,4], digits=3)
+
+# Model 3 COHORT PGS, subset to people not in AHEAD or CODA
+model4&lt;-glm(DC_60_2V.fac.relevel ~ PH13_KunkleOK2_PT_0.01 + APOE2010_bin + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + EA_2010_PC1 + EA_2010_PC2, data=ea.sens1[ea.sens1$DC_60_2V.relevel==1 | ea.sens1$DC_60_2V.relevel==i,] , family=binomial, na.action = na.omit)
+summary(model4)
+output[i-1,9]&lt;-length(model4$residuals)
+output[i-1,10]&lt;-round(logistic.display(model4, decimal=2)$table[1,1], digits=2)
+output[i-1,11]&lt;-round(logistic.display(model4, decimal=2)$table[1,2], digits=2)
+output[i-1,12]&lt;-round(logistic.display(model4, decimal=2)$table[1,3], digits=2)
+output[i-1,13]&lt;-round(logistic.display(model4, decimal=2)$table[1,4], digits=3)
+
+#Model 3 COHORT APOE, subset to people not in AHEAD or CODA
+output[i+2,9]&lt;-length(model4$residuals)
+output[i+2,10]&lt;-round(logistic.display(model4, decimal=2)$table[2,1], digits=2)
+output[i+2,11]&lt;-round(logistic.display(model4, decimal=2)$table[2,2], digits=2)
+output[i+2,12]&lt;-round(logistic.display(model4, decimal=2)$table[2,3], digits=2)
+output[i+2,13]&lt;-round(logistic.display(model4, decimal=2)$table[2,4], digits=3)
+}
+output</code></pre>
+<pre><code>   Ancestry Variable    Outcome  n.3 OR.3 LCI.3 UCI.3   p.3 n.3.cohort
+1  European      PGS Borderline 6964 1.14  1.07  1.21 0.000       5781
+2  European      PGS       CIND 6419 1.05  0.96  1.14 0.298       5318
+3  European      PGS   Dementia 6432 1.10  1.00  1.20 0.049       5211
+4  European     APOE Borderline 6964 1.43  1.24  1.65 0.000       5781
+5  European     APOE       CIND 6419 1.73  1.43  2.10 0.000       5318
+6  European     APOE   Dementia 6432 2.42  1.99  2.95 0.000       5211
+7   African      PGS Borderline   NA   NA    NA    NA    NA         NA
+8   African      PGS       CIND   NA   NA    NA    NA    NA         NA
+9   African      PGS   Dementia   NA   NA    NA    NA    NA         NA
+10  African     APOE Borderline   NA   NA    NA    NA    NA         NA
+11  African     APOE       CIND   NA   NA    NA    NA    NA         NA
+12  African     APOE   Dementia   NA   NA    NA    NA    NA         NA
+   OR.3.cohort LCI.3.cohort UCI.3.cohort p.3.cohort
+1         1.13         1.05         1.22      0.002
+2         1.05         0.94         1.17      0.377
+3         1.05         0.92         1.19      0.447
+4         1.42         1.21         1.68      0.000
+5         1.67         1.32         2.11      0.000
+6         2.60         2.00         3.38      0.000
+7           NA           NA           NA         NA
+8           NA           NA           NA         NA
+9           NA           NA           NA         NA
+10          NA           NA           NA         NA
+11          NA           NA           NA         NA
+12          NA           NA           NA         NA</code></pre>
+<pre class="r"><code>aa.sens1&lt;-hrs[hrs$sens1==&quot;Include&quot; &amp; hrs$ancestry==&quot;African&quot;,]
+dim(aa.sens1)</code></pre>
+<pre><code>[1] 1411 1158</code></pre>
+<pre class="r"><code>table(aa$sens1)</code></pre>
+<pre><code>
+Exclude Include 
+    194    1411 </code></pre>
+<pre class="r"><code># African ancestry
+for (i in 2:4) {
+# Model 3 PGS
+  #Rows 1-3
+
+#Subset to people not in AHEAD or CODA (aa.sens1)
+  
+#Model 3 PGS, original sample
+model3&lt;-glm(DC_60_2V.fac.relevel ~ PH13_KunkleOK2_PT_0.01 + APOE2010_bin + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + AA_2010_PC1 + AA_2010_PC2, data=aa[aa$DC_60_2V.relevel==i | aa$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model3)
+output[i+5,4]&lt;-length(model3$residuals)
+output[i+5,5]&lt;-round(logistic.display(model3, decimal=2)$table[1,1], digits=2)
+output[i+5,6]&lt;-round(logistic.display(model3, decimal=2)$table[1,2], digits=2)
+output[i+5,7]&lt;-round(logistic.display(model3, decimal=2)$table[1,3], digits=2)
+output[i+5,8]&lt;-round(logistic.display(model3, decimal=2)$table[1,4], digits=3)
+
+#Model 3 APOE, original sample
+output[i+8,4]&lt;-length(model3$residuals)
+output[i+8,5]&lt;-round(logistic.display(model3, decimal=2)$table[2,1], digits=2)
+output[i+8,6]&lt;-round(logistic.display(model3, decimal=2)$table[2,2], digits=2)
+output[i+8,7]&lt;-round(logistic.display(model3, decimal=2)$table[2,3], digits=2)
+output[i+8,8]&lt;-round(logistic.display(model3, decimal=2)$table[2,4], digits=3)
+
+# Model 3 COHORT PGS, subset to people not in AHEAD or CODA
+model4&lt;-glm(DC_60_2V.fac.relevel ~ PH13_KunkleOK2_PT_0.01 + APOE2010_bin + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + AA_2010_PC1 + AA_2010_PC2, data=aa.sens1[aa.sens1$DC_60_2V.relevel==1 | aa.sens1$DC_60_2V.relevel==i,] , family=binomial, na.action = na.omit)
+summary(model4)
+output[i+5,9]&lt;-length(model4$residuals)
+output[i+5,10]&lt;-round(logistic.display(model4, decimal=2)$table[1,1], digits=2)
+output[i+5,11]&lt;-round(logistic.display(model4, decimal=2)$table[1,2], digits=2)
+output[i+5,12]&lt;-round(logistic.display(model4, decimal=2)$table[1,3], digits=2)
+output[i+5,13]&lt;-round(logistic.display(model4, decimal=2)$table[1,4], digits=3)
+
+#Model 3 COHORT APOE, subset to people not in AHEAD or CODA
+output[i+8,9]&lt;-length(model3$residuals)
+output[i+8,10]&lt;-round(logistic.display(model4, decimal=2)$table[2,1], digits=2)
+output[i+8,11]&lt;-round(logistic.display(model4, decimal=2)$table[2,2], digits=2)
+output[i+8,12]&lt;-round(logistic.display(model4, decimal=2)$table[2,3], digits=2)
+output[i+8,13]&lt;-round(logistic.display(model4, decimal=2)$table[2,4], digits=3)
+}
+
+output</code></pre>
+<pre><code>   Ancestry Variable    Outcome  n.3 OR.3 LCI.3 UCI.3   p.3 n.3.cohort
+1  European      PGS Borderline 6964 1.14  1.07  1.21 0.000       5781
+2  European      PGS       CIND 6419 1.05  0.96  1.14 0.298       5318
+3  European      PGS   Dementia 6432 1.10  1.00  1.20 0.049       5211
+4  European     APOE Borderline 6964 1.43  1.24  1.65 0.000       5781
+5  European     APOE       CIND 6419 1.73  1.43  2.10 0.000       5318
+6  European     APOE   Dementia 6432 2.42  1.99  2.95 0.000       5211
+7   African      PGS Borderline  984 1.06  0.87  1.30 0.555        946
+8   African      PGS       CIND 1022 0.96  0.76  1.20 0.706        933
+9   African      PGS   Dementia  943 1.29  0.97  1.70 0.076        842
+10  African     APOE Borderline  984 1.10  0.82  1.47 0.534        984
+11  African     APOE       CIND 1022 1.08  0.78  1.50 0.648       1022
+12  African     APOE   Dementia  943 1.77  1.20  2.61 0.004        943
+   OR.3.cohort LCI.3.cohort UCI.3.cohort p.3.cohort
+1         1.13         1.05         1.22      0.002
+2         1.05         0.94         1.17      0.377
+3         1.05         0.92         1.19      0.447
+4         1.42         1.21         1.68      0.000
+5         1.67         1.32         2.11      0.000
+6         2.60         2.00         3.38      0.000
+7         1.03         0.84         1.26      0.803
+8         0.90         0.71         1.14      0.392
+9         1.26         0.93         1.70      0.134
+10        1.00         0.74         1.35      0.994
+11        1.02         0.72         1.44      0.917
+12        1.55         1.02         2.34      0.039</code></pre>
+<pre class="r"><code>write.csv(output, file=paste0(results_dir,&quot;HRS_PGS_Logistic_Cohort_Sensitivity_&quot;, date, &quot;.csv&quot;))</code></pre>
+<pre class="r"><code>ea.sens2&lt;-hrs[hrs$sens2==&quot;Included&quot; &amp; hrs$ancestry==&quot;European&quot;,]
+dim(ea.sens2)</code></pre>
+<pre><code>[1]    0 1158</code></pre>
+<pre class="r"><code>table(ea$sens2)</code></pre>
+<pre><code>&lt; table of extent 0 &gt;</code></pre>
+<pre class="r"><code>table(ea.sens2$DC_60_2V.fac.relevel)</code></pre>
+<pre><code>
+    Normal Borderline   Impaired   Dementia 
+         0          0          0          0 </code></pre>
+<pre class="r"><code>table(ea.sens2$SEX.fac)</code></pre>
+<pre><code>
+  Male Female 
+     0      0 </code></pre>
+<pre class="r"><code>table(ea.sens2$T2D_EVER_LAST_60.fac)</code></pre>
+<pre><code>
+ No Yes 
+  0   0 </code></pre>
+<pre class="r"><code>table(ea.sens2$HBP_EVER_LAST_60.fac)</code></pre>
+<pre><code>
+ No Yes 
+  0   0 </code></pre>
+<pre class="r"><code>table(ea.sens2$EVSTROKE_LAST_60.fac)</code></pre>
+<pre><code>
+ No Yes 
+  0   0 </code></pre>
+<pre class="r"><code>table(ea.sens2$CESD_BIN.fac)</code></pre>
+<pre><code>
+ No Yes 
+  0   0 </code></pre>
+<pre class="r"><code>table(ea.sens2$SMK_CURR_LAST_60.fac)</code></pre>
+<pre><code>
+0 1 2 
+0 0 0 </code></pre>
+<pre class="r"><code>table(ea.sens2$ALC_CURR_LAST_60.fac)</code></pre>
+<pre><code>
+ No Yes 
+  0   0 </code></pre>
+<pre class="r"><code>summary(ea.sens2$AGE_LAST_60)</code></pre>
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+                                                </code></pre>
+<pre class="r"><code>summary(ea.sens2$YEAR_LAST_60)</code></pre>
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+                                                </code></pre>
+<pre class="r"><code>summary(ea.sens2$ph13_IGAP_pT_1_scale)</code></pre>
+<pre><code>Length  Class   Mode 
+     0   NULL   NULL </code></pre>
+<pre class="r"><code>table(ea.sens2$APOE2010_bin)</code></pre>
+<pre><code>&lt; table of extent 0 &gt;</code></pre>
+<pre class="r"><code>output&lt;-data.frame(matrix(NA, nrow=12, ncol=13))
+colnames(output)&lt;-c(&quot;Ancestry&quot;, &quot;Variable&quot;, &quot;Outcome&quot;, &quot;n.3&quot;,&quot;OR.3&quot;, &quot;LCI.3&quot;, &quot;UCI.3&quot;, &quot;p.3&quot;,&quot;n.4&quot;, &quot;OR.4&quot;, &quot;LCI.4&quot;, &quot;UCI.4&quot;, &quot;p.4&quot;)
+output$Ancestry&lt;-c(rep(&quot;European&quot;, 6), rep(&quot;African&quot;, 6))
+output$Variable&lt;-c(rep(&quot;PGS&quot;, 3), rep(&quot;APOE&quot;, 3), rep(&quot;PGS&quot;, 3), rep(&quot;APOE&quot;, 3))
+output$Outcome&lt;-c(rep(c(&quot;Borderline&quot;,&quot;CIND&quot;, &quot;Dementia&quot;),4))
+
+# European ancestry
+for (i in 2:4) {
+# Model 2a PGS
+  #Rows 1-3
+
+
+#Model 3 PGS, subset to health behaviors sample
+model3&lt;-glm(DC_60_2V.fac.relevel ~ PH13_KunkleOK2_PT_0.01 + APOE2010_bin + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + EA_2010_PC1 + EA_2010_PC2, data=ea[ea$DC_60_2V.relevel==i | ea$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model3)
+output[i-1,4]&lt;-length(model3$residuals)
+output[i-1,5]&lt;-round(logistic.display(model3, decimal=2)$table[1,1], digits=2)
+output[i-1,6]&lt;-round(logistic.display(model3, decimal=2)$table[1,2], digits=2)
+output[i-1,7]&lt;-round(logistic.display(model3, decimal=2)$table[1,3], digits=2)
+output[i-1,8]&lt;-round(logistic.display(model3, decimal=2)$table[1,4], digits=3)
+
+#Model 3 APOE, subset to health behaviors sample
+output[i+2,4]&lt;-length(model3$residuals)
+output[i+2,5]&lt;-round(logistic.display(model3, decimal=2)$table[2,1], digits=2)
+output[i+2,6]&lt;-round(logistic.display(model3, decimal=2)$table[2,2], digits=2)
+output[i+2,7]&lt;-round(logistic.display(model3, decimal=2)$table[2,3], digits=2)
+output[i+2,8]&lt;-round(logistic.display(model3, decimal=2)$table[2,4], digits=3)
+
+# Model 4 PGS, subset to health behaviors sample
+model4&lt;-glm(DC_60_2V.fac.relevel ~ PH13_KunkleOK2_PT_0.01 + APOE2010_bin + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + EA_2010_PC1 + EA_2010_PC2 + BMI_LAST_60_v2 + HBP_EVER_LAST_60.fac +  T2D_EVER_LAST_60.fac  + EVSTROKE_LAST_60.fac  + CESD_BIN.fac +  SMK_CURR_LAST_60.fac + ALC_CURR_LAST_60.fac, data=ea[ea$DC_60_2V.relevel==1 | ea$DC_60_2V.relevel==i,] , family=binomial, na.action = na.omit)
+summary(model4)
+output[i-1,9]&lt;-length(model4$residuals)
+output[i-1,10]&lt;-round(logistic.display(model4, decimal=2)$table[1,1], digits=2)
+output[i-1,11]&lt;-round(logistic.display(model4, decimal=2)$table[1,2], digits=2)
+output[i-1,12]&lt;-round(logistic.display(model4, decimal=2)$table[1,3], digits=2)
+output[i-1,13]&lt;-round(logistic.display(model4, decimal=2)$table[1,4], digits=3)
+
+#Model 4 APOE
+output[i+2,9]&lt;-length(model4$residuals)
+output[i+2,10]&lt;-round(logistic.display(model4, decimal=2)$table[2,1], digits=2)
+output[i+2,11]&lt;-round(logistic.display(model4, decimal=2)$table[2,2], digits=2)
+output[i+2,12]&lt;-round(logistic.display(model4, decimal=2)$table[2,3], digits=2)
+output[i+2,13]&lt;-round(logistic.display(model4, decimal=2)$table[2,4], digits=3)
+}
+output</code></pre>
+<pre><code>   Ancestry Variable    Outcome  n.3 OR.3 LCI.3 UCI.3   p.3  n.4 OR.4
+1  European      PGS Borderline 6964 1.14  1.07  1.21 0.000 6964 1.13
+2  European      PGS       CIND 6419 1.05  0.96  1.14 0.298 6419 1.05
+3  European      PGS   Dementia 6432 1.10  1.00  1.20 0.049 6432 1.10
+4  European     APOE Borderline 6964 1.43  1.24  1.65 0.000 6964 1.45
+5  European     APOE       CIND 6419 1.73  1.43  2.10 0.000 6419 1.70
+6  European     APOE   Dementia 6432 2.42  1.99  2.95 0.000 6432 2.30
+7   African      PGS Borderline   NA   NA    NA    NA    NA   NA   NA
+8   African      PGS       CIND   NA   NA    NA    NA    NA   NA   NA
+9   African      PGS   Dementia   NA   NA    NA    NA    NA   NA   NA
+10  African     APOE Borderline   NA   NA    NA    NA    NA   NA   NA
+11  African     APOE       CIND   NA   NA    NA    NA    NA   NA   NA
+12  African     APOE   Dementia   NA   NA    NA    NA    NA   NA   NA
+   LCI.4 UCI.4   p.4
+1   1.06  1.21 0.000
+2   0.96  1.15 0.288
+3   0.99  1.21 0.070
+4   1.25  1.68 0.000
+5   1.39  2.07 0.000
+6   1.86  2.85 0.000
+7     NA    NA    NA
+8     NA    NA    NA
+9     NA    NA    NA
+10    NA    NA    NA
+11    NA    NA    NA
+12    NA    NA    NA</code></pre>
+<pre class="r"><code>aa.sens2&lt;-hrs[hrs$sens2==&quot;Included&quot; &amp; hrs$ancestry==&quot;African&quot;,]
+
+# African ancestry
+for (i in 2:4) {
+  #Rows 1-3
+
+#Model 3 PGS, subset to health behaviors sample
+model3&lt;-glm(DC_60_2V.fac.relevel ~ PH13_KunkleOK2_PT_0.01 + APOE2010_bin + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + AA_2010_PC1 + AA_2010_PC2, data=aa[aa$DC_60_2V.relevel==i | aa$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model3)
+output[i+5,4]&lt;-length(model3$residuals)
+output[i+5,5]&lt;-round(logistic.display(model3, decimal=2)$table[1,1], digits=2)
+output[i+5,6]&lt;-round(logistic.display(model3, decimal=2)$table[1,2], digits=2)
+output[i+5,7]&lt;-round(logistic.display(model3, decimal=2)$table[1,3], digits=2)
+output[i+5,8]&lt;-round(logistic.display(model3, decimal=2)$table[1,4], digits=3)
+
+#Model 3 APOE, subset to health behaviors sample
+output[i+8,4]&lt;-length(model3$residuals)
+output[i+8,5]&lt;-round(logistic.display(model3, decimal=2)$table[2,1], digits=2)
+output[i+8,6]&lt;-round(logistic.display(model3, decimal=2)$table[2,2], digits=2)
+output[i+8,7]&lt;-round(logistic.display(model3, decimal=2)$table[2,3], digits=2)
+output[i+8,8]&lt;-round(logistic.display(model3, decimal=2)$table[2,4], digits=3)
+
+#Erin vars: CESD_BIN, SMK_CURR_LAST_60, BMI_LAST_60_v2, HBP_EVER_LAST_60, T2D_EVER_LAST_60, 
+#EVSTROKE_LAST_60
+
+# Model 4 PGS, subset to health behaviors sample
+model4&lt;-glm(DC_60_2V.fac.relevel ~ PH13_KunkleOK2_PT_0.01 + APOE2010_bin + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + AA_2010_PC1 + AA_2010_PC2 + BMI_LAST_60_v2 + HBP_EVER_LAST_60.fac +  T2D_EVER_LAST_60.fac  + EVSTROKE_LAST_60.fac  + CESD_BIN.fac +  SMK_CURR_LAST_60.fac + ALC_CURR_LAST_60.fac, data=aa[aa$DC_60_2V.relevel==1 | aa$DC_60_2V.relevel==i,] , family=binomial, na.action = na.omit)
+summary(model4)
+output[i+5,9]&lt;-length(model4$residuals)
+output[i+5,10]&lt;-round(logistic.display(model4, decimal=2)$table[1,1], digits=2)
+output[i+5,11]&lt;-round(logistic.display(model4, decimal=2)$table[1,2], digits=2)
+output[i+5,12]&lt;-round(logistic.display(model4, decimal=2)$table[1,3], digits=2)
+output[i+5,13]&lt;-round(logistic.display(model4, decimal=2)$table[1,4], digits=3)
+
+#Model 4 APOE, subset to health behaviors sample
+output[i+8,9]&lt;-length(model3$residuals)
+output[i+8,10]&lt;-round(logistic.display(model4, decimal=2)$table[2,1], digits=2)
+output[i+8,11]&lt;-round(logistic.display(model4, decimal=2)$table[2,2], digits=2)
+output[i+8,12]&lt;-round(logistic.display(model4, decimal=2)$table[2,3], digits=2)
+output[i+8,13]&lt;-round(logistic.display(model4, decimal=2)$table[2,4], digits=3)
+}
+
+output</code></pre>
+<pre><code>   Ancestry Variable    Outcome  n.3 OR.3 LCI.3 UCI.3   p.3  n.4 OR.4
+1  European      PGS Borderline 6964 1.14  1.07  1.21 0.000 6964 1.13
+2  European      PGS       CIND 6419 1.05  0.96  1.14 0.298 6419 1.05
+3  European      PGS   Dementia 6432 1.10  1.00  1.20 0.049 6432 1.10
+4  European     APOE Borderline 6964 1.43  1.24  1.65 0.000 6964 1.45
+5  European     APOE       CIND 6419 1.73  1.43  2.10 0.000 6419 1.70
+6  European     APOE   Dementia 6432 2.42  1.99  2.95 0.000 6432 2.30
+7   African      PGS Borderline  984 1.06  0.87  1.30 0.555  984 1.07
+8   African      PGS       CIND 1022 0.96  0.76  1.20 0.706 1022 0.92
+9   African      PGS   Dementia  943 1.29  0.97  1.70 0.076  943 1.25
+10  African     APOE Borderline  984 1.10  0.82  1.47 0.534  984 1.12
+11  African     APOE       CIND 1022 1.08  0.78  1.50 0.648 1022 1.14
+12  African     APOE   Dementia  943 1.77  1.20  2.61 0.004  943 1.74
+   LCI.4 UCI.4   p.4
+1   1.06  1.21 0.000
+2   0.96  1.15 0.288
+3   0.99  1.21 0.070
+4   1.25  1.68 0.000
+5   1.39  2.07 0.000
+6   1.86  2.85 0.000
+7   0.87  1.30 0.519
+8   0.73  1.15 0.460
+9   0.93  1.68 0.141
+10  0.84  1.51 0.443
+11  0.81  1.61 0.450
+12  1.15  2.63 0.009</code></pre>
+<pre class="r"><code>write.csv(output, file=paste0(results_dir,&quot;HRS_PGS_Logistic_Health_Sensitivity_&quot;, date, &quot;.csv&quot;))</code></pre>
+<pre class="r"><code>output&lt;-data.frame(matrix(NA, nrow=30, ncol=13))
+#colnames(output)&lt;-c(&quot;Ancestry&quot;, &quot;Variable&quot;, &quot;Outcome&quot;, &quot;n.2b&quot;,&quot;OR.2b&quot;, &quot;LCI.2b&quot;, &quot;UCI.2b&quot;, &quot;p.2b&quot;, &quot;n.2bdose&quot;, &quot;OR.2bdose&quot;, &quot;LCI.2bdose&quot;, &quot;UCI.2bdose&quot;, &quot;p.2bdose&quot;, &quot;n.3&quot;,&quot;OR.3&quot;, &quot;LCI.3&quot;, &quot;UCI.3&quot;, &quot;p.3&quot;, &quot;n.3dose&quot;,&quot;OR.3dose&quot;, &quot;LCI.3dose&quot;, &quot;UCI.3dose&quot;, &quot;p.3cat&quot;)
+colnames(output)&lt;-c(&quot;Ancestry&quot;, &quot;Variable&quot;, &quot;Outcome&quot;,&quot;n.2b&quot;, &quot;OR.2b&quot;, &quot;LCI.2b&quot;, &quot;UCI.2b&quot;, &quot;p.2b&quot;, &quot;n.3&quot;,&quot;OR.3&quot;, &quot;LCI.3&quot;, &quot;UCI.3&quot;, &quot;p.3&quot;)
+output$Ancestry&lt;-c(rep(&quot;European&quot;, 15), rep(&quot;African&quot;, 15))
+output$Variable&lt;-c(rep(&quot;PGS&quot;, 3), rep(&quot;APOEbin&quot;, 3), rep(&quot;PGS&quot;, 3), rep(&quot;APOEcat1&quot;, 3), rep(&quot;APOEcat2&quot;, 3))
+output$Outcome&lt;-c(rep(c(&quot;Borderline&quot;,&quot;CIND&quot;, &quot;Dementia&quot;),10))
+
+table(ea$APOE2010_E4dose, ea$DC_60_2V.fac.relevel)</code></pre>
+<pre><code>   
+    Normal Borderline Impaired Dementia
+  0   4337        894      496      464
+  1   1278        329      200      237
+  2     93         33       15       23</code></pre>
+<pre class="r"><code># European ancestry
+for (i in 2:4) {
+# Model 2b APOE binary
+  #Rows 1-3
+model2b&lt;-glm(DC_60_2V.fac.relevel ~ APOE2010_bin + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + EA_2010_PC1 + EA_2010_PC2, data=ea[ea$DC_60_2V.relevel==i | ea$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model2b)
+#Starts at row 4 through row 6
+output[i+2,4]&lt;-length(model2b$residuals)
+output[i+2,5]&lt;-round(logistic.display(model2b, decimal=2)$table[1,1], digits=2)
+output[i+2,6]&lt;-round(logistic.display(model2b, decimal=2)$table[1,2], digits=2)
+output[i+2,7]&lt;-round(logistic.display(model2b, decimal=2)$table[1,3], digits=2)
+output[i+2,8]&lt;-round(logistic.display(model2b, decimal=2)$table[1,4], digits=3)
+
+# Model 2b APOE dose
+table(hrs$APOE2010_imputed)
+model2b&lt;-glm(DC_60_2V.fac.relevel ~ as.factor(APOE2010_E4dose) + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + EA_2010_PC1 + EA_2010_PC2, data=ea[ea$DC_60_2V.relevel==i | ea$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model2b)
+#Dose level 1
+#Starts at row 10 through row 12
+output[i+8,4]&lt;-length(model2b$residuals)
+output[i+8,5]&lt;-round(logistic.display(model2b, decimal=2)$table[1,1], digits=2)
+output[i+8,6]&lt;-round(logistic.display(model2b, decimal=2)$table[1,2], digits=2)
+output[i+8,7]&lt;-round(logistic.display(model2b, decimal=2)$table[1,3], digits=2)
+output[i+8,8]&lt;-round(logistic.display(model2b, decimal=2)$table[1,4], digits=3)
+#Dose level 2
+#Starts at row 13 through row 15
+output[i+11,4]&lt;-length(model2b$residuals)
+output[i+11,5]&lt;-round(logistic.display(model2b, decimal=2)$table[2,1], digits=2)
+output[i+11,6]&lt;-round(logistic.display(model2b, decimal=2)$table[2,2], digits=2)
+output[i+11,7]&lt;-round(logistic.display(model2b, decimal=2)$table[2,3], digits=2)
+output[i+11,8]&lt;-round(logistic.display(model2b, decimal=2)$table[2,4], digits=3)
+
+
+#Model 3 PGS (with APOE modeled as binary)
+model3&lt;-glm(DC_60_2V.fac.relevel ~ PH13_KunkleOK2_PT_0.01 + APOE2010_bin + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + EA_2010_PC1 + EA_2010_PC2, data=ea[ea$DC_60_2V.relevel==i | ea$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model3)
+output[i-1,9]&lt;-length(model3$residuals)
+output[i-1,10]&lt;-round(logistic.display(model3, decimal=2)$table[1,1], digits=2)
+output[i-1,11]&lt;-round(logistic.display(model3, decimal=2)$table[1,2], digits=2)
+output[i-1,12]&lt;-round(logistic.display(model3, decimal=2)$table[1,3], digits=2)
+output[i-1,13]&lt;-round(logistic.display(model3, decimal=2)$table[1,4], digits=3)
+
+#Model 3 APOE binary
+output[i+2,9]&lt;-length(model3$residuals)
+output[i+2,10]&lt;-round(logistic.display(model3, decimal=2)$table[2,1], digits=2)
+output[i+2,11]&lt;-round(logistic.display(model3, decimal=2)$table[2,2], digits=2)
+output[i+2,12]&lt;-round(logistic.display(model3, decimal=2)$table[2,3], digits=2)
+output[i+2,13]&lt;-round(logistic.display(model3, decimal=2)$table[2,4], digits=3)
+
+#Model 3 PGS (with APOE modeled as dose)
+model3&lt;-glm(DC_60_2V.fac.relevel ~ PH13_KunkleOK2_PT_0.01 + as.factor(APOE2010_E4dose) + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + EA_2010_PC1 + EA_2010_PC2, data=ea[ea$DC_60_2V.relevel==i | ea$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model3)
+# Starts at row 7 through row 9
+output[i+5,9]&lt;-length(model3$residuals)
+output[i+5,10]&lt;-round(logistic.display(model3, decimal=2)$table[1,1], digits=2)
+output[i+5,11]&lt;-round(logistic.display(model3, decimal=2)$table[1,2], digits=2)
+output[i+5,12]&lt;-round(logistic.display(model3, decimal=2)$table[1,3], digits=2)
+output[i+5,13]&lt;-round(logistic.display(model3, decimal=2)$table[1,4], digits=3)
+
+#Model 3 APOE dose
+#Dose level1
+#Starts at row 10 through row 12
+output[i+8,9]&lt;-length(model3$residuals)
+output[i+8,10]&lt;-round(logistic.display(model3, decimal=2)$table[2,1], digits=2)
+output[i+8,11]&lt;-round(logistic.display(model3, decimal=2)$table[2,2], digits=2)
+output[i+8,12]&lt;-round(logistic.display(model3, decimal=2)$table[2,3], digits=2)
+output[i+8,13]&lt;-round(logistic.display(model3, decimal=2)$table[2,4], digits=3)
+#Dose level2
+#Starts at row 13 through row 15
+output[i+11,9]&lt;-length(model2b$residuals)
+output[i+11,10]&lt;-round(logistic.display(model3, decimal=2)$table[3,1], digits=2)
+output[i+11,11]&lt;-round(logistic.display(model3, decimal=2)$table[3,2], digits=2)
+output[i+11,12]&lt;-round(logistic.display(model3, decimal=2)$table[3,3], digits=2)
+output[i+11,13]&lt;-round(logistic.display(model3, decimal=2)$table[3,4], digits=3)
+}
+output</code></pre>
+<pre><code>   Ancestry Variable    Outcome n.2b OR.2b LCI.2b UCI.2b  p.2b  n.3 OR.3
+1  European      PGS Borderline   NA    NA     NA     NA    NA 6964 1.14
+2  European      PGS       CIND   NA    NA     NA     NA    NA 6419 1.05
+3  European      PGS   Dementia   NA    NA     NA     NA    NA 6432 1.10
+4  European  APOEbin Borderline 6964  1.46   1.26   1.69 0.000 6964 1.43
+5  European  APOEbin       CIND 6419  1.74   1.43   2.11 0.000 6419 1.73
+6  European  APOEbin   Dementia 6432  2.46   2.02   2.99 0.000 6432 2.42
+7  European      PGS Borderline   NA    NA     NA     NA    NA 6964 1.14
+8  European      PGS       CIND   NA    NA     NA     NA    NA 6419 1.05
+9  European      PGS   Dementia   NA    NA     NA     NA    NA 6432 1.09
+10 European APOEcat1 Borderline 6964  1.41   1.21   1.64 0.000 6964 1.38
+11 European APOEcat1       CIND 6419  1.72   1.41   2.10 0.000 6419 1.71
+12 European APOEcat1   Dementia 6432  2.32   1.90   2.85 0.000 6432 2.29
+13 European APOEcat2 Borderline 6964  2.27   1.47   3.49 0.000 6964 2.19
+14 European APOEcat2       CIND 6419  1.99   1.06   3.74 0.032 6419 1.98
+15 European APOEcat2   Dementia 6432  5.09   2.92   8.88 0.000 6432 4.93
+16  African      PGS Borderline   NA    NA     NA     NA    NA   NA   NA
+17  African      PGS       CIND   NA    NA     NA     NA    NA   NA   NA
+18  African      PGS   Dementia   NA    NA     NA     NA    NA   NA   NA
+19  African  APOEbin Borderline   NA    NA     NA     NA    NA   NA   NA
+20  African  APOEbin       CIND   NA    NA     NA     NA    NA   NA   NA
+21  African  APOEbin   Dementia   NA    NA     NA     NA    NA   NA   NA
+22  African      PGS Borderline   NA    NA     NA     NA    NA   NA   NA
+23  African      PGS       CIND   NA    NA     NA     NA    NA   NA   NA
+24  African      PGS   Dementia   NA    NA     NA     NA    NA   NA   NA
+25  African APOEcat1 Borderline   NA    NA     NA     NA    NA   NA   NA
+26  African APOEcat1       CIND   NA    NA     NA     NA    NA   NA   NA
+27  African APOEcat1   Dementia   NA    NA     NA     NA    NA   NA   NA
+28  African APOEcat2 Borderline   NA    NA     NA     NA    NA   NA   NA
+29  African APOEcat2       CIND   NA    NA     NA     NA    NA   NA   NA
+30  African APOEcat2   Dementia   NA    NA     NA     NA    NA   NA   NA
+   LCI.3 UCI.3   p.3
+1   1.07  1.21 0.000
+2   0.96  1.14 0.298
+3   1.00  1.20 0.049
+4   1.24  1.65 0.000
+5   1.43  2.10 0.000
+6   1.99  2.95 0.000
+7   1.06  1.21 0.000
+8   0.96  1.14 0.300
+9   1.00  1.20 0.060
+10  1.19  1.61 0.000
+11  1.41  2.09 0.000
+12  1.87  2.81 0.000
+13  1.42  3.38 0.000
+14  1.05  3.71 0.034
+15  2.82  8.62 0.000
+16    NA    NA    NA
+17    NA    NA    NA
+18    NA    NA    NA
+19    NA    NA    NA
+20    NA    NA    NA
+21    NA    NA    NA
+22    NA    NA    NA
+23    NA    NA    NA
+24    NA    NA    NA
+25    NA    NA    NA
+26    NA    NA    NA
+27    NA    NA    NA
+28    NA    NA    NA
+29    NA    NA    NA
+30    NA    NA    NA</code></pre>
+<pre class="r"><code>table(aa$APOE2010_E4dose, aa$DC_60_2V.fac.relevel)</code></pre>
+<pre><code>   
+    Normal Borderline Impaired Dementia
+  0    432        199      229      153
+  1    211         99      111      104
+  2     29         14       10       14</code></pre>
+<pre class="r"><code># African ancestry
+for (i in 2:4) {
+# Model 2b APOE binary
+  #Rows 19-21
+model2b&lt;-glm(DC_60_2V.fac.relevel ~ APOE2010_bin + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + AA_2010_PC1 + AA_2010_PC2, data=aa[aa$DC_60_2V.relevel==i | aa$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model2b)
+#Starts at row 16 through row 18
+output[i+17,4]&lt;-length(model2b$residuals)
+output[i+17,5]&lt;-round(logistic.display(model2b, decimal=2)$table[1,1], digits=2)
+output[i+17,6]&lt;-round(logistic.display(model2b, decimal=2)$table[1,2], digits=2)
+output[i+17,7]&lt;-round(logistic.display(model2b, decimal=2)$table[1,3], digits=2)
+output[i+17,8]&lt;-round(logistic.display(model2b, decimal=2)$table[1,4], digits=3)
+
+# Model 2b APOE dose
+table(hrs$APOE2010_imputed)
+model2b&lt;-glm(DC_60_2V.fac.relevel ~ as.factor(APOE2010_E4dose) + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + AA_2010_PC1 + AA_2010_PC2, data=aa[aa$DC_60_2V.relevel==i | aa$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model2b)
+#Dose level 1
+#Starts at row 25 through row 27
+output[i+23,4]&lt;-length(model2b$residuals)
+output[i+23,5]&lt;-round(logistic.display(model2b, decimal=2)$table[1,1], digits=2)
+output[i+23,6]&lt;-round(logistic.display(model2b, decimal=2)$table[1,2], digits=2)
+output[i+23,7]&lt;-round(logistic.display(model2b, decimal=2)$table[1,3], digits=2)
+output[i+23,8]&lt;-round(logistic.display(model2b, decimal=2)$table[1,4], digits=3)
+#Dose level 2
+#Starts at row 28 through row 30
+output[i+26,4]&lt;-length(model2b$residuals)
+output[i+26,5]&lt;-round(logistic.display(model2b, decimal=2)$table[2,1], digits=2)
+output[i+26,6]&lt;-round(logistic.display(model2b, decimal=2)$table[2,2], digits=2)
+output[i+26,7]&lt;-round(logistic.display(model2b, decimal=2)$table[2,3], digits=2)
+output[i+26,8]&lt;-round(logistic.display(model2b, decimal=2)$table[2,4], digits=3)
+
+
+#Model 3 PGS (with APOE modeled as binary)
+model3&lt;-glm(DC_60_2V.fac.relevel ~ PH13_KunkleOK2_PT_0.01 + APOE2010_bin + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + AA_2010_PC1 + AA_2010_PC2, data=aa[aa$DC_60_2V.relevel==i | aa$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model3)
+# Starts at row 16 through 18
+output[i+14,9]&lt;-length(model3$residuals)
+output[i+14,10]&lt;-round(logistic.display(model3, decimal=2)$table[1,1], digits=2)
+output[i+14,11]&lt;-round(logistic.display(model3, decimal=2)$table[1,2], digits=2)
+output[i+14,12]&lt;-round(logistic.display(model3, decimal=2)$table[1,3], digits=2)
+output[i+14,13]&lt;-round(logistic.display(model3, decimal=2)$table[1,4], digits=3)
+
+#Model 3 APOE binary
+# Starts at row 19 through 21
+output[i+17,9]&lt;-length(model3$residuals)
+output[i+17,10]&lt;-round(logistic.display(model3, decimal=2)$table[2,1], digits=2)
+output[i+17,11]&lt;-round(logistic.display(model3, decimal=2)$table[2,2], digits=2)
+output[i+17,12]&lt;-round(logistic.display(model3, decimal=2)$table[2,3], digits=2)
+output[i+17,13]&lt;-round(logistic.display(model3, decimal=2)$table[2,4], digits=3)
+
+#Model 3 PGS (with APOE modeled as dose)
+model3&lt;-glm(DC_60_2V.fac.relevel ~ PH13_KunkleOK2_PT_0.01 + as.factor(APOE2010_E4dose) + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + AA_2010_PC1 + AA_2010_PC2, data=aa[aa$DC_60_2V.relevel==i | aa$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model3)
+# Starts at row 22 through row 24
+output[i+20,9]&lt;-length(model3$residuals)
+output[i+20,10]&lt;-round(logistic.display(model3, decimal=2)$table[1,1], digits=2)
+output[i+20,11]&lt;-round(logistic.display(model3, decimal=2)$table[1,2], digits=2)
+output[i+20,12]&lt;-round(logistic.display(model3, decimal=2)$table[1,3], digits=2)
+output[i+20,13]&lt;-round(logistic.display(model3, decimal=2)$table[1,4], digits=3)
+
+#Model 3 APOE dose
+#Dose level1
+# Starts at row 25 through row 27
+output[i+23,9]&lt;-length(model3$residuals)
+output[i+23,10]&lt;-round(logistic.display(model3, decimal=2)$table[2,1], digits=2)
+output[i+23,11]&lt;-round(logistic.display(model3, decimal=2)$table[2,2], digits=2)
+output[i+23,12]&lt;-round(logistic.display(model3, decimal=2)$table[2,3], digits=2)
+output[i+23,13]&lt;-round(logistic.display(model3, decimal=2)$table[2,4], digits=3)
+#Dose level2
+#Starts at row 28 through row 30
+output[i+26,9]&lt;-length(model2b$residuals)
+output[i+26,10]&lt;-round(logistic.display(model3, decimal=2)$table[3,1], digits=2)
+output[i+26,11]&lt;-round(logistic.display(model3, decimal=2)$table[3,2], digits=2)
+output[i+26,12]&lt;-round(logistic.display(model3, decimal=2)$table[3,3], digits=2)
+output[i+26,13]&lt;-round(logistic.display(model3, decimal=2)$table[3,4], digits=3)
+}
+output</code></pre>
+<pre><code>   Ancestry Variable    Outcome n.2b OR.2b LCI.2b UCI.2b  p.2b  n.3 OR.3
+1  European      PGS Borderline   NA    NA     NA     NA    NA 6964 1.14
+2  European      PGS       CIND   NA    NA     NA     NA    NA 6419 1.05
+3  European      PGS   Dementia   NA    NA     NA     NA    NA 6432 1.10
+4  European  APOEbin Borderline 6964  1.46   1.26   1.69 0.000 6964 1.43
+5  European  APOEbin       CIND 6419  1.74   1.43   2.11 0.000 6419 1.73
+6  European  APOEbin   Dementia 6432  2.46   2.02   2.99 0.000 6432 2.42
+7  European      PGS Borderline   NA    NA     NA     NA    NA 6964 1.14
+8  European      PGS       CIND   NA    NA     NA     NA    NA 6419 1.05
+9  European      PGS   Dementia   NA    NA     NA     NA    NA 6432 1.09
+10 European APOEcat1 Borderline 6964  1.41   1.21   1.64 0.000 6964 1.38
+11 European APOEcat1       CIND 6419  1.72   1.41   2.10 0.000 6419 1.71
+12 European APOEcat1   Dementia 6432  2.32   1.90   2.85 0.000 6432 2.29
+13 European APOEcat2 Borderline 6964  2.27   1.47   3.49 0.000 6964 2.19
+14 European APOEcat2       CIND 6419  1.99   1.06   3.74 0.032 6419 1.98
+15 European APOEcat2   Dementia 6432  5.09   2.92   8.88 0.000 6432 4.93
+16  African      PGS Borderline   NA    NA     NA     NA    NA  984 1.06
+17  African      PGS       CIND   NA    NA     NA     NA    NA 1022 0.96
+18  African      PGS   Dementia   NA    NA     NA     NA    NA  943 1.29
+19  African  APOEbin Borderline  984  1.10   0.82   1.47 0.541  984 1.10
+20  African  APOEbin       CIND 1022  1.08   0.78   1.50 0.644 1022 1.08
+21  African  APOEbin   Dementia  943  1.77   1.20   2.61 0.004  943 1.77
+22  African      PGS Borderline   NA    NA     NA     NA    NA  984 1.06
+23  African      PGS       CIND   NA    NA     NA     NA    NA 1022 0.96
+24  African      PGS   Dementia   NA    NA     NA     NA    NA  943 1.30
+25  African APOEcat1 Borderline  984  1.08   0.80   1.47 0.610  984 1.08
+26  African APOEcat1       CIND 1022  1.12   0.79   1.57 0.527 1022 1.11
+27  African APOEcat1   Dementia  943  1.68   1.12   2.52 0.012  943 1.68
+28  African APOEcat2 Borderline  984  1.19   0.60   2.39 0.617  984 1.20
+29  African APOEcat2       CIND 1022  0.79   0.32   1.96 0.609 1022 0.79
+30  African APOEcat2   Dementia  943  2.58   1.09   6.12 0.032  943 2.65
+   LCI.3 UCI.3   p.3
+1   1.07  1.21 0.000
+2   0.96  1.14 0.298
+3   1.00  1.20 0.049
+4   1.24  1.65 0.000
+5   1.43  2.10 0.000
+6   1.99  2.95 0.000
+7   1.06  1.21 0.000
+8   0.96  1.14 0.300
+9   1.00  1.20 0.060
+10  1.19  1.61 0.000
+11  1.41  2.09 0.000
+12  1.87  2.81 0.000
+13  1.42  3.38 0.000
+14  1.05  3.71 0.034
+15  2.82  8.62 0.000
+16  0.87  1.30 0.555
+17  0.76  1.20 0.706
+18  0.97  1.70 0.076
+19  0.82  1.47 0.534
+20  0.78  1.50 0.648
+21  1.20  2.61 0.004
+22  0.87  1.30 0.550
+23  0.76  1.20 0.701
+24  0.98  1.72 0.070
+25  0.80  1.47 0.607
+26  0.79  1.57 0.530
+27  1.12  2.51 0.013
+28  0.60  2.40 0.602
+29  0.32  1.96 0.605
+30  1.11  6.33 0.028</code></pre>
+<pre class="r"><code>write.csv(output, file=paste0(results_dir,&quot;HRS_PGS_Logistic_APOEcategory_Sensitivity_&quot;, date, &quot;.csv&quot;))</code></pre>
+<pre class="r"><code>#table(include$APOE2010_E4dose, include$DC_60_2V.fac.relevel,   include$ancestry)
+
+output&lt;-data.frame(matrix(NA, nrow=24, ncol=13))
+#colnames(output)&lt;-c(&quot;Ancestry&quot;, &quot;Variable&quot;, &quot;Outcome&quot;, &quot;n.2b&quot;,&quot;OR.2b&quot;, &quot;LCI.2b&quot;, &quot;UCI.2b&quot;, &quot;p.2b&quot;, &quot;n.2bdose&quot;, &quot;OR.2bdose&quot;, &quot;LCI.2bdose&quot;, &quot;UCI.2bdose&quot;, &quot;p.2bdose&quot;, &quot;n.3&quot;,&quot;OR.3&quot;, &quot;LCI.3&quot;, &quot;UCI.3&quot;, &quot;p.3&quot;, &quot;n.3dose&quot;,&quot;OR.3dose&quot;, &quot;LCI.3dose&quot;, &quot;UCI.3dose&quot;, &quot;p.3cat&quot;)
+colnames(output)&lt;-c(&quot;Ancestry&quot;, &quot;Variable&quot;, &quot;Outcome&quot;,&quot;n.2b&quot;, &quot;OR.2b&quot;, &quot;LCI.2b&quot;, &quot;UCI.2b&quot;, &quot;p.2b&quot;, &quot;n.3&quot;,&quot;OR.3&quot;, &quot;LCI.3&quot;, &quot;UCI.3&quot;, &quot;p.3&quot;)
+output$Ancestry&lt;-c(rep(&quot;European&quot;, 12), rep(&quot;African&quot;, 12))
+output$Variable&lt;-c(rep(&quot;PGS&quot;, 3), rep(&quot;APOEbin&quot;, 3), rep(&quot;PGS&quot;, 3), rep(&quot;APOEdose&quot;, 3))
+output$Outcome&lt;-c(rep(c(&quot;Borderline&quot;,&quot;CIND&quot;, &quot;Dementia&quot;),8))
+
+table(ea$APOE2010_E4dose)</code></pre>
+<pre><code>
+   0    1    2 
+6191 2044  164 </code></pre>
+<pre class="r"><code># European ancestry
+for (i in 2:4) {
+# Model 2b APOE binary
+  #Rows 1-3
+model2b&lt;-glm(DC_60_2V.fac.relevel ~ APOE2010_bin + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + EA_2010_PC1 + EA_2010_PC2, data=ea[ea$DC_60_2V.relevel==i | ea$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model2b)
+#Starts at row 4 through row 6
+output[i+2,4]&lt;-length(model2b$residuals)
+output[i+2,5]&lt;-round(logistic.display(model2b, decimal=2)$table[1,1], digits=2)
+output[i+2,6]&lt;-round(logistic.display(model2b, decimal=2)$table[1,2], digits=2)
+output[i+2,7]&lt;-round(logistic.display(model2b, decimal=2)$table[1,3], digits=2)
+output[i+2,8]&lt;-round(logistic.display(model2b, decimal=2)$table[1,4], digits=3)
+
+# Model 2b APOE dose
+table(hrs$APOE2010_imputed)
+model2b&lt;-glm(DC_60_2V.fac.relevel ~ as.numeric(APOE2010_E4dose) + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + EA_2010_PC1 + EA_2010_PC2, data=ea[ea$DC_60_2V.relevel==i | ea$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model2b)
+#Dose 
+#Starts at row 10 through row 12
+output[i+8,4]&lt;-length(model2b$residuals)
+output[i+8,5]&lt;-round(logistic.display(model2b, decimal=2)$table[1,1], digits=2)
+output[i+8,6]&lt;-round(logistic.display(model2b, decimal=2)$table[1,2], digits=2)
+output[i+8,7]&lt;-round(logistic.display(model2b, decimal=2)$table[1,3], digits=2)
+output[i+8,8]&lt;-round(logistic.display(model2b, decimal=2)$table[1,4], digits=3)
+#Dose level 2
+
+#Model 3 PGS (with APOE modeled as binary)
+model3&lt;-glm(DC_60_2V.fac.relevel ~ PH13_KunkleOK2_PT_0.01 + APOE2010_bin + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + EA_2010_PC1 + EA_2010_PC2, data=ea[ea$DC_60_2V.relevel==i | ea$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model3)
+output[i-1,9]&lt;-length(model3$residuals)
+output[i-1,10]&lt;-round(logistic.display(model3, decimal=2)$table[1,1], digits=2)
+output[i-1,11]&lt;-round(logistic.display(model3, decimal=2)$table[1,2], digits=2)
+output[i-1,12]&lt;-round(logistic.display(model3, decimal=2)$table[1,3], digits=2)
+output[i-1,13]&lt;-round(logistic.display(model3, decimal=2)$table[1,4], digits=3)
+
+#Model 3 APOE binary
+output[i+2,9]&lt;-length(model3$residuals)
+output[i+2,10]&lt;-round(logistic.display(model3, decimal=2)$table[2,1], digits=2)
+output[i+2,11]&lt;-round(logistic.display(model3, decimal=2)$table[2,2], digits=2)
+output[i+2,12]&lt;-round(logistic.display(model3, decimal=2)$table[2,3], digits=2)
+output[i+2,13]&lt;-round(logistic.display(model3, decimal=2)$table[2,4], digits=3)
+
+#Model 3 PGS (with APOE modeled as dose)
+model3&lt;-glm(DC_60_2V.fac.relevel ~ PH13_KunkleOK2_PT_0.01 + as.numeric(APOE2010_E4dose) + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + EA_2010_PC1 + EA_2010_PC2, data=ea[ea$DC_60_2V.relevel==i | ea$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model3)
+# Starts at row 7 through row 9
+output[i+5,9]&lt;-length(model3$residuals)
+output[i+5,10]&lt;-round(logistic.display(model3, decimal=2)$table[1,1], digits=2)
+output[i+5,11]&lt;-round(logistic.display(model3, decimal=2)$table[1,2], digits=2)
+output[i+5,12]&lt;-round(logistic.display(model3, decimal=2)$table[1,3], digits=2)
+output[i+5,13]&lt;-round(logistic.display(model3, decimal=2)$table[1,4], digits=3)
+
+#Model 3 APOE dose
+#Dose 
+#Starts at row 10 through row 12
+output[i+8,9]&lt;-length(model3$residuals)
+output[i+8,10]&lt;-round(logistic.display(model3, decimal=2)$table[2,1], digits=2)
+output[i+8,11]&lt;-round(logistic.display(model3, decimal=2)$table[2,2], digits=2)
+output[i+8,12]&lt;-round(logistic.display(model3, decimal=2)$table[2,3], digits=2)
+output[i+8,13]&lt;-round(logistic.display(model3, decimal=2)$table[2,4], digits=3)
+}
+output</code></pre>
+<pre><code>   Ancestry Variable    Outcome n.2b OR.2b LCI.2b UCI.2b p.2b  n.3 OR.3
+1  European      PGS Borderline   NA    NA     NA     NA   NA 6964 1.14
+2  European      PGS       CIND   NA    NA     NA     NA   NA 6419 1.05
+3  European      PGS   Dementia   NA    NA     NA     NA   NA 6432 1.10
+4  European  APOEbin Borderline 6964  1.46   1.26   1.69    0 6964 1.43
+5  European  APOEbin       CIND 6419  1.74   1.43   2.11    0 6419 1.73
+6  European  APOEbin   Dementia 6432  2.46   2.02   2.99    0 6432 2.42
+7  European      PGS Borderline   NA    NA     NA     NA   NA 6964 1.14
+8  European      PGS       CIND   NA    NA     NA     NA   NA 6419 1.05
+9  European      PGS   Dementia   NA    NA     NA     NA   NA 6432 1.09
+10 European APOEdose Borderline 6964  1.44   1.27   1.64    0 6964 1.41
+11 European APOEdose       CIND 6419  1.63   1.37   1.94    0 6419 1.62
+12 European APOEdose   Dementia 6432  2.30   1.94   2.74    0 6432 2.27
+13  African      PGS Borderline   NA    NA     NA     NA   NA   NA   NA
+14  African      PGS       CIND   NA    NA     NA     NA   NA   NA   NA
+15  African      PGS   Dementia   NA    NA     NA     NA   NA   NA   NA
+16  African  APOEbin Borderline   NA    NA     NA     NA   NA   NA   NA
+17  African  APOEbin       CIND   NA    NA     NA     NA   NA   NA   NA
+18  African  APOEbin   Dementia   NA    NA     NA     NA   NA   NA   NA
+19  African      PGS Borderline   NA    NA     NA     NA   NA   NA   NA
+20  African      PGS       CIND   NA    NA     NA     NA   NA   NA   NA
+21  African      PGS   Dementia   NA    NA     NA     NA   NA   NA   NA
+22  African APOEdose Borderline   NA    NA     NA     NA   NA   NA   NA
+23  African APOEdose       CIND   NA    NA     NA     NA   NA   NA   NA
+24  African APOEdose   Dementia   NA    NA     NA     NA   NA   NA   NA
+   LCI.3 UCI.3   p.3
+1   1.07  1.21 0.000
+2   0.96  1.14 0.298
+3   1.00  1.20 0.049
+4   1.24  1.65 0.000
+5   1.43  2.10 0.000
+6   1.99  2.95 0.000
+7   1.06  1.21 0.000
+8   0.96  1.14 0.298
+9   1.00  1.20 0.060
+10  1.24  1.61 0.000
+11  1.37  1.93 0.000
+12  1.91  2.70 0.000
+13    NA    NA    NA
+14    NA    NA    NA
+15    NA    NA    NA
+16    NA    NA    NA
+17    NA    NA    NA
+18    NA    NA    NA
+19    NA    NA    NA
+20    NA    NA    NA
+21    NA    NA    NA
+22    NA    NA    NA
+23    NA    NA    NA
+24    NA    NA    NA</code></pre>
+<pre class="r"><code>table(aa$APOE2010_E4dose)</code></pre>
+<pre><code>
+   0    1    2 
+1013  525   67 </code></pre>
+<pre class="r"><code># African ancestry
+for (i in 2:4) {
+# Model 2b APOE binary
+  #Rows 19-21
+model2b&lt;-glm(DC_60_2V.fac.relevel ~ APOE2010_bin + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + AA_2010_PC1 + AA_2010_PC2, data=aa[aa$DC_60_2V.relevel==i | aa$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model2b)
+#Starts at row 16 through row 18
+output[i+14,4]&lt;-length(model2b$residuals)
+output[i+14,5]&lt;-round(logistic.display(model2b, decimal=2)$table[1,1], digits=2)
+output[i+14,6]&lt;-round(logistic.display(model2b, decimal=2)$table[1,2], digits=2)
+output[i+14,7]&lt;-round(logistic.display(model2b, decimal=2)$table[1,3], digits=2)
+output[i+14,8]&lt;-round(logistic.display(model2b, decimal=2)$table[1,4], digits=3)
+
+# Model 2b APOE dose
+table(hrs$APOE2010_imputed)
+model2b&lt;-glm(DC_60_2V.fac.relevel ~ as.numeric(APOE2010_E4dose) + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + AA_2010_PC1 + AA_2010_PC2, data=aa[aa$DC_60_2V.relevel==i | aa$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model2b)
+#Dose level
+#Starts at row 22 through row 24
+output[i+20,4]&lt;-length(model2b$residuals)
+output[i+20,5]&lt;-round(logistic.display(model2b, decimal=2)$table[1,1], digits=2)
+output[i+20,6]&lt;-round(logistic.display(model2b, decimal=2)$table[1,2], digits=2)
+output[i+20,7]&lt;-round(logistic.display(model2b, decimal=2)$table[1,3], digits=2)
+output[i+20,8]&lt;-round(logistic.display(model2b, decimal=2)$table[1,4], digits=3)
+
+
+#Model 3 PGS (with APOE modeled as binary)
+model3&lt;-glm(DC_60_2V.fac.relevel ~ PH13_KunkleOK2_PT_0.01 + APOE2010_bin + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + AA_2010_PC1 + AA_2010_PC2, data=aa[aa$DC_60_2V.relevel==i | aa$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model3)
+# Starts at row 13 through 15
+output[i+11,9]&lt;-length(model3$residuals)
+output[i+11,10]&lt;-round(logistic.display(model3, decimal=2)$table[1,1], digits=2)
+output[i+11,11]&lt;-round(logistic.display(model3, decimal=2)$table[1,2], digits=2)
+output[i+11,12]&lt;-round(logistic.display(model3, decimal=2)$table[1,3], digits=2)
+output[i+11,13]&lt;-round(logistic.display(model3, decimal=2)$table[1,4], digits=3)
+
+#Model 3 APOE binary
+# Starts at row 16 through 18
+output[i+14,9]&lt;-length(model3$residuals)
+output[i+14,10]&lt;-round(logistic.display(model3, decimal=2)$table[2,1], digits=2)
+output[i+14,11]&lt;-round(logistic.display(model3, decimal=2)$table[2,2], digits=2)
+output[i+14,12]&lt;-round(logistic.display(model3, decimal=2)$table[2,3], digits=2)
+output[i+14,13]&lt;-round(logistic.display(model3, decimal=2)$table[2,4], digits=3)
+
+#Model 3 PGS (with APOE modeled as dose)
+model3&lt;-glm(DC_60_2V.fac.relevel ~ PH13_KunkleOK2_PT_0.01 + as.numeric(APOE2010_E4dose) + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + AA_2010_PC1 + AA_2010_PC2, data=aa[aa$DC_60_2V.relevel==i | aa$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model3)
+# Starts at row 19 through row 21
+output[i+17,9]&lt;-length(model3$residuals)
+output[i+17,10]&lt;-round(logistic.display(model3, decimal=2)$table[1,1], digits=2)
+output[i+17,11]&lt;-round(logistic.display(model3, decimal=2)$table[1,2], digits=2)
+output[i+17,12]&lt;-round(logistic.display(model3, decimal=2)$table[1,3], digits=2)
+output[i+17,13]&lt;-round(logistic.display(model3, decimal=2)$table[1,4], digits=3)
+
+#Model 3 APOE dose
+#Dose
+# Starts at row 22 through row 25
+output[i+20,9]&lt;-length(model3$residuals)
+output[i+20,10]&lt;-round(logistic.display(model3, decimal=2)$table[2,1], digits=2)
+output[i+20,11]&lt;-round(logistic.display(model3, decimal=2)$table[2,2], digits=2)
+output[i+20,12]&lt;-round(logistic.display(model3, decimal=2)$table[2,3], digits=2)
+output[i+20,13]&lt;-round(logistic.display(model3, decimal=2)$table[2,4], digits=3)
+}
+output</code></pre>
+<pre><code>   Ancestry Variable    Outcome n.2b OR.2b LCI.2b UCI.2b  p.2b  n.3 OR.3
+1  European      PGS Borderline   NA    NA     NA     NA    NA 6964 1.14
+2  European      PGS       CIND   NA    NA     NA     NA    NA 6419 1.05
+3  European      PGS   Dementia   NA    NA     NA     NA    NA 6432 1.10
+4  European  APOEbin Borderline 6964  1.46   1.26   1.69 0.000 6964 1.43
+5  European  APOEbin       CIND 6419  1.74   1.43   2.11 0.000 6419 1.73
+6  European  APOEbin   Dementia 6432  2.46   2.02   2.99 0.000 6432 2.42
+7  European      PGS Borderline   NA    NA     NA     NA    NA 6964 1.14
+8  European      PGS       CIND   NA    NA     NA     NA    NA 6419 1.05
+9  European      PGS   Dementia   NA    NA     NA     NA    NA 6432 1.09
+10 European APOEdose Borderline 6964  1.44   1.27   1.64 0.000 6964 1.41
+11 European APOEdose       CIND 6419  1.63   1.37   1.94 0.000 6419 1.62
+12 European APOEdose   Dementia 6432  2.30   1.94   2.74 0.000 6432 2.27
+13  African      PGS Borderline   NA    NA     NA     NA    NA  984 1.06
+14  African      PGS       CIND   NA    NA     NA     NA    NA 1022 0.96
+15  African      PGS   Dementia   NA    NA     NA     NA    NA  943 1.29
+16  African  APOEbin Borderline  984  1.10   0.82   1.47 0.541  984 1.10
+17  African  APOEbin       CIND 1022  1.08   0.78   1.50 0.644 1022 1.08
+18  African  APOEbin   Dementia  943  1.77   1.20   2.61 0.004  943 1.77
+19  African      PGS Borderline   NA    NA     NA     NA    NA  984 1.06
+20  African      PGS       CIND   NA    NA     NA     NA    NA 1022 0.96
+21  African      PGS   Dementia   NA    NA     NA     NA    NA  943 1.30
+22  African APOEdose Borderline  984  1.09   0.85   1.39 0.505  984 1.09
+23  African APOEdose       CIND 1022  1.03   0.77   1.37 0.837 1022 1.03
+24  African APOEdose   Dementia  943  1.65   1.19   2.27 0.002  943 1.65
+   LCI.3 UCI.3   p.3
+1   1.07  1.21 0.000
+2   0.96  1.14 0.298
+3   1.00  1.20 0.049
+4   1.24  1.65 0.000
+5   1.43  2.10 0.000
+6   1.99  2.95 0.000
+7   1.06  1.21 0.000
+8   0.96  1.14 0.298
+9   1.00  1.20 0.060
+10  1.24  1.61 0.000
+11  1.37  1.93 0.000
+12  1.91  2.70 0.000
+13  0.87  1.30 0.555
+14  0.76  1.20 0.706
+15  0.97  1.70 0.076
+16  0.82  1.47 0.534
+17  0.78  1.50 0.648
+18  1.20  2.61 0.004
+19  0.87  1.30 0.550
+20  0.76  1.20 0.704
+21  0.98  1.72 0.069
+22  0.85  1.39 0.495
+23  0.77  1.37 0.842
+24  1.20  2.28 0.002</code></pre>
+<pre class="r"><code>write.csv(output, file=paste0(results_dir,&quot;HRS_PGS_Logistic_APOEdose_Sensitivity_&quot;, date, &quot;.csv&quot;))</code></pre>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 3.6.1 (2019-07-05)
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+Running under: macOS Mojave 10.14.5
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRblas.0.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] epiDisplay_3.5.0.1 nnet_7.3-12        MASS_7.3-51.4     
+[4] survival_2.44-1.1  foreign_0.8-72    
+
+loaded via a namespace (and not attached):
+ [1] workflowr_1.4.0 Rcpp_1.0.2      lattice_0.20-38 digest_0.6.20  
+ [5] rprojroot_1.3-2 grid_3.6.1      backports_1.1.4 git2r_0.26.1   
+ [9] magrittr_1.5    evaluate_0.14   stringi_1.4.3   fs_1.3.1       
+[13] Matrix_1.2-17   rmarkdown_1.15  splines_3.6.1   tools_3.6.1    
+[17] stringr_1.4.0   glue_1.3.1      xfun_0.9        yaml_2.2.0     
+[21] compiler_3.6.1  htmltools_0.3.6 knitr_1.24     </code></pre>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

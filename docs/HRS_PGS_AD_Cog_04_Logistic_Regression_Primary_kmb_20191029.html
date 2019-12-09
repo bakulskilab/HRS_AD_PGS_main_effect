@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Kelly Bakulski" />
+
+<meta name="date" content="2019-10-29" />
+
+<title>Alzheimer’s disease PGS, APOE status, and summary cognitive status in the HRS</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">HRS_AD_PGS_main_effect</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Alzheimer’s disease PGS, APOE status, and summary cognitive status in the HRS</h1>
+<h3 class="subtitle">Logistic Regression</h3>
+<h4 class="author">Kelly Bakulski</h4>
+<h4 class="date">October 29, 2019</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2019-12-09
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>HRS_AD_PGS_main_effect/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.4.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20191209code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20191209)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20191209code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20191209)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrong972d40b"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> 972d40b </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrong972d40b" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .DS_Store
+    Ignored:    .Rproj.user/
+
+Untracked files:
+    Untracked:  Icon
+    Untracked:  analysis/Icon
+    Untracked:  code/Icon
+    Untracked:  data/Icon
+    Untracked:  docs/Icon
+    Untracked:  output/Icon
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+<p>
+There are no past versions. Publish this analysis with <code>wflow_publish()</code> to start tracking its development.
+</p>
+<hr>
+</div>
+</div>
+</div>
+<div id="goal-primary-logistic-regression-models-1-3" class="section level2">
+<h2>Goal: Primary logistic regression models 1-3</h2>
+<pre class="r"><code>#Setting file paths for data, output, scripts
+
+source_dir&lt;-&quot;~/Google Drive/AD_R01_WB/Data/&quot; #location of the parent dataset
+
+results_dir&lt;-&quot;~/Google Drive/AD_R01_WB/AD_PGS_main_effect/Results/&quot; #location of output tables
+  
+derived_data_dir&lt;-&quot;~/Google Drive/AD_R01_WB/AD_PGS_main_effect/Derived_Datasets/&quot; #location of any new datasets I&#39;m building specifically for this paper
+
+script_dir&lt;-&quot;~/Google Drive/AD_R01_WB/AD_PGS_main_effect/Scripts/&quot; #location of this script, redundant with the knitr option above
+
+date&lt;-format(Sys.Date(), &quot;%Y%m%d&quot;)</code></pre>
+<p>#Load in the dataset from Rda: HRS 1995-2014</p>
+<pre class="r"><code>load(file = paste0(derived_data_dir, &quot;HRS_PGS_AD_Euro_Analytic_Sample_20190814.rda&quot;))
+dim(ea)</code></pre>
+<pre><code>[1] 8399 1158</code></pre>
+<pre class="r"><code>load(file = paste0(derived_data_dir,&quot;HRS_PGS_AD_Afri_Analytic_Sample_20190814.rda&quot;))
+dim(aa)</code></pre>
+<pre><code>[1] 1605 1158</code></pre>
+<pre class="r"><code>#European Dementia
+model1&lt;-glm(DC_60_2V.fac.relevel ~AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + EA_2010_PC1 + EA_2010_PC2, data=ea[ea$DC_60_2V.relevel==4 | ea$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model1)</code></pre>
+<pre><code>
+Call:
+glm(formula = DC_60_2V.fac.relevel ~ AGE_LAST_60 + as.factor(SEX.fac) + 
+    SCHLYRS + YEAR_LAST_60 + EA_2010_PC1 + EA_2010_PC2, family = binomial, 
+    data = ea[ea$DC_60_2V.relevel == 4 | ea$DC_60_2V.relevel == 
+        1, ], na.action = na.omit)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-2.1147  -0.4223  -0.2370  -0.1201   3.4139  
+
+Coefficients:
+                           Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)              223.746182  39.090421   5.724 1.04e-08 ***
+AGE_LAST_60                0.159085   0.006224  25.562  &lt; 2e-16 ***
+as.factor(SEX.fac)Female  -0.177253   0.093812  -1.889   0.0588 .  
+SCHLYRS                   -0.241415   0.018657 -12.939  &lt; 2e-16 ***
+YEAR_LAST_60              -0.116834   0.019424  -6.015 1.80e-09 ***
+EA_2010_PC1                4.486331   4.510351   0.995   0.3199    
+EA_2010_PC2               12.393485   5.145769   2.408   0.0160 *  
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 4526.1  on 6431  degrees of freedom
+Residual deviance: 3218.1  on 6425  degrees of freedom
+AIC: 3232.1
+
+Number of Fisher Scoring iterations: 6</code></pre>
+<pre class="r"><code>#European CIND
+model1&lt;-glm(DC_60_2V.fac.relevel ~AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + EA_2010_PC1 + EA_2010_PC2, data=ea[ea$DC_60_2V.relevel==3 | ea$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model1)</code></pre>
+<pre><code>
+Call:
+glm(formula = DC_60_2V.fac.relevel ~ AGE_LAST_60 + as.factor(SEX.fac) + 
+    SCHLYRS + YEAR_LAST_60 + EA_2010_PC1 + EA_2010_PC2, family = binomial, 
+    data = ea[ea$DC_60_2V.relevel == 3 | ea$DC_60_2V.relevel == 
+        1, ], na.action = na.omit)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-2.0005  -0.4705  -0.2938  -0.1714   3.1447  
+
+Coefficients:
+                           Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)              154.783470  37.066365   4.176 2.97e-05 ***
+AGE_LAST_60                0.107081   0.005544  19.316  &lt; 2e-16 ***
+as.factor(SEX.fac)Female  -0.374693   0.088927  -4.213 2.51e-05 ***
+SCHLYRS                   -0.326392   0.018745 -17.412  &lt; 2e-16 ***
+YEAR_LAST_60              -0.079875   0.018410  -4.339 1.43e-05 ***
+EA_2010_PC1                7.084656   4.564129   1.552    0.121    
+EA_2010_PC2               -1.362316   4.395933  -0.310    0.757    
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 4469.1  on 6418  degrees of freedom
+Residual deviance: 3536.6  on 6412  degrees of freedom
+AIC: 3550.6
+
+Number of Fisher Scoring iterations: 6</code></pre>
+<pre class="r"><code>#European Borderline
+model1&lt;-glm(DC_60_2V.fac.relevel ~AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + EA_2010_PC1 + EA_2010_PC2, data=ea[ea$DC_60_2V.relevel==2 | ea$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model1)</code></pre>
+<pre><code>
+Call:
+glm(formula = DC_60_2V.fac.relevel ~ AGE_LAST_60 + as.factor(SEX.fac) + 
+    SCHLYRS + YEAR_LAST_60 + EA_2010_PC1 + EA_2010_PC2, family = binomial, 
+    data = ea[ea$DC_60_2V.relevel == 2 | ea$DC_60_2V.relevel == 
+        1, ], na.action = na.omit)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-1.7269  -0.6604  -0.4848  -0.3266   2.6326  
+
+Coefficients:
+                           Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)              141.875219  29.352253   4.834 1.34e-06 ***
+AGE_LAST_60                0.067997   0.003987  17.054  &lt; 2e-16 ***
+as.factor(SEX.fac)Female  -0.299558   0.066461  -4.507 6.57e-06 ***
+SCHLYRS                   -0.186763   0.014189 -13.163  &lt; 2e-16 ***
+YEAR_LAST_60              -0.072486   0.014573  -4.974 6.56e-07 ***
+EA_2010_PC1                7.273538   3.415864   2.129   0.0332 *  
+EA_2010_PC2                1.090811   3.348096   0.326   0.7446    
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 6573.1  on 6963  degrees of freedom
+Residual deviance: 5964.2  on 6957  degrees of freedom
+AIC: 5978.2
+
+Number of Fisher Scoring iterations: 5</code></pre>
+<pre class="r"><code>#African Dementia
+model1&lt;-glm(DC_60_2V.fac.relevel ~AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + AA_2010_PC1 + AA_2010_PC2, data=aa[aa$DC_60_2V.relevel==4 | aa$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model1)</code></pre>
+<pre><code>
+Call:
+glm(formula = DC_60_2V.fac.relevel ~ AGE_LAST_60 + as.factor(SEX.fac) + 
+    SCHLYRS + YEAR_LAST_60 + AA_2010_PC1 + AA_2010_PC2, family = binomial, 
+    data = aa[aa$DC_60_2V.relevel == 4 | aa$DC_60_2V.relevel == 
+        1, ], na.action = na.omit)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-3.1594  -0.5620  -0.3223   0.2500   2.5362  
+
+Coefficients:
+                          Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)              265.97584   96.70975   2.750  0.00596 ** 
+AGE_LAST_60                0.13354    0.01236  10.803  &lt; 2e-16 ***
+as.factor(SEX.fac)Female   0.09404    0.20594   0.457  0.64794    
+SCHLYRS                   -0.38192    0.03955  -9.656  &lt; 2e-16 ***
+YEAR_LAST_60              -0.13522    0.04804  -2.815  0.00488 ** 
+AA_2010_PC1                4.74187    4.46525   1.062  0.28826    
+AA_2010_PC2               -3.09694    4.67776  -0.662  0.50794    
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 1131.20  on 942  degrees of freedom
+Residual deviance:  691.02  on 936  degrees of freedom
+AIC: 705.02
+
+Number of Fisher Scoring iterations: 5</code></pre>
+<pre class="r"><code>#African CIND
+model1&lt;-glm(DC_60_2V.fac.relevel ~AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + AA_2010_PC1 + AA_2010_PC2, data=aa[aa$DC_60_2V.relevel==3 | aa$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model1)</code></pre>
+<pre><code>
+Call:
+glm(formula = DC_60_2V.fac.relevel ~ AGE_LAST_60 + as.factor(SEX.fac) + 
+    SCHLYRS + YEAR_LAST_60 + AA_2010_PC1 + AA_2010_PC2, family = binomial, 
+    data = aa[aa$DC_60_2V.relevel == 3 | aa$DC_60_2V.relevel == 
+        1, ], na.action = na.omit)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-3.1746  -0.7299  -0.4066   0.7213   2.7015  
+
+Coefficients:
+                          Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)              168.30485   84.16377   2.000   0.0455 *  
+AGE_LAST_60                0.08062    0.01041   7.746 9.49e-15 ***
+as.factor(SEX.fac)Female  -0.25374    0.16533  -1.535   0.1248    
+SCHLYRS                   -0.42423    0.03817 -11.114  &lt; 2e-16 ***
+YEAR_LAST_60              -0.08418    0.04177  -2.015   0.0439 *  
+AA_2010_PC1                4.15043    3.84414   1.080   0.2803    
+AA_2010_PC2               -4.47860    3.90851  -1.146   0.2519    
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 1313.59  on 1021  degrees of freedom
+Residual deviance:  956.66  on 1015  degrees of freedom
+AIC: 970.66
+
+Number of Fisher Scoring iterations: 5</code></pre>
+<pre class="r"><code>#African Borderline
+model1&lt;-glm(DC_60_2V.fac.relevel ~AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + AA_2010_PC1 + AA_2010_PC2, data=aa[aa$DC_60_2V.relevel==2 | aa$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model1)</code></pre>
+<pre><code>
+Call:
+glm(formula = DC_60_2V.fac.relevel ~ AGE_LAST_60 + as.factor(SEX.fac) + 
+    SCHLYRS + YEAR_LAST_60 + AA_2010_PC1 + AA_2010_PC2, family = binomial, 
+    data = aa[aa$DC_60_2V.relevel == 2 | aa$DC_60_2V.relevel == 
+        1, ], na.action = na.omit)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-2.0776  -0.8669  -0.6840   1.2339   2.0728  
+
+Coefficients:
+                           Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)              -10.425747  88.548572  -0.118    0.906    
+AGE_LAST_60                0.051422   0.009803   5.245 1.56e-07 ***
+as.factor(SEX.fac)Female  -0.109420   0.149285  -0.733    0.464    
+SCHLYRS                   -0.178140   0.031297  -5.692 1.26e-08 ***
+YEAR_LAST_60               0.004184   0.043988   0.095    0.924    
+AA_2010_PC1                5.578075   3.464708   1.610    0.107    
+AA_2010_PC2               -0.846122   3.392772  -0.249    0.803    
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 1229.3  on 983  degrees of freedom
+Residual deviance: 1153.1  on 977  degrees of freedom
+AIC: 1167.1
+
+Number of Fisher Scoring iterations: 4</code></pre>
+<pre class="r"><code>#install.packages(&quot;epiDisplay&quot;)
+library(epiDisplay)</code></pre>
+<pre><code>Loading required package: foreign</code></pre>
+<pre><code>Loading required package: survival</code></pre>
+<pre><code>Loading required package: MASS</code></pre>
+<pre><code>Loading required package: nnet</code></pre>
+<pre class="r"><code>#library(stargazer)
+
+table(ea$DC_60_2V)</code></pre>
+<pre><code>
+   1    2    3    4 
+ 724  711 1256 5708 </code></pre>
+<pre class="r"><code>table(ea$DC_60_2V.relevel)</code></pre>
+<pre><code>
+   1    2    3    4 
+5708 1256  711  724 </code></pre>
+<pre class="r"><code>#PH13_KunkleOK2_PT_0.01
+#PH13_KunkleFULL_PT_0.01
+
+output&lt;-data.frame(matrix(NA, nrow=12, ncol=18))
+colnames(output)&lt;-c(&quot;Ancestry&quot;, &quot;Variable&quot;, &quot;Outcome&quot;, &quot;n.2a&quot;,&quot;OR.2a&quot;, &quot;LCI.2a&quot;, &quot;UCI.2a&quot;, &quot;p.2a&quot;, &quot;n.2b&quot;, &quot;OR.2b&quot;, &quot;LCI.2b&quot;, &quot;UCI.2b&quot;, &quot;p.2b&quot;, &quot;n.3&quot;,&quot;OR.3&quot;, &quot;LCI.3&quot;, &quot;UCI.3&quot;, &quot;p.3&quot;)
+output$Ancestry&lt;-c(rep(&quot;European&quot;, 6), rep(&quot;African&quot;, 6))
+output$Variable&lt;-c(rep(&quot;PGS&quot;, 3), rep(&quot;APOE&quot;, 3), rep(&quot;PGS&quot;, 3), rep(&quot;APOE&quot;, 3))
+output$Outcome&lt;-c(rep(c(&quot;Borderline&quot;,&quot;CIND&quot;, &quot;Dementia&quot;),4))
+
+# European ancestry
+for (i in 2:4) {
+# Model 2a PGS
+  #Rows 1-3
+model2a&lt;-glm(DC_60_2V.fac.relevel ~ PH13_KunkleOK2_PT_0.01 + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + EA_2010_PC1 + EA_2010_PC2, data=ea[ea$DC_60_2V.relevel==i | ea$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model2a)
+output[i-1,4]&lt;-length(model2a$residuals)
+output[i-1,5]&lt;-round(logistic.display(model2a, decimal=2)$table[1,1], digits=2)
+output[i-1,6]&lt;-round(logistic.display(model2a, decimal=2)$table[1,2], digits=2)
+output[i-1,7]&lt;-round(logistic.display(model2a, decimal=2)$table[1,3], digits=2)
+output[i-1,8]&lt;-round(logistic.display(model2a, decimal=2)$table[1,4], digits=3)
+
+# Model 2b
+#Rows 4-6
+model2b&lt;-glm(DC_60_2V.fac.relevel ~ APOE2010_bin + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + EA_2010_PC1 + EA_2010_PC2, data=ea[ea$DC_60_2V.relevel==i | ea$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model2b)
+output[i+2,9]&lt;-length(model2b$residuals)
+output[i+2,10]&lt;-round(logistic.display(model2b, decimal=2)$table[1,1], digits=2)
+output[i+2,11]&lt;-round(logistic.display(model2b, decimal=2)$table[1,2], digits=2)
+output[i+2,12]&lt;-round(logistic.display(model2b, decimal=2)$table[1,3], digits=2)
+output[i+2,13]&lt;-round(logistic.display(model2b, decimal=2)$table[1,4], digits=3)
+
+#Model 3 PGS
+model3&lt;-glm(DC_60_2V.fac.relevel ~ PH13_KunkleOK2_PT_0.01 + APOE2010_bin + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + EA_2010_PC1 + EA_2010_PC2, data=ea[ea$DC_60_2V.relevel==i | ea$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model3)
+output[i-1,14]&lt;-length(model3$residuals)
+output[i-1,15]&lt;-round(logistic.display(model3, decimal=2)$table[1,1], digits=2)
+output[i-1,16]&lt;-round(logistic.display(model3, decimal=2)$table[1,2], digits=2)
+output[i-1,17]&lt;-round(logistic.display(model3, decimal=2)$table[1,3], digits=2)
+output[i-1,18]&lt;-round(logistic.display(model3, decimal=2)$table[1,4], digits=3)
+
+#Model 3 APOE
+output[i+2,14]&lt;-length(model3$residuals)
+output[i+2,15]&lt;-round(logistic.display(model3, decimal=2)$table[2,1], digits=2)
+output[i+2,16]&lt;-round(logistic.display(model3, decimal=2)$table[2,2], digits=2)
+output[i+2,17]&lt;-round(logistic.display(model3, decimal=2)$table[2,3], digits=2)
+output[i+2,18]&lt;-round(logistic.display(model3, decimal=2)$table[2,4], digits=3)
+}
+output</code></pre>
+<pre><code>   Ancestry Variable    Outcome n.2a OR.2a LCI.2a UCI.2a  p.2a n.2b OR.2b
+1  European      PGS Borderline 6964  1.15   1.08   1.23 0.000   NA    NA
+2  European      PGS       CIND 6419  1.06   0.97   1.16 0.188   NA    NA
+3  European      PGS   Dementia 6432  1.13   1.03   1.24 0.008   NA    NA
+4  European     APOE Borderline   NA    NA     NA     NA    NA 6964  1.46
+5  European     APOE       CIND   NA    NA     NA     NA    NA 6419  1.74
+6  European     APOE   Dementia   NA    NA     NA     NA    NA 6432  2.46
+7   African      PGS Borderline   NA    NA     NA     NA    NA   NA    NA
+8   African      PGS       CIND   NA    NA     NA     NA    NA   NA    NA
+9   African      PGS   Dementia   NA    NA     NA     NA    NA   NA    NA
+10  African     APOE Borderline   NA    NA     NA     NA    NA   NA    NA
+11  African     APOE       CIND   NA    NA     NA     NA    NA   NA    NA
+12  African     APOE   Dementia   NA    NA     NA     NA    NA   NA    NA
+   LCI.2b UCI.2b p.2b  n.3 OR.3 LCI.3 UCI.3   p.3
+1      NA     NA   NA 6964 1.14  1.07  1.21 0.000
+2      NA     NA   NA 6419 1.05  0.96  1.14 0.298
+3      NA     NA   NA 6432 1.10  1.00  1.20 0.049
+4    1.26   1.69    0 6964 1.43  1.24  1.65 0.000
+5    1.43   2.11    0 6419 1.73  1.43  2.10 0.000
+6    2.02   2.99    0 6432 2.42  1.99  2.95 0.000
+7      NA     NA   NA   NA   NA    NA    NA    NA
+8      NA     NA   NA   NA   NA    NA    NA    NA
+9      NA     NA   NA   NA   NA    NA    NA    NA
+10     NA     NA   NA   NA   NA    NA    NA    NA
+11     NA     NA   NA   NA   NA    NA    NA    NA
+12     NA     NA   NA   NA   NA    NA    NA    NA</code></pre>
+<pre class="r"><code>table(aa$DC_60_2V)</code></pre>
+<pre><code>
+  1   2   3   4 
+271 350 312 672 </code></pre>
+<pre class="r"><code>table(aa$DC_60_2V.relevel)</code></pre>
+<pre><code>
+  1   2   3   4 
+672 312 350 271 </code></pre>
+<pre class="r"><code># African ancestry
+for (i in 2:4) {
+# Model 2a PGS
+  #Rows 7-9
+model2a&lt;-glm(DC_60_2V.fac.relevel ~ PH13_KunkleOK2_PT_0.01 + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + AA_2010_PC1 + AA_2010_PC2, data=aa[aa$DC_60_2V.relevel==i | aa$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model2a)
+output[i+5,4]&lt;-length(model2a$residuals)
+output[i+5,5]&lt;-round(logistic.display(model2a, decimal=2)$table[1,1], digits=2)
+output[i+5,6]&lt;-round(logistic.display(model2a, decimal=2)$table[1,2], digits=2)
+output[i+5,7]&lt;-round(logistic.display(model2a, decimal=2)$table[1,3], digits=2)
+output[i+5,8]&lt;-round(logistic.display(model2a, decimal=2)$table[1,4], digits=3)
+
+# Model 2b
+#Rows 10-12
+model2b&lt;-glm(DC_60_2V.fac.relevel ~ APOE2010_bin + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + AA_2010_PC1 + AA_2010_PC2, data=aa[aa$DC_60_2V.relevel==i | aa$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model2b)
+output[i+8,9]&lt;-length(model2b$residuals)
+output[i+8,10]&lt;-round(logistic.display(model2b, decimal=2)$table[1,1], digits=2)
+output[i+8,11]&lt;-round(logistic.display(model2b, decimal=2)$table[1,2], digits=2)
+output[i+8,12]&lt;-round(logistic.display(model2b, decimal=2)$table[1,3], digits=2)
+output[i+8,13]&lt;-round(logistic.display(model2b, decimal=2)$table[1,4], digits=3)
+
+#Model 3 PGS
+model3&lt;-glm(DC_60_2V.fac.relevel ~ PH13_KunkleOK2_PT_0.01 + APOE2010_bin + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + AA_2010_PC1 + AA_2010_PC2, data=aa[aa$DC_60_2V.relevel==i | aa$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model3)
+output[i+5,14]&lt;-length(model3$residuals)
+output[i+5,15]&lt;-round(logistic.display(model3, decimal=2)$table[1,1], digits=2)
+output[i+5,16]&lt;-round(logistic.display(model3, decimal=2)$table[1,2], digits=2)
+output[i+5,17]&lt;-round(logistic.display(model3, decimal=2)$table[1,3], digits=2)
+output[i+5,18]&lt;-round(logistic.display(model3, decimal=2)$table[1,4], digits=3)
+
+#Model 3 APOE
+output[i+8,14]&lt;-length(model3$residuals)
+output[i+8,15]&lt;-round(logistic.display(model3, decimal=2)$table[2,1], digits=2)
+output[i+8,16]&lt;-round(logistic.display(model3, decimal=2)$table[2,2], digits=2)
+output[i+8,17]&lt;-round(logistic.display(model3, decimal=2)$table[2,3], digits=2)
+output[i+8,18]&lt;-round(logistic.display(model3, decimal=2)$table[2,4], digits=3)
+}
+
+output</code></pre>
+<pre><code>   Ancestry Variable    Outcome n.2a OR.2a LCI.2a UCI.2a  p.2a n.2b OR.2b
+1  European      PGS Borderline 6964  1.15   1.08   1.23 0.000   NA    NA
+2  European      PGS       CIND 6419  1.06   0.97   1.16 0.188   NA    NA
+3  European      PGS   Dementia 6432  1.13   1.03   1.24 0.008   NA    NA
+4  European     APOE Borderline   NA    NA     NA     NA    NA 6964  1.46
+5  European     APOE       CIND   NA    NA     NA     NA    NA 6419  1.74
+6  European     APOE   Dementia   NA    NA     NA     NA    NA 6432  2.46
+7   African      PGS Borderline  984  1.06   0.87   1.29 0.562   NA    NA
+8   African      PGS       CIND 1022  0.96   0.76   1.20 0.702   NA    NA
+9   African      PGS   Dementia  943  1.29   0.98   1.70 0.072   NA    NA
+10  African     APOE Borderline   NA    NA     NA     NA    NA  984  1.10
+11  African     APOE       CIND   NA    NA     NA     NA    NA 1022  1.08
+12  African     APOE   Dementia   NA    NA     NA     NA    NA  943  1.77
+   LCI.2b UCI.2b  p.2b  n.3 OR.3 LCI.3 UCI.3   p.3
+1      NA     NA    NA 6964 1.14  1.07  1.21 0.000
+2      NA     NA    NA 6419 1.05  0.96  1.14 0.298
+3      NA     NA    NA 6432 1.10  1.00  1.20 0.049
+4    1.26   1.69 0.000 6964 1.43  1.24  1.65 0.000
+5    1.43   2.11 0.000 6419 1.73  1.43  2.10 0.000
+6    2.02   2.99 0.000 6432 2.42  1.99  2.95 0.000
+7      NA     NA    NA  984 1.06  0.87  1.30 0.555
+8      NA     NA    NA 1022 0.96  0.76  1.20 0.706
+9      NA     NA    NA  943 1.29  0.97  1.70 0.076
+10   0.82   1.47 0.541  984 1.10  0.82  1.47 0.534
+11   0.78   1.50 0.644 1022 1.08  0.78  1.50 0.648
+12   1.20   2.61 0.004  943 1.77  1.20  2.61 0.004</code></pre>
+<pre class="r"><code>write.csv(output, file=paste0(results_dir,&quot;/HRS_PGS_Logistic_&quot;, date, &quot;.csv&quot;))</code></pre>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 3.6.1 (2019-07-05)
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+Running under: macOS Mojave 10.14.5
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRblas.0.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] epiDisplay_3.5.0.1 nnet_7.3-12        MASS_7.3-51.4     
+[4] survival_2.44-1.1  foreign_0.8-72    
+
+loaded via a namespace (and not attached):
+ [1] workflowr_1.4.0 Rcpp_1.0.2      lattice_0.20-38 digest_0.6.20  
+ [5] rprojroot_1.3-2 grid_3.6.1      backports_1.1.4 git2r_0.26.1   
+ [9] magrittr_1.5    evaluate_0.14   stringi_1.4.3   fs_1.3.1       
+[13] Matrix_1.2-17   rmarkdown_1.15  splines_3.6.1   tools_3.6.1    
+[17] stringr_1.4.0   glue_1.3.1      xfun_0.9        yaml_2.2.0     
+[21] compiler_3.6.1  htmltools_0.3.6 knitr_1.24     </code></pre>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

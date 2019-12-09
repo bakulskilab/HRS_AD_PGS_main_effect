@@ -1,0 +1,1849 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Kelly Bakulski" />
+
+<meta name="date" content="2019-10-29" />
+
+<title>Alzheimer’s disease PGS, APOE status, and summary cognitive status in the HRS</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/htmlwidgets-1.3/htmlwidgets.js"></script>
+<script src="site_libs/viz-0.3/viz.js"></script>
+<link href="site_libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
+<script src="site_libs/grViz-binding-1.0.1/grViz.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">HRS_AD_PGS_main_effect</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Alzheimer’s disease PGS, APOE status, and summary cognitive status in the HRS</h1>
+<h3 class="subtitle">Inclusion/Exclusion, Flowchart &amp; Univariate Table</h3>
+<h4 class="author">Kelly Bakulski</h4>
+<h4 class="date">October 29, 2019</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2019-12-09
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>HRS_AD_PGS_main_effect/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.4.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20191209code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20191209)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20191209code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20191209)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrong972d40b"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> 972d40b </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrong972d40b" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .DS_Store
+    Ignored:    .Rproj.user/
+
+Untracked files:
+    Untracked:  Icon
+    Untracked:  analysis/Icon
+    Untracked:  code/Icon
+    Untracked:  data/Icon
+    Untracked:  docs/Icon
+    Untracked:  output/Icon
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+<p>
+There are no past versions. Publish this analysis with <code>wflow_publish()</code> to start tracking its development.
+</p>
+<hr>
+</div>
+</div>
+</div>
+<div id="goal-producing-reproducible-inclusionexclusion-descriptive-statistics-tables-flowcharts" class="section level2">
+<h2>Goal: Producing reproducible inclusion/exclusion descriptive statistics tables, flowcharts</h2>
+<pre class="r"><code>#Setting file paths for data, output, scripts
+
+source_dir&lt;-&quot;~/Google Drive/AD_R01_WB/Data/&quot; #location of the parent dataset
+
+results_dir&lt;-&quot;~/Google Drive/AD_R01_WB/AD_PGS_main_effect/Results/&quot; #location of output tables
+  
+derived_data_dir&lt;-&quot;~/Google Drive/AD_R01_WB/AD_PGS_main_effect/Derived_Datasets/&quot; #location of any new datasets I&#39;m building specifically for this paper
+
+script_dir&lt;-&quot;~/Google Drive/AD_R01_WB/AD_PGS_main_effect/Scripts/&quot; #location of this script, redundant with the knitr option above
+
+date&lt;-format(Sys.Date(), &quot;%Y%m%d&quot;)</code></pre>
+<p>#Load in the dataset from Rda: HRS 1995-2014</p>
+<pre class="r"><code>load(file = paste0(derived_data_dir,&quot;hrs_democoggen_wide20190813.rda&quot;))
+dim(hrs)</code></pre>
+<pre><code>[1] 43232  1121</code></pre>
+</div>
+<div id="parent-dataset-file-google-drivead_r01_wbdatahrs_democoggen_wide20190805.sas7bdat" class="section level1">
+<h1>Parent dataset file “~/Google Drive/AD_R01_WB/Data/hrs_democoggen_wide20190805.sas7bdat”</h1>
+</div>
+<div id="reference-file-google-drivead_r01_wbad_pgs_main_effectscriptshrs_pgs_ad_cog_dataqc_kmb_20190809.rmd-for-derived-variable-development" class="section level1">
+<h1>Reference file “~/Google Drive/AD_R01_WB/AD_PGS_main_effect/Scripts/HRS_PGS_AD_Cog_DataQC_kmb_20190809.Rmd” for derived variable development</h1>
+<div id="need-ancestry-agnostic-genetic-variables-dummy-missing-variables-for-univariate-table" class="section level2">
+<h2>Need ancestry agnostic genetic variables, dummy missing variables for univariate table</h2>
+<pre class="r"><code>#PH13_KunkleOK2_PT_0.01
+#PH13_KunkleFULL_PT_0.01
+
+### Secondary PGS variable, with APOE
+summary(hrs$EAPH13_KunkleFULL_PT_0.01)</code></pre>
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
+  -3.61   -0.70   -0.01    0.00    0.67    3.92   33243 </code></pre>
+<pre class="r"><code>summary(hrs$AAPH13_KunkleFULL_PT_0.01)</code></pre>
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
+  -3.29   -0.66    0.04    0.00    0.71    3.48   40953 </code></pre>
+<pre class="r"><code>table(is.na(hrs$EAPH13_KunkleFULL_PT_0.01), is.na(hrs$AAPH13_KunkleFULL_PT_0.01)) # Expect new variable to have 30962 missing</code></pre>
+<pre><code>       
+        FALSE  TRUE
+  FALSE     0  9989
+  TRUE   2279 30964</code></pre>
+<pre class="r"><code>hrs$PH13_KunkleOK2_PT_0.01.miss &lt;- ifelse(is.na(hrs$PH13_KunkleOK2_PT_0.01), &quot;(Missing)&quot;, NA)
+table(hrs$PH13_KunkleOK2_PT_0.01.miss)</code></pre>
+<pre><code>
+(Missing) 
+    30964 </code></pre>
+<pre class="r"><code>hrs$PH13_KunkleFULL_PT_0.01.miss &lt;- ifelse(is.na(hrs$PH13_KunkleFULL_PT_0.01), &quot;(Missing)&quot;, NA)
+table(hrs$PH13_KunkleFULL_PT_0.01.miss)</code></pre>
+<pre><code>
+(Missing) 
+    30964 </code></pre>
+<pre class="r"><code>### Main APOE variable
+table(hrs$APOE2010_bin, useNA = &quot;always&quot;)</code></pre>
+<pre><code>
+    0     1  &lt;NA&gt; 
+11360  4205 27667 </code></pre>
+<pre class="r"><code>hrs$APOE2010_bin.fac &lt;- factor(hrs$APOE2010_bin, levels = c(0, 1), labels = c(&quot;None&quot;, &quot;E4&quot;))
+# hrs$APOE2010_bin.fac&lt;-ifelse(is.na(hrs$APOE2010_bin.fac), &quot;Missing&quot;, hrs$APOE2010_bin.fac)
+# hrs$APOE2010_bin.fac&lt;-factor(hrs$APOE2010_bin.fac, levels=c(1,2,3), labels=c(&quot;None&quot;, &quot;E4&quot;, &quot;Missing&quot;))
+table(hrs$APOE2010_bin.fac, useNA = &quot;always&quot;)</code></pre>
+<pre><code>
+ None    E4  &lt;NA&gt; 
+11360  4205 27667 </code></pre>
+<pre class="r"><code>hrs$APOE2010_bin.miss &lt;- ifelse(is.na(hrs$APOE2010_bin), &quot;(Missing)&quot;, NA)
+table(hrs$APOE2010_bin.miss)</code></pre>
+<pre><code>
+(Missing) 
+    27667 </code></pre>
+<pre class="r"><code>### Secondary APOE multiple level variable
+# Okay as APOE2010_imputed
+table(hrs$APOE2010_imputed, useNA = &quot;always&quot;)</code></pre>
+<pre><code>
+e2/e2 e2/e3 e2/e4 e3/e3 e3/e4 e4/e4  &lt;NA&gt; 
+  111  1916   382  9333  3475   348 27667 </code></pre>
+<pre class="r"><code>hrs$APOE2010_imputed.miss &lt;- ifelse(is.na(hrs$APOE2010_imputed), &quot;(Missing)&quot;, NA)
+table(hrs$APOE2010_bin.miss)</code></pre>
+<pre><code>
+(Missing) 
+    27667 </code></pre>
+<pre class="r"><code># Need outcome varaiable as a factor
+table(hrs$DC_60_2V, useNA = &quot;always&quot;)</code></pre>
+<pre><code>
+    1     2     3     4     5  &lt;NA&gt; 
+ 3866  2846  3749 12449   534 19788 </code></pre>
+<pre class="r"><code>hrs$DC_60_2V.fac &lt;- factor(hrs$DC_60_2V, levels = c(1:5), labels = c(&quot;Dementia&quot;, &quot;CIND&quot;, &quot;Borderline&quot;, &quot;Normal&quot;, &quot;Unclassified&quot;))
+table(hrs$DC_60_2V.fac, useNA = &quot;always&quot;)</code></pre>
+<pre><code>
+    Dementia         CIND   Borderline       Normal Unclassified 
+        3866         2846         3749        12449          534 
+        &lt;NA&gt; 
+       19788 </code></pre>
+<pre class="r"><code>hrs$DC_60_2V.miss &lt;- ifelse(is.na(hrs$DC_60_2V), &quot;(Missing)&quot;, NA)
+table(hrs$DC_60_2V.miss, useNA = &quot;always&quot;)</code></pre>
+<pre><code>
+(Missing)      &lt;NA&gt; 
+    19788     23444 </code></pre>
+<pre class="r"><code>hrs$DC_60_2V.fac.relevel &lt;- factor(hrs$DC_60_2V.fac, levels = c(&quot;Normal&quot;, &quot;Borderline&quot;, &quot;CIND&quot;, &quot;Dementia&quot;), labels = c(&quot;Normal&quot;, &quot;Borderline&quot;, &quot;Impaired&quot;, &quot;Dementia&quot;))
+table(hrs$DC_60_2V.fac.relevel)</code></pre>
+<pre><code>
+    Normal Borderline   Impaired   Dementia 
+     12449       3749       2846       3866 </code></pre>
+<pre class="r"><code>hrs$DC_60_2V.relevel&lt;-ifelse(hrs$DC_60_2V==4, 1, NA)
+hrs$DC_60_2V.relevel&lt;-ifelse(hrs$DC_60_2V==3, 2, hrs$DC_60_2V.relevel)
+hrs$DC_60_2V.relevel&lt;-ifelse(hrs$DC_60_2V==2, 3, hrs$DC_60_2V.relevel)
+hrs$DC_60_2V.relevel&lt;-ifelse(hrs$DC_60_2V==1, 4, hrs$DC_60_2V.relevel)
+table(hrs$DC_60_2V.relevel)</code></pre>
+<pre><code>
+    1     2     3     4 
+12449  3749  2846  3866 </code></pre>
+<pre class="r"><code>## Need sex as a factor
+table(hrs$SEX, useNA = &quot;always&quot;)</code></pre>
+<pre><code>
+    1     2  &lt;NA&gt; 
+19081 24129    22 </code></pre>
+<pre class="r"><code>hrs$SEX.fac &lt;- factor(hrs$SEX, levels = c(1, 2), labels = c(&quot;Male&quot;, &quot;Female&quot;))
+table(hrs$SEX.fac, useNA = &quot;always&quot;)</code></pre>
+<pre><code>
+  Male Female   &lt;NA&gt; 
+ 19081  24129     22 </code></pre>
+<pre class="r"><code>hrs$SEX.miss &lt;- ifelse(is.na(hrs$SEX.fac), &quot;(Missing)&quot;, NA)
+table(hrs$SEX.miss, useNA = &quot;always&quot;)</code></pre>
+<pre><code>
+(Missing)      &lt;NA&gt; 
+       22     43210 </code></pre>
+<pre class="r"><code>### Missing dummy variable for education
+summary(hrs$SCHLYRS)</code></pre>
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
+   0.00   11.00   12.00   12.13   14.00   17.00    1240 </code></pre>
+<pre class="r"><code>hrs$SCHLYRS.miss &lt;- ifelse(is.na(hrs$SCHLYRS), &quot;(Missing)&quot;, NA)
+table(hrs$SCHLYRS.miss)</code></pre>
+<pre><code>
+(Missing) 
+     1240 </code></pre>
+<pre class="r"><code>summary(hrs$AGE_LAST_60)</code></pre>
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
+  60.00   67.00   75.00   75.34   83.00  109.00   15792 </code></pre>
+<pre class="r"><code>hrs$AGE_LAST_60.miss &lt;- ifelse(is.na(hrs$AGE_LAST_60), &quot;(Missing)&quot;, NA)
+table(hrs$AGE_LAST_60.miss)</code></pre>
+<pre><code>
+(Missing) 
+    15792 </code></pre>
+<pre class="r"><code>summary(hrs$YEAR_LAST_60)</code></pre>
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
+   1995    2004    2012    2009    2014    2014   15792 </code></pre>
+<pre class="r"><code>hrs$YEAR_LAST_60.miss &lt;- ifelse(is.na(hrs$YEAR_LAST_60), &quot;(Missing)&quot;, NA)
+table(hrs$YEAR_LAST_60.miss)</code></pre>
+<pre><code>
+(Missing) 
+    15792 </code></pre>
+<pre class="r"><code>table(hrs$ancestry, useNA = &quot;always&quot;)</code></pre>
+<pre><code>
+ African European     &lt;NA&gt; 
+    2279     9991    30962 </code></pre>
+<pre class="r"><code>hrs$ancestry.miss &lt;- ifelse(is.na(hrs$ancestry), &quot;(Missing)&quot;, NA)
+table(hrs$ancestry.miss)</code></pre>
+<pre><code>
+(Missing) 
+    30962 </code></pre>
+<pre class="r"><code>hrs$ancestry.relevel &lt;- factor(hrs$ancestry, levels = c(&quot;European&quot;, &quot;African&quot;))
+table(hrs$ancestry.miss)</code></pre>
+<pre><code>
+(Missing) 
+    30962 </code></pre>
+<pre class="r"><code>table(hrs$AHEAD_CODA, useNA = &quot;always&quot;)</code></pre>
+<pre><code>
+AHEAD  CODA Other  &lt;NA&gt; 
+ 8563  2461 32200     8 </code></pre>
+<pre class="r"><code>hrs$AHEAD_CODA.miss &lt;- ifelse(is.na(hrs$AHEAD_CODA), &quot;(Missing)&quot;, NA)
+table(hrs$AHEAD_CODA.miss)</code></pre>
+<pre><code>
+(Missing) 
+        8 </code></pre>
+<pre class="r"><code>summary(hrs$BMI_LAST_60_v2)</code></pre>
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
+   7.00   24.40   27.80   28.74   32.10   78.34   18850 </code></pre>
+<pre class="r"><code>hrs$BMI_LAST_60_v2.miss &lt;- ifelse(is.na(hrs$BMI_LAST_60_v2), &quot;(Missing)&quot;, NA)
+table(hrs$BMI_LAST_60_v2.miss)</code></pre>
+<pre><code>
+(Missing) 
+    18850 </code></pre>
+<pre class="r"><code>table(hrs$HBP_EVER_LAST_60, useNA = &quot;always&quot;)</code></pre>
+<pre><code>
+    0     1  &lt;NA&gt; 
+ 6016 13854 23362 </code></pre>
+<pre class="r"><code>hrs$HBP_EVER_LAST_60.miss &lt;- ifelse(is.na(hrs$HBP_EVER_LAST_60), &quot;(Missing)&quot;, NA)
+table(hrs$HBP_EVER_LAST_60.miss)</code></pre>
+<pre><code>
+(Missing) 
+    23362 </code></pre>
+<pre class="r"><code>table(hrs$T2D_EVER_LAST_60, useNA = &quot;always&quot;)</code></pre>
+<pre><code>
+    0     1  &lt;NA&gt; 
+13645  6234 23353 </code></pre>
+<pre class="r"><code>hrs$T2D_EVER_LAST_60.miss &lt;- ifelse(is.na(hrs$T2D_EVER_LAST_60), &quot;(Missing)&quot;, NA)
+table(hrs$T2D_EVER_LAST_60.miss)</code></pre>
+<pre><code>
+(Missing) 
+    23353 </code></pre>
+<pre class="r"><code>table(hrs$EVSTROKE_LAST_60, useNA = &quot;always&quot;)</code></pre>
+<pre><code>
+    0     1  &lt;NA&gt; 
+22586  3684 16962 </code></pre>
+<pre class="r"><code>hrs$EVSTROKE_LAST_60.miss &lt;- ifelse(is.na(hrs$EVSTROKE_LAST_60), &quot;(Missing)&quot;, NA)
+table(hrs$EVSTROKE_LAST_60.miss)</code></pre>
+<pre><code>
+(Missing) 
+    16962 </code></pre>
+<pre class="r"><code>table(hrs$CESD_BIN, useNA = &quot;always&quot;)</code></pre>
+<pre><code>
+    0     1  &lt;NA&gt; 
+ 6621  3825 32786 </code></pre>
+<pre class="r"><code>hrs$CESD_BIN.miss &lt;- ifelse(is.na(hrs$CESD_BIN), &quot;(Missing)&quot;, NA)
+table(hrs$CESD_BIN.miss)</code></pre>
+<pre><code>
+(Missing) 
+    32786 </code></pre>
+<pre class="r"><code>table(hrs$SMK_CURR_LAST_60, useNA = &quot;always&quot;)</code></pre>
+<pre><code>
+    0     1     2  &lt;NA&gt; 
+ 8449  9259  2076 23448 </code></pre>
+<pre class="r"><code>hrs$SMK_CURR_LAST_60.miss &lt;- ifelse(is.na(hrs$SMK_CURR_LAST_60), &quot;(Missing)&quot;, NA)
+#table(hrs$SMK_CURR_LAST_60.miss, hrs$include.step1)
+
+table(hrs$ALC_CURR_LAST_60, useNA = &quot;always&quot;)</code></pre>
+<pre><code>
+    0     1  &lt;NA&gt; 
+10955  8964 23313 </code></pre>
+<pre class="r"><code>hrs$ALC_CURR_LAST_60.miss &lt;- ifelse(is.na(hrs$ALC_CURR_LAST_60), &quot;(Missing)&quot;, NA)
+table(hrs$ALC_CURR_LAST_60.miss)</code></pre>
+<pre><code>
+(Missing) 
+    23313 </code></pre>
+<pre class="r"><code># library(forcats)
+# table(fct_explicit_na(hrs$DC_60_2V.fac, na_level = &quot;(Missing)&quot;))</code></pre>
+<p>Make exclusions (less than 3 visits, younger than 60, missing APOE, missing SCHLYRS, health behaviors), confirm matching SAS exclusions</p>
+<pre class="r"><code>#Start with the 2010 PGS _T
+
+hrs$unique &lt;- paste0(hrs$HHID, hrs$PN)
+# Step 1: Exclude missing genetic information 2010 polygenic scores
+#PH13_KunkleYAPOE_PT_1
+#PH13_KunkleOK2_PT_0.01
+
+table(!is.na(hrs$EAPH13_KunkleOK2_PT_0.01 | hrs$AAPH13_KunkleOK2_PT_0.01)) # Step 1 of flow chart</code></pre>
+<pre><code>
+FALSE  TRUE 
+30964 12268 </code></pre>
+<pre class="r"><code>step1 &lt;- hrs[!is.na(hrs$PH13_KunkleOK2_PT_0.01), ]
+dim(step1) # checks out</code></pre>
+<pre><code>[1] 12268  1146</code></pre>
+<pre class="r"><code>hrs$include.step1 &lt;- ifelse(!is.na(hrs$PH13_KunkleOK2_PT_0.01), 1, 0)
+table(hrs$include.step1)</code></pre>
+<pre><code>
+    0     1 
+30964 12268 </code></pre>
+<pre class="r"><code># Note: Previous tables started at step 2 (those excluded at step 1 were not in the inclusion/exclusion table)
+
+# Step 2: At least 3 cognition variables
+table(!is.na(hrs$DC_60_2V), hrs$include.step1) # Differs from flow chart in expected direction, given we&#39;re including stroke</code></pre>
+<pre><code>       
+            0     1
+  FALSE 17921  1867
+  TRUE  13043 10401</code></pre>
+<pre class="r"><code>step2 &lt;- step1[!is.na(step1$DC_60_2V), ]
+dim(step2) </code></pre>
+<pre><code>[1] 10401  1146</code></pre>
+<pre class="r"><code>hrs$include.step2 &lt;- ifelse(hrs$include.step1 == 1 &amp; !is.na(hrs$DC_60_2V), 1, 0)
+table(hrs$include.step2)</code></pre>
+<pre><code>
+    0     1 
+32831 10401 </code></pre>
+<pre class="r"><code># Step 3: Drop unclassified cognition, think this can come out in the previous step
+#table(step2$DC_60_2V) 
+step3 &lt;- step2[step2$DC_60_2V &lt; 5, ]
+dim(step3) </code></pre>
+<pre><code>[1] 10228  1146</code></pre>
+<pre class="r"><code>table(hrs$include.step2, hrs$DC_60_2V==5)</code></pre>
+<pre><code>   
+    FALSE  TRUE
+  0 12682   361
+  1 10228   173</code></pre>
+<pre class="r"><code>hrs$include.step3 &lt;- ifelse(hrs$include.step2 == 1 &amp; hrs$DC_60_2V &lt; 5, 1, 0)
+table(hrs$include.step3)</code></pre>
+<pre><code>
+    0     1 
+33004 10228 </code></pre>
+<pre class="r"><code># Step 4: Drop missing SCHLYRS
+step4 &lt;- step3[!is.na(step3$SCHLYRS), ]
+dim(step4)</code></pre>
+<pre><code>[1] 10217  1146</code></pre>
+<pre class="r"><code>table(hrs$include.step3, !is.na(hrs$SCHLYRS), !is.na(hrs$BMI_LAST_60_v2))</code></pre>
+<pre><code>, ,  = FALSE
+
+   
+    FALSE  TRUE
+  0  1150 17612
+  1     0    88
+
+, ,  = TRUE
+
+   
+    FALSE  TRUE
+  0    79 14163
+  1    11 10129</code></pre>
+<pre class="r"><code>hrs$include.step4 &lt;- ifelse(hrs$include.step3 == 1 &amp; !is.na(hrs$SCHLYRS), 1, 0)
+
+table(hrs$include.step4, hrs$include.step3) #no missing on SCHLYRS</code></pre>
+<pre><code>   
+        0     1
+  0 33004    11
+  1     0 10217</code></pre>
+<pre class="r"><code>table(hrs$include.step4, !is.na(hrs$BMI_LAST_60_v2))</code></pre>
+<pre><code>   
+    FALSE  TRUE
+  0 18762 14253
+  1    88 10129</code></pre>
+<pre class="r"><code>table(hrs$include.step4, hrs$include.step3) # Dropped 11</code></pre>
+<pre><code>   
+        0     1
+  0 33004    11
+  1     0 10217</code></pre>
+<pre class="r"><code># Step 5: Drop missing BMI
+step5 &lt;- step4[!is.na(step4$BMI_LAST_60_v2), ]
+dim(step5)</code></pre>
+<pre><code>[1] 10129  1146</code></pre>
+<pre class="r"><code>table(hrs$include.step4, !is.na(hrs$BMI_LAST_60_v2))</code></pre>
+<pre><code>   
+    FALSE  TRUE
+  0 18762 14253
+  1    88 10129</code></pre>
+<pre class="r"><code>hrs$include.step5 &lt;- ifelse(hrs$include.step4 == 1 &amp; !is.na(hrs$BMI_LAST_60_v2), 1, 0)
+table(hrs$include.step4)</code></pre>
+<pre><code>
+    0     1 
+33015 10217 </code></pre>
+<pre class="r"><code>summary(step5$BMI_LAST_60_v2)</code></pre>
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   7.00   24.40   27.89   28.75   32.08   78.34 </code></pre>
+<pre class="r"><code>summary(hrs$BMI_LAST_60_v2[hrs$include.step5==1])</code></pre>
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   7.00   24.40   27.89   28.75   32.08   78.34 </code></pre>
+<pre class="r"><code>table(hrs$include.step5)</code></pre>
+<pre><code>
+    0     1 
+33103 10129 </code></pre>
+<pre class="r"><code>table(hrs$include.step5, hrs$include.step4) #Dropped 88</code></pre>
+<pre><code>   
+        0     1
+  0 33015    88
+  1     0 10129</code></pre>
+<pre class="r"><code># Step 6: Drop missing Smk
+table(hrs$include.step5, !is.na(hrs$SMK_CURR_LAST_60))</code></pre>
+<pre><code>   
+    FALSE  TRUE
+  0 23384  9719
+  1    64 10065</code></pre>
+<pre class="r"><code>step6 &lt;- step5[!is.na(step5$SMK_CURR_LAST_60), ]
+dim(step6)</code></pre>
+<pre><code>[1] 10065  1146</code></pre>
+<pre class="r"><code>hrs$include.step6 &lt;- ifelse(hrs$include.step5 == 1 &amp; !is.na(hrs$SMK_CURR_LAST_60), 1, 0)
+table(hrs$include.step6)</code></pre>
+<pre><code>
+    0     1 
+33167 10065 </code></pre>
+<pre class="r"><code>table(step6$SMK_CURR_LAST_60)</code></pre>
+<pre><code>
+   0    1    2 
+4293 4777  995 </code></pre>
+<pre class="r"><code>table(hrs$SMK_CURR_LAST_60[hrs$include.step5==1])</code></pre>
+<pre><code>
+   0    1    2 
+4293 4777  995 </code></pre>
+<pre class="r"><code>table(hrs$include.step6, hrs$include.step5) #dropped 64</code></pre>
+<pre><code>   
+        0     1
+  0 33103    64
+  1     0 10065</code></pre>
+<pre class="r"><code># Step 7: Drop missing HBP
+table(hrs$include.step6, !is.na(hrs$HBP_EVER_LAST_60)) #expect 25</code></pre>
+<pre><code>   
+    FALSE  TRUE
+  0 23337  9830
+  1    25 10040</code></pre>
+<pre class="r"><code>step7 &lt;- step6[!is.na(step6$HBP_EVER_LAST_60), ]
+dim(step7)</code></pre>
+<pre><code>[1] 10040  1146</code></pre>
+<pre class="r"><code>hrs$include.step7 &lt;- ifelse(hrs$include.step6 == 1 &amp; !is.na(hrs$HBP_EVER_LAST_60), 1, 0)
+table(hrs$include.step7)</code></pre>
+<pre><code>
+    0     1 
+33192 10040 </code></pre>
+<pre class="r"><code>table(step7$HBP_EVER_LAST_60)</code></pre>
+<pre><code>
+   0    1 
+3073 6967 </code></pre>
+<pre class="r"><code>table(hrs$HBP_EVER_LAST_60[hrs$include.step6==1])</code></pre>
+<pre><code>
+   0    1 
+3073 6967 </code></pre>
+<pre class="r"><code>table(hrs$include.step7, hrs$include.step6) #dropped 25</code></pre>
+<pre><code>   
+        0     1
+  0 33167    25
+  1     0 10040</code></pre>
+<pre class="r"><code># Step 8: Drop missing T2D
+table(hrs$include.step7, !is.na(hrs$T2D_EVER_LAST_60)) #expect 14</code></pre>
+<pre><code>   
+    FALSE  TRUE
+  0 23339  9853
+  1    14 10026</code></pre>
+<pre class="r"><code>step8 &lt;- step7[!is.na(step7$T2D_EVER_LAST_60), ]
+dim(step8)</code></pre>
+<pre><code>[1] 10026  1146</code></pre>
+<pre class="r"><code>hrs$include.step8 &lt;- ifelse(hrs$include.step7 == 1 &amp; !is.na(hrs$T2D_EVER_LAST_60), 1, 0)
+table(hrs$include.step8)</code></pre>
+<pre><code>
+    0     1 
+33206 10026 </code></pre>
+<pre class="r"><code>table(step8$T2D_EVER_LAST_60)</code></pre>
+<pre><code>
+   0    1 
+7338 2688 </code></pre>
+<pre class="r"><code>table(hrs$T2D_EVER_LAST_60[hrs$include.step8==1])</code></pre>
+<pre><code>
+   0    1 
+7338 2688 </code></pre>
+<pre class="r"><code>table(hrs$include.step8, hrs$include.step7) #dropped 14</code></pre>
+<pre><code>   
+        0     1
+  0 33192    14
+  1     0 10026</code></pre>
+<pre class="r"><code># Step 9: Drop missing stroke
+table(hrs$include.step8, !is.na(hrs$EVSTROKE_LAST_60)) #expect 12</code></pre>
+<pre><code>   
+    FALSE  TRUE
+  0 16950 16256
+  1    12 10014</code></pre>
+<pre class="r"><code>step9 &lt;- step8[!is.na(step8$EVSTROKE_LAST_60), ]
+dim(step9)</code></pre>
+<pre><code>[1] 10014  1146</code></pre>
+<pre class="r"><code>hrs$include.step9 &lt;- ifelse(hrs$include.step8 == 1 &amp; !is.na(hrs$EVSTROKE_LAST_60), 1, 0)
+table(hrs$include.step8)</code></pre>
+<pre><code>
+    0     1 
+33206 10026 </code></pre>
+<pre class="r"><code>table(step9$EVSTROKE_LAST_60)</code></pre>
+<pre><code>
+   0    1 
+8842 1172 </code></pre>
+<pre class="r"><code>table(hrs$EVSTROKE_LAST_60[hrs$include.step9==1])</code></pre>
+<pre><code>
+   0    1 
+8842 1172 </code></pre>
+<pre class="r"><code>table(hrs$include.step9, hrs$include.step8) #dropped 12</code></pre>
+<pre><code>   
+        0     1
+  0 33206    12
+  1     0 10014</code></pre>
+<pre class="r"><code># Step 10: Drop missing alcohol
+table(hrs$include.step9, !is.na(hrs$ALC_CURR_LAST_60)) #expect 10</code></pre>
+<pre><code>   
+    FALSE  TRUE
+  0 23303  9915
+  1    10 10004</code></pre>
+<pre class="r"><code>step10 &lt;- step9[!is.na(step9$ALC_CURR_LAST_60), ]
+dim(step10)</code></pre>
+<pre><code>[1] 10004  1146</code></pre>
+<pre class="r"><code>hrs$include.step10 &lt;- ifelse(hrs$include.step9 == 1 &amp; !is.na(hrs$ALC_CURR_LAST_60), 1, 0)
+table(hrs$include.step10)</code></pre>
+<pre><code>
+    0     1 
+33228 10004 </code></pre>
+<pre class="r"><code>table(step10$ALC_CURR_LAST_60)</code></pre>
+<pre><code>
+   0    1 
+5265 4739 </code></pre>
+<pre class="r"><code>table(hrs$ALC_CURR_LAST_60[hrs$include.step10==1])</code></pre>
+<pre><code>
+   0    1 
+5265 4739 </code></pre>
+<pre class="r"><code>table(hrs$include.step10, hrs$include.step9) #dropped 10</code></pre>
+<pre><code>   
+        0     1
+  0 33218    10
+  1     0 10004</code></pre>
+<pre class="r"><code># Step 11: Drop missing depression
+table(hrs$include.step10, !is.na(hrs$CESD_BIN)) #expect 0</code></pre>
+<pre><code>   
+    FALSE  TRUE
+  0 32786   442
+  1     0 10004</code></pre>
+<pre class="r"><code># step11 &lt;- step10[!is.na(step10$CESD_BIN), ]
+# dim(step11)
+# hrs$include.step11 &lt;- ifelse(hrs$include.step10 == 1 &amp; !is.na(hrs$CESD_BIN), 1, 0)
+# table(hrs$include.step11)
+# table(step11$CESD_BIN)
+# table(hrs$CESD_BIN[hrs$include.step11==1])
+# table(hrs$include.step11, hrs$include.step10) #dropped 0
+
+#BMI_LAST_60_v2, EVSTROKE_LAST_60
+### Use new variables: SMK_CURR_LAST_60, ALC_CURR_LAST_60, HBP_EVER_LAST_60, T2D_EVER_LAST_60, CESD_BIN
+
+# table(!is.na(hrs$BMI_LAST_60_v2) &amp; !is.na(hrs$EVSTROKE_LAST_60) &amp; !is.na(hrs$SMK_CURR_LAST_60) &amp; !is.na(hrs$ALC_CURR_LAST_60) &amp; !is.na(hrs$HBP_EVER_LAST_60) &amp; !is.na(hrs$T2D_EVER_LAST_60) &amp; !is.na(hrs$CESD_BIN),hrs$include.step5,  useNA = &quot;always&quot;)
+# 
+# dim(hrs[!is.na(hrs$BMI_LAST_60_v2) &amp; !is.na(hrs$EVSTROKE_LAST_60) &amp; !is.na(hrs$SMK_CURR_LAST_60) &amp; !is.na(hrs$ALC_CURR_LAST_60) &amp; !is.na(hrs$HBP_EVER_LAST_60) &amp; !is.na(hrs$T2D_EVER_LAST_60) &amp; !is.na(hrs$CESD_BIN) &amp; hrs$include.step5==1,])
+# 
+# step6 &lt;- hrs[!is.na(hrs$BMI_LAST_60_v2) &amp; !is.na(hrs$EVSTROKE_LAST_60) &amp; !is.na(hrs$SMK_CURR_LAST_60) &amp; !is.na(hrs$ALC_CURR_LAST_60) &amp; !is.na(hrs$HBP_EVER_LAST_60) &amp; !is.na(hrs$T2D_EVER_LAST_60) &amp; !is.na(hrs$CESD_BIN) &amp; hrs$include.step5==1, ] 
+# dim(step6)
+length(hrs$unique[step10$unique])</code></pre>
+<pre><code>[1] 10004</code></pre>
+<pre class="r"><code># hrs$include.step6 &lt;- ifelse(!is.na(hrs$BMI_LAST_60_v2) &amp; !is.na(hrs$EVSTROKE_LAST_60) &amp; !is.na(hrs$SMK_CURR_LAST_60) &amp; !is.na(hrs$ALC_CURR_LAST_60) &amp; !is.na(hrs$HBP_EVER_LAST_60) &amp; !is.na(hrs$T2D_EVER_LAST_60) &amp; !is.na(hrs$CESD_BIN) &amp; hrs$include.step5==1, 1, 0)
+# table(hrs$include.step6)
+
+
+# Summary
+#table(hrs$unique %in% step4$unique)
+table(hrs$unique %in% hrs$unique[hrs$include.step10==1])</code></pre>
+<pre><code>
+FALSE  TRUE 
+33228 10004 </code></pre>
+<pre class="r"><code>hrs$include &lt;- ifelse(hrs$unique %in% hrs$unique[hrs$include.step10==1], &quot;Included&quot;, &quot;Excluded&quot;)
+
+include&lt;-hrs[hrs$include==&quot;Included&quot;,]
+dim(include)</code></pre>
+<pre><code>[1] 10004  1157</code></pre>
+<pre class="r"><code>table(hrs$include, hrs$include.step10)</code></pre>
+<pre><code>          
+               0     1
+  Excluded 33228     0
+  Included     0 10004</code></pre>
+<pre class="r"><code>table(hrs$ancestry, hrs$include)</code></pre>
+<pre><code>          
+           Excluded Included
+  African       674     1605
+  European     1592     8399</code></pre>
+<div id="made-a-new-variable-include-for-if-person-made-it-in-the-primary-analytic-sample" class="section level3">
+<h3>Made a new variable: include for if person made it in the primary analytic sample</h3>
+</div>
+<div id="figure-out-which-health-behaviors-are-missing" class="section level3">
+<h3>Figure out which health behaviors are missing</h3>
+<pre class="r"><code>install.packages(&quot;expss&quot;)
+library(expss)
+table(hrs$include.step4, hrs$include.step6)
+test&lt;-hrs[hrs$include.step6==0 &amp; hrs$include.step5==1,]
+cro(is.na(test$EVSTROKE_LAST_60), is.na(test$BMI_LAST_60_v2), is.na(test$SMK_CURR_LAST_60)) #88 additional BMI, 11 schoolyears, 14 stroke, 1 smk
+
+table(is.na(test$BMI_LAST_60_v2)) #88
+table(is.na(test$SMK_CURR_LAST_60)) #65
+table(is.na(test$HBP_EVER_LAST_60)) #26
+table(is.na(test$T2D_EVER_LAST_60)) #17
+table(is.na(test$EVSTROKE_LAST_60)) #14
+table(is.na(test$ALC_CURR_LAST_60)) #11
+
+
+table(!is.na(hrs$BMI_LAST_60_v2) &amp; !is.na(hrs$EVSTROKE_LAST_60) &amp; !is.na(hrs$SMK_CURR_LAST_60) &amp; !is.na(hrs$ALC_CURR_LAST_60) &amp; !is.na(hrs$HBP_EVER_LAST_60) &amp; !is.na(hrs$T2D_EVER_LAST_60) &amp; !is.na(hrs$CESD_BIN),hrs$include.step5,  useNA = &quot;always&quot;)</code></pre>
+</div>
+<div id="make-flow-chart-for-inclusionexclusion" class="section level3">
+<h3>Make flow chart for inclusion/exclusion</h3>
+<pre class="r"><code># install.packages(&quot;DiagrammeR&quot;)
+library(DiagrammeR)
+# install.packages(&quot;DiagrammeRsvg&quot;)
+library(DiagrammeRsvg)
+# install.packages(&quot;rsvg&quot;)
+library(rsvg)
+
+# graph: this sets the overall layout, themes of the plot
+# node: the boxes in the flowchart
+# edges: the lines used to connect each of the boxes
+
+## Need 2 columns (1, 2) with 5 rows (A-E)
+# Labels for column 1
+a1 &lt;- paste0(&quot;Polygenic scores
+available
+n=&quot;, length(hrs$include.step1[hrs$include.step1 == 1]))
+b1 &lt;- paste0(&quot;At least three cognition
+measures from ages 60
+and above
+n=&quot;, length(hrs$include.step2[hrs$include.step2 == 1]))
+c1 &lt;- paste0(&quot;Summary cogntition
+status classified
+n=&quot;, length(hrs$include.step3[hrs$include.step3 == 1]))
+d1 &lt;- paste0(&quot;Primary analytic
+sample
+n=&quot;, length(hrs$include.step10[hrs$include.step10 == 1]))
+e1 &lt;- paste0(&quot;European ancestry 
+analytic sample
+n=&quot;, length(hrs$include[hrs$include == &quot;Included&quot; &amp; hrs$ancestry == &quot;European&quot;]))
+
+# Labels for column 2
+a2 &lt;- paste0(&quot;Less than three
+cognitive measures
+from ages 60
+and above
+n=&quot;, length(hrs$include.step1[hrs$include.step2 == 0 &amp; hrs$include.step1 == 1]))
+b2 &lt;- paste0(&quot;Cogntition status
+not classified
+n=&quot;, length(hrs$include.step1[hrs$include.step3 == 0 &amp; hrs$include.step2 == 1]))
+c2 &lt;- paste0(&quot;Missing education
+n=&quot;, length(hrs$include.step1[hrs$include.step4 == 0 &amp; hrs$include.step3 == 1]), 
+&quot;\nMissing BMI
+n=&quot;, length(hrs$include.step1[hrs$include.step5 == 0 &amp; hrs$include.step4 == 1]),
+&quot;\nMissing smoking
+n=&quot;, length(hrs$include.step1[hrs$include.step6 == 0 &amp; hrs$include.step5 == 1]), 
+&quot;\nMissing 
+hypertension
+n=&quot;, length(hrs$include.step1[hrs$include.step7 == 0 &amp; hrs$include.step6 == 1]),
+&quot;\nMissing diabetes
+n=&quot;, length(hrs$include.step1[hrs$include.step8 == 0 &amp; hrs$include.step7 == 1]), 
+&quot;\nMissing stroke
+n=&quot;, length(hrs$include.step1[hrs$include.step9 == 0 &amp; hrs$include.step8 == 1]),
+&quot;\nMissing alcohol
+n=&quot;, length(hrs$include.step1[hrs$include.step10 == 0 &amp; hrs$include.step9 == 1]))
+
+d2 &lt;- paste0(&quot;African ancestry 
+analytic sample
+n=&quot;, length(hrs$include[hrs$include == &quot;Included&quot; &amp; hrs$ancestry == &quot;African&quot;]))
+
+# Create a node dataframe
+ndf &lt;- create_node_df(
+  n = 9,
+  label = c(
+    a1, b1, c1, d1, e1, # Column 1
+    a2, b2, c2, d2
+  ), # Column 2
+  style = c(
+    rep(&quot;solid&quot;, 5), # Column 1
+    rep(&quot;dotted&quot;, 3), &quot;solid&quot;
+  ), # Column 2
+  shape = &quot;box&quot;,
+  fontname = &quot;Arial&quot;,
+  penwidth = 3,
+  fixedsize = F,
+  color = c(rep(&quot;black&quot;, 5), rep(&quot;silver&quot;, 3), &quot;black&quot;)
+)
+
+
+# Create an edge dataframe
+edf &lt;- create_edge_df(
+  from = c(
+    1, 2, 3, 4, # Column 1
+    1, 2, 3, 4 # Column 2
+  ),
+  to = c(
+    2, 3, 4, 5, # Column 1
+    6, 7, 8, 9 # Column 2
+  ),
+  arrowhead = &quot;normal&quot;,
+  style = c(rep(&quot;solid&quot;, 4), rep(&quot;dotted&quot;, 3), &quot;solid&quot;),
+  color = c(
+    rep(&quot;black&quot;, 4), # Column 1
+    rep(&quot;silver&quot;, 3), &quot;black&quot;
+  ) # Column 2
+)
+
+g &lt;- create_graph(ndf,
+  edf,
+  attr_theme = NULL, directed = T
+)
+render_graph(g)</code></pre>
+<div id="htmlwidget-cde4aeb6e313a3c47eb7" style="width:672px;height:480px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-cde4aeb6e313a3c47eb7">{"x":{"diagram":"digraph {\n\n\n\n\n  \"1\" [label = \"Polygenic scores\navailable\nn=12268\", style = \"solid\", shape = \"box\", fontname = \"Arial\", penwidth = \"3\", fixedsize = \"FALSE\", color = \"black\", fillcolor = \"#FFFFFF\", fontcolor = \"#000000\"] \n  \"2\" [label = \"At least three cognition\nmeasures from ages 60\nand above\nn=10401\", style = \"solid\", shape = \"box\", fontname = \"Arial\", penwidth = \"3\", fixedsize = \"FALSE\", color = \"black\", fillcolor = \"#FFFFFF\", fontcolor = \"#000000\"] \n  \"3\" [label = \"Summary cogntition\nstatus classified\nn=10228\", style = \"solid\", shape = \"box\", fontname = \"Arial\", penwidth = \"3\", fixedsize = \"FALSE\", color = \"black\", fillcolor = \"#FFFFFF\", fontcolor = \"#000000\"] \n  \"4\" [label = \"Primary analytic\nsample\nn=10004\", style = \"solid\", shape = \"box\", fontname = \"Arial\", penwidth = \"3\", fixedsize = \"FALSE\", color = \"black\", fillcolor = \"#FFFFFF\", fontcolor = \"#000000\"] \n  \"5\" [label = \"European ancestry \nanalytic sample\nn=8399\", style = \"solid\", shape = \"box\", fontname = \"Arial\", penwidth = \"3\", fixedsize = \"FALSE\", color = \"black\", fillcolor = \"#FFFFFF\", fontcolor = \"#000000\"] \n  \"6\" [label = \"Less than three\ncognitive measures\nfrom ages 60\nand above\nn=1867\", style = \"dotted\", shape = \"box\", fontname = \"Arial\", penwidth = \"3\", fixedsize = \"FALSE\", color = \"silver\", fillcolor = \"#FFFFFF\", fontcolor = \"#000000\"] \n  \"7\" [label = \"Cogntition status\nnot classified\nn=173\", style = \"dotted\", shape = \"box\", fontname = \"Arial\", penwidth = \"3\", fixedsize = \"FALSE\", color = \"silver\", fillcolor = \"#FFFFFF\", fontcolor = \"#000000\"] \n  \"8\" [label = \"Missing education\nn=11\nMissing BMI\nn=88\nMissing smoking\nn=64\nMissing \nhypertension\nn=25\nMissing diabetes\nn=14\nMissing stroke\nn=12\nMissing alcohol\nn=10\", style = \"dotted\", shape = \"box\", fontname = \"Arial\", penwidth = \"3\", fixedsize = \"FALSE\", color = \"silver\", fillcolor = \"#FFFFFF\", fontcolor = \"#000000\"] \n  \"9\" [label = \"African ancestry \nanalytic sample\nn=1605\", style = \"solid\", shape = \"box\", fontname = \"Arial\", penwidth = \"3\", fixedsize = \"FALSE\", color = \"black\", fillcolor = \"#FFFFFF\", fontcolor = \"#000000\"] \n\"1\"->\"2\" [arrowhead = \"normal\", style = \"solid\", color = \"black\"] \n\"2\"->\"3\" [arrowhead = \"normal\", style = \"solid\", color = \"black\"] \n\"3\"->\"4\" [arrowhead = \"normal\", style = \"solid\", color = \"black\"] \n\"4\"->\"5\" [arrowhead = \"normal\", style = \"solid\", color = \"black\"] \n\"1\"->\"6\" [arrowhead = \"normal\", style = \"dotted\", color = \"silver\"] \n\"2\"->\"7\" [arrowhead = \"normal\", style = \"dotted\", color = \"silver\"] \n\"3\"->\"8\" [arrowhead = \"normal\", style = \"dotted\", color = \"silver\"] \n\"4\"->\"9\" [arrowhead = \"normal\", style = \"solid\", color = \"black\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>export_graph(g, file_name = paste0(results_dir,&quot;HRS_PGS_Flowchart_Inclusion_Exclusion_&quot;, date, &quot;.pdf&quot;), file_type = &quot;PDF&quot;)</code></pre>
+</div>
+</div>
+<div id="producing-reproducible-descriptive-statistics-tables" class="section level2">
+<h2>Producing reproducible descriptive statistics tables</h2>
+</div>
+<div id="compare-groups-to-produce-univariate-tables" class="section level2">
+<h2>Compare Groups to Produce Univariate Tables</h2>
+<pre class="r"><code>#install.packages(&quot;compareGroups&quot;)
+library(compareGroups)</code></pre>
+<pre><code>Loading required package: SNPassoc</code></pre>
+<pre><code>Loading required package: haplo.stats</code></pre>
+<pre><code>Loading required package: survival</code></pre>
+<pre><code>Loading required package: mvtnorm</code></pre>
+<pre><code>Loading required package: parallel</code></pre>
+<pre><code>Registered S3 method overwritten by &#39;SNPassoc&#39;:
+  method            from       
+  summary.haplo.glm haplo.stats</code></pre>
+<pre class="r"><code>table(hrs$include)</code></pre>
+<pre><code>
+Excluded Included 
+   33228    10004 </code></pre>
+<pre class="r"><code>table(hrs$include.step1, hrs$include)</code></pre>
+<pre><code>   
+    Excluded Included
+  0    30964        0
+  1     2264    10004</code></pre>
+<pre class="r"><code>#PH13_KunkleOK2_PT_0.01
+#PH13_KunkleFULL_PT_0.01
+
+# Note: The official genetic variables are split by ancestry. This summary table wants them together. New variables are developed above to combine them
+
+univar.desc.pval &lt;- descrTable(formula = include ~ DC_60_2V.fac + DC_60_2V.miss + PH13_KunkleOK2_PT_0.01 + PH13_KunkleOK2_PT_0.01.miss+ PH13_KunkleFULL_PT_0.01 + PH13_KunkleFULL_PT_0.01.miss + APOE2010_imputed + APOE2010_imputed.miss + APOE2010_bin.fac + APOE2010_bin.miss + AGE_LAST_60 + AGE_LAST_60.miss + YEAR_LAST_60 + YEAR_LAST_60.miss + SEX.fac + SEX.miss + SCHLYRS + SCHLYRS.miss + ancestry.relevel + ancestry.miss + AHEAD_CODA + AHEAD_CODA.miss + BMI_LAST_60_v2 + BMI_LAST_60_v2.miss + HBP_EVER_LAST_60.fac + HBP_EVER_LAST_60.miss + T2D_EVER_LAST_60.fac + T2D_EVER_LAST_60.miss + EVSTROKE_LAST_60.fac + EVSTROKE_LAST_60.miss + CESD_BIN.fac + CESD_BIN.miss + SMK_CURR_LAST_60.fac + SMK_CURR_LAST_60.miss + ALC_CURR_LAST_60.fac + ALC_CURR_LAST_60.miss, data = hrs[hrs$include.step1 == 1, ], na.action = na.pass, show.all = T, show.n = T, digits.p = 3)</code></pre>
+<pre><code>Warning in compareGroups.fit(X = X, y = y, include.label = include.label, :
+Variables &#39;DC_60_2V.miss&#39;, &#39;AGE_LAST_60.miss&#39;, &#39;YEAR_LAST_60.miss&#39;,
+&#39;SCHLYRS.miss&#39;, &#39;BMI_LAST_60_v2.miss&#39;, &#39;HBP_EVER_LAST_60.miss&#39;,
+&#39;T2D_EVER_LAST_60.miss&#39;, &#39;EVSTROKE_LAST_60.miss&#39;, &#39;CESD_BIN.miss&#39;,
+&#39;SMK_CURR_LAST_60.miss&#39;, &#39;ALC_CURR_LAST_60.miss&#39; have been removed since
+some errors occurred</code></pre>
+<pre class="r"><code>print(univar.desc.pval)</code></pre>
+<pre><code>
+--------Summary descriptives table by &#39;include&#39;---------
+
+____________________________________________________________________________________ 
+                                 [ALL]       Excluded     Included   p.overall   N   
+                                N=12268       N=2264      N=10004                    
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯ 
+DC_60_2V.fac:                                                          0.000   10401 
+    Dementia                 1030 (9.90%)   35 (8.82%)  995 (9.95%)                  
+    CIND                     1090 (10.5%)   29 (7.30%)  1061 (10.6%)                 
+    Borderline               1610 (15.5%)   42 (10.6%)  1568 (15.7%)                 
+    Normal                   6498 (62.5%)  118 (29.7%)  6380 (63.8%)                 
+    Unclassified              173 (1.66%)  173 (43.6%)   0 (0.00%)                   
+PH13_KunkleOK2_PT_0.01        0.00 (1.00)  0.01 (1.00)  0.00 (1.00)    0.442   12268 
+PH13_KunkleOK2_PT_0.01.miss        .            .            .           .       0   
+PH13_KunkleFULL_PT_0.01       0.00 (1.00)  0.02 (1.00)  0.00 (1.00)    0.350   12268 
+PH13_KunkleFULL_PT_0.01.miss       .            .            .           .       0   
+APOE2010_imputed:                                                     &lt;0.001   12268 
+    e2/e2                     97 (0.79%)    30 (1.33%)   67 (0.67%)                  
+    e2/e3                    1617 (13.2%)  319 (14.1%)  1298 (13.0%)                 
+    e2/e4                     331 (2.70%)   71 (3.14%)  260 (2.60%)                  
+    e3/e3                    7062 (57.6%)  1223 (54.0%) 5839 (58.4%)                 
+    e3/e4                    2853 (23.3%)  544 (24.0%)  2309 (23.1%)                 
+    e4/e4                     308 (2.51%)   77 (3.40%)  231 (2.31%)                  
+APOE2010_imputed.miss              .            .            .           .       0   
+APOE2010_bin.fac:                                                      0.015   12268 
+    None                     8776 (71.5%)  1572 (69.4%) 7204 (72.0%)                 
+    E4                       3492 (28.5%)  692 (30.6%)  2800 (28.0%)                 
+APOE2010_bin.miss                  .            .            .           .       0   
+AGE_LAST_60                   74.9 (9.11)  75.4 (9.69)  74.8 (9.08)    0.242   10444 
+YEAR_LAST_60                  2013 (2.10)  2012 (2.45)  2013 (2.07)   &lt;0.001   10444 
+SEX.fac:                                                               0.001   12268 
+    Male                     5066 (41.3%)  861 (38.0%)  4205 (42.0%)                 
+    Female                   7202 (58.7%)  1403 (62.0%) 5799 (58.0%)                 
+SEX.miss                           .            .            .           .       0   
+SCHLYRS                       13.0 (2.67)  13.1 (2.62)  13.0 (2.69)    0.075   12240 
+ancestry.relevel:                                                     &lt;0.001   12268 
+    European                 9989 (81.4%)  1590 (70.2%) 8399 (84.0%)                 
+    African                  2279 (18.6%)  674 (29.8%)  1605 (16.0%)                 
+ancestry.miss                      .            .            .           .       0   
+AHEAD_CODA:                                                           &lt;0.001   12268 
+    AHEAD                    1216 (9.91%)   67 (2.96%)  1149 (11.5%)                 
+    CODA                     1000 (8.15%)   48 (2.12%)  952 (9.52%)                  
+    Other                    10052 (81.9%) 2149 (94.9%) 7903 (79.0%)                 
+AHEAD_CODA.miss                    .            .            .           .       0   
+BMI_LAST_60_v2                28.9 (6.47)  29.6 (6.81)  28.8 (6.40)   &lt;0.001   11782 
+HBP_EVER_LAST_60.fac:                                                  0.176   10417 
+    No                       3176 (30.5%)  113 (27.4%)  3063 (30.6%)                 
+    Yes                      7241 (69.5%)  300 (72.6%)  6941 (69.4%)                 
+T2D_EVER_LAST_60.fac:                                                  0.162   10427 
+    No                       7617 (73.1%)  296 (70.0%)  7321 (73.2%)                 
+    Yes                      2810 (26.9%)  127 (30.0%)  2683 (26.8%)                 
+EVSTROKE_LAST_60.fac:                                                 &lt;0.001   10430 
+    No                       9177 (88.0%)  344 (80.8%)  8833 (88.3%)                 
+    Yes                      1253 (12.0%)   82 (19.2%)  1171 (11.7%)                 
+CESD_BIN.fac:                                                         &lt;0.001   10444 
+    No                       6620 (63.4%)  228 (51.8%)  6392 (63.9%)                 
+    Yes                      3824 (36.6%)  212 (48.2%)  3612 (36.1%)                 
+SMK_CURR_LAST_60.fac:                                                  0.118   10378 
+    0                        4419 (42.6%)  157 (42.0%)  4262 (42.6%)                 
+    1                        4921 (47.4%)  168 (44.9%)  4753 (47.5%)                 
+    2                        1038 (10.0%)   49 (13.1%)  989 (9.89%)                  
+ALC_CURR_LAST_60.fac:                                                  0.002   10433 
+    No                       5524 (52.9%)  259 (60.4%)  5265 (52.6%)                 
+    Yes                      4909 (47.1%)  170 (39.6%)  4739 (47.4%)                 
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯ </code></pre>
+<pre class="r"><code>export2word(univar.desc.pval, file = paste0(results_dir, &quot;HRS_PGS_Univariate_Include_P_&quot;, date, &quot;.docx&quot;))
+
+univar.desc.pval &lt;- descrTable(formula = include ~ DC_60_2V.fac + DC_60_2V.miss + PH13_KunkleOK2_PT_0.01 + PH13_KunkleOK2_PT_0.01.miss+ PH13_KunkleFULL_PT_0.01  + APOE2010_imputed+ APOE2010_bin.fac + APOE2010_bin.miss + AGE_LAST_60  + YEAR_LAST_60  + SEX.fac + SCHLYRS  + ancestry.relevel  + AHEAD_CODA  + BMI_LAST_60_v2 + BMI_LAST_60_v2.miss + HBP_EVER_LAST_60.fac  + T2D_EVER_LAST_60.fac + EVSTROKE_LAST_60.fac  + CESD_BIN.fac + SMK_CURR_LAST_60.fac  + ALC_CURR_LAST_60.fac, data = hrs[hrs$include.step1 == 1, ], na.action = na.pass, show.all = T, show.n = T, digits.p = 3, include.miss=T)</code></pre>
+<pre><code>Warning in compare.i(X[, i], y = y, selec.i = selec[i], method.i =
+method[i], : Some levels of &#39;APOE2010_bin.fac&#39; are removed since no
+observation in that/those levels</code></pre>
+<pre><code>Warning in compare.i(X[, i], y = y, selec.i = selec[i], method.i =
+method[i], : Some levels of &#39;SEX.fac&#39; are removed since no observation in
+that/those levels</code></pre>
+<pre><code>Warning in compare.i(X[, i], y = y, selec.i = selec[i], method.i =
+method[i], : Some levels of &#39;ancestry.relevel&#39; are removed since no
+observation in that/those levels</code></pre>
+<pre><code>Warning in compareGroups.fit(X = X, y = y, include.label = include.label, :
+Variables &#39;DC_60_2V.miss&#39;, &#39;BMI_LAST_60_v2.miss&#39; have been removed since
+some errors occurred</code></pre>
+<pre class="r"><code>print(univar.desc.pval)</code></pre>
+<pre><code>
+--------Summary descriptives table by &#39;include&#39;---------
+
+___________________________________________________________________________________ 
+                                [ALL]       Excluded     Included   p.overall   N   
+                               N=12268       N=2264      N=10004                    
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯ 
+DC_60_2V.fac:                                                         0.000   12268 
+    Dementia                1030 (8.40%)   35 (1.55%)  995 (9.95%)                  
+    CIND                    1090 (8.88%)   29 (1.28%)  1061 (10.6%)                 
+    Borderline              1610 (13.1%)   42 (1.86%)  1568 (15.7%)                 
+    Normal                  6498 (53.0%)  118 (5.21%)  6380 (63.8%)                 
+    Unclassified             173 (1.41%)  173 (7.64%)   0 (0.00%)                   
+    &#39;Missing&#39;               1867 (15.2%)  1867 (82.5%)  0 (0.00%)                   
+PH13_KunkleOK2_PT_0.01       0.00 (1.00)  0.01 (1.00)  0.00 (1.00)    0.442   12268 
+PH13_KunkleOK2_PT_0.01.miss       .            .            .           .       0   
+PH13_KunkleFULL_PT_0.01      0.00 (1.00)  0.02 (1.00)  0.00 (1.00)    0.350   12268 
+APOE2010_imputed:                                                    &lt;0.001   12268 
+    e2/e2                    97 (0.79%)    30 (1.33%)   67 (0.67%)                  
+    e2/e3                   1617 (13.2%)  319 (14.1%)  1298 (13.0%)                 
+    e2/e4                    331 (2.70%)   71 (3.14%)  260 (2.60%)                  
+    e3/e3                   7062 (57.6%)  1223 (54.0%) 5839 (58.4%)                 
+    e3/e4                   2853 (23.3%)  544 (24.0%)  2309 (23.1%)                 
+    e4/e4                    308 (2.51%)   77 (3.40%)  231 (2.31%)                  
+APOE2010_bin.fac:                                                     0.015   12268 
+    None                    8776 (71.5%)  1572 (69.4%) 7204 (72.0%)                 
+    E4                      3492 (28.5%)  692 (30.6%)  2800 (28.0%)                 
+APOE2010_bin.miss                 .            .            .           .       0   
+AGE_LAST_60                  74.9 (9.11)  75.4 (9.69)  74.8 (9.08)    0.242   10444 
+YEAR_LAST_60                 2013 (2.10)  2012 (2.45)  2013 (2.07)   &lt;0.001   10444 
+SEX.fac:                                                              0.001   12268 
+    Male                    5066 (41.3%)  861 (38.0%)  4205 (42.0%)                 
+    Female                  7202 (58.7%)  1403 (62.0%) 5799 (58.0%)                 
+SCHLYRS                      13.0 (2.67)  13.1 (2.62)  13.0 (2.69)    0.075   12240 
+ancestry.relevel:                                                    &lt;0.001   12268 
+    European                9989 (81.4%)  1590 (70.2%) 8399 (84.0%)                 
+    African                 2279 (18.6%)  674 (29.8%)  1605 (16.0%)                 
+AHEAD_CODA:                                                          &lt;0.001   12268 
+    AHEAD                   1216 (9.91%)   67 (2.96%)  1149 (11.5%)                 
+    CODA                    1000 (8.15%)   48 (2.12%)  952 (9.52%)                  
+    Other                   10052 (81.9%) 2149 (94.9%) 7903 (79.0%)                 
+BMI_LAST_60_v2               28.9 (6.47)  29.6 (6.81)  28.8 (6.40)   &lt;0.001   11782 
+HBP_EVER_LAST_60.fac:                                                 0.000   12268 
+    No                      3176 (25.9%)  113 (4.99%)  3063 (30.6%)                 
+    Yes                     7241 (59.0%)  300 (13.3%)  6941 (69.4%)                 
+    &#39;Missing&#39;               1851 (15.1%)  1851 (81.8%)  0 (0.00%)                   
+T2D_EVER_LAST_60.fac:                                                 0.000   12268 
+    No                      7617 (62.1%)  296 (13.1%)  7321 (73.2%)                 
+    Yes                     2810 (22.9%)  127 (5.61%)  2683 (26.8%)                 
+    &#39;Missing&#39;               1841 (15.0%)  1841 (81.3%)  0 (0.00%)                   
+EVSTROKE_LAST_60.fac:                                                 0.000   12268 
+    No                      9177 (74.8%)  344 (15.2%)  8833 (88.3%)                 
+    Yes                     1253 (10.2%)   82 (3.62%)  1171 (11.7%)                 
+    &#39;Missing&#39;               1838 (15.0%)  1838 (81.2%)  0 (0.00%)                   
+CESD_BIN.fac:                                                         0.000   12268 
+    No                      6620 (54.0%)  228 (10.1%)  6392 (63.9%)                 
+    Yes                     3824 (31.2%)  212 (9.36%)  3612 (36.1%)                 
+    &#39;Missing&#39;               1824 (14.9%)  1824 (80.6%)  0 (0.00%)                   
+SMK_CURR_LAST_60.fac:                                                 0.000   12268 
+    0                       4419 (36.0%)  157 (6.93%)  4262 (42.6%)                 
+    1                       4921 (40.1%)  168 (7.42%)  4753 (47.5%)                 
+    2                       1038 (8.46%)   49 (2.16%)  989 (9.89%)                  
+    &#39;Missing&#39;               1890 (15.4%)  1890 (83.5%)  0 (0.00%)                   
+ALC_CURR_LAST_60.fac:                                                 0.000   12268 
+    No                      5524 (45.0%)  259 (11.4%)  5265 (52.6%)                 
+    Yes                     4909 (40.0%)  170 (7.51%)  4739 (47.4%)                 
+    &#39;Missing&#39;               1835 (15.0%)  1835 (81.1%)  0 (0.00%)                   
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯ </code></pre>
+<pre class="r"><code>export2word(univar.desc.pval, file = paste0(results_dir, &quot;HRS_PGS_Univariate_Include_Miss_&quot;, date, &quot;.docx&quot;))</code></pre>
+<!-- For those using Rstudio, I've found that setting Sys.setenv('R_MAX_VSIZE'=32000000000), as has been suggested on multiple StackOverflow posts, only works on the command line, and that setting that parameter while using Rstudio does not prevent this error: -->
+<!-- Error: vector memory exhausted (limit reached?) -->
+<!-- After doing some more reading, I found this thread, which clarifies the problem with Rstudio, and identifies a solution, shown below: -->
+<!-- Step 1: Open terminal, -->
+<!-- Step 2: -->
+<!-- cd ~ -->
+<!-- touch .Renviron -->
+<!-- open .Renviron -->
+<!-- Step 3: Save the following as the first line of .Renviron: -->
+<!-- R_MAX_VSIZE=100Gb  -->
+<!-- Note: This limit includes both physical and virtual memory; so setting _MAX_VSIZE=16Gb on a machine with 16Gb of physical memory may not prevent this error. You may have to play with this parameter, depending on the specs of your machine -->
+</div>
+<div id="compare-groups-to-produce-univariate-tables-split-by-ancestry" class="section level2">
+<h2>Compare Groups to Produce Univariate Tables, split by ancestry</h2>
+<pre class="r"><code>library(compareGroups)
+
+#PH13_KunkleOK2_PT_0.01
+#PH13_KunkleFULL_PT_0.01
+
+# Note: The official genetic variables are split by ancestry. This summary table wants them together. New variables are developed above to combine them
+table(hrs$ancestry)</code></pre>
+<pre><code>
+ African European 
+    2279     9991 </code></pre>
+<pre class="r"><code>univar.desc.pval &lt;- descrTable(formula = ancestry.relevel ~ DC_60_2V.fac + DC_60_2V.miss + PH13_KunkleOK2_PT_0.01 + PH13_KunkleOK2_PT_0.01.miss+ PH13_KunkleFULL_PT_0.01 + PH13_KunkleFULL_PT_0.01.miss +APOE2010_imputed + APOE2010_imputed.miss + APOE2010_bin.fac + APOE2010_bin.miss +  AGE_LAST_60 + AGE_LAST_60.miss + YEAR_LAST_60 + YEAR_LAST_60.miss + SEX.fac + SEX.miss + SCHLYRS + SCHLYRS.miss + ancestry.relevel + ancestry.miss + AHEAD_CODA + AHEAD_CODA.miss + BMI_LAST_60_v2 + BMI_LAST_60_v2.miss + HBP_EVER_LAST_60.fac + HBP_EVER_LAST_60.miss + T2D_EVER_LAST_60.fac + T2D_EVER_LAST_60.miss + EVSTROKE_LAST_60.fac + EVSTROKE_LAST_60.miss + CESD_BIN.fac + CESD_BIN.miss + SMK_CURR_LAST_60.fac + SMK_CURR_LAST_60.miss + ALC_CURR_LAST_60.fac + ALC_CURR_LAST_60.miss, data = hrs[hrs$include == &quot;Included&quot;, ], na.action = na.pass, show.all = T, show.n = T, digits.p = 3)</code></pre>
+<pre><code>Warning in compare.i(X[, i], y = y, selec.i = selec[i], method.i =
+method[i], : Some levels of &#39;DC_60_2V.fac&#39; are removed since no observation
+in that/those levels</code></pre>
+<pre class="r"><code>print(univar.desc.pval)</code></pre>
+<pre><code>
+--------Summary descriptives table by &#39;ancestry.relevel&#39;---------
+
+___________________________________________________________________________________ 
+                                [ALL]       European     African    p.overall   N   
+                               N=10004       N=8399       N=1605                    
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯ 
+DC_60_2V.fac:                                                        &lt;0.001   10004 
+    Dementia                 995 (9.95%)  724 (8.62%)  271 (16.9%)                  
+    CIND                     1061 (10.6%) 711 (8.47%)  350 (21.8%)                  
+    Borderline               1568 (15.7%) 1256 (15.0%) 312 (19.4%)                  
+    Normal                   6380 (63.8%) 5708 (68.0%) 672 (41.9%)                  
+DC_60_2V.miss                     .            .            .           .       0   
+PH13_KunkleOK2_PT_0.01       0.00 (1.00)  0.00 (1.00)  -0.02 (1.00)   0.460   10004 
+PH13_KunkleOK2_PT_0.01.miss       .            .            .           .       0   
+PH13_KunkleFULL_PT_0.01      0.00 (1.00)  0.00 (1.00)  -0.02 (1.00)   0.447   10004 
+PH13_KunkleFULL_PT_0.01.miss      .            .            .           .       0   
+APOE2010_imputed:                                                    &lt;0.001   10004 
+    e2/e2                     67 (0.67%)   47 (0.56%)   20 (1.25%)                  
+    e2/e3                    1298 (13.0%) 1079 (12.8%) 219 (13.6%)                  
+    e2/e4                    260 (2.60%)  183 (2.18%)   77 (4.80%)                  
+    e3/e3                    5839 (58.4%) 5065 (60.3%) 774 (48.2%)                  
+    e3/e4                    2309 (23.1%) 1861 (22.2%) 448 (27.9%)                  
+    e4/e4                    231 (2.31%)  164 (1.95%)   67 (4.17%)                  
+APOE2010_imputed.miss             .            .            .           .       0   
+APOE2010_bin.fac:                                                    &lt;0.001   10004 
+    None                     7204 (72.0%) 6191 (73.7%) 1013 (63.1%)                 
+    E4                       2800 (28.0%) 2208 (26.3%) 592 (36.9%)                  
+APOE2010_bin.miss                 .            .            .           .       0   
+AGE_LAST_60                  74.8 (9.08)  75.3 (9.04)  72.2 (8.83)   &lt;0.001   10004 
+AGE_LAST_60.miss                  .            .            .           .       0   
+YEAR_LAST_60                 2013 (2.07)  2013 (2.09)  2013 (1.98)    0.006   10004 
+YEAR_LAST_60.miss                 .            .            .           .       0   
+SEX.fac:                                                             &lt;0.001   10004 
+    Male                     4205 (42.0%) 3613 (43.0%) 592 (36.9%)                  
+    Female                   5799 (58.0%) 4786 (57.0%) 1013 (63.1%)                 
+SEX.miss                          .            .            .           .       0   
+SCHLYRS                      13.0 (2.69)  13.2 (2.52)  11.8 (3.18)   &lt;0.001   10004 
+SCHLYRS.miss                      .            .            .           .       0   
+ancestry.relevel:                                                     0.000   10004 
+    European                 8399 (84.0%) 8399 (100%)   0 (0.00%)                   
+    African                  1605 (16.0%)  0 (0.00%)   1605 (100%)                  
+ancestry.miss                     .            .            .           .       0   
+AHEAD_CODA:                                                          &lt;0.001   10004 
+    AHEAD                    1149 (11.5%) 1034 (12.3%) 115 (7.17%)                  
+    CODA                     952 (9.52%)  873 (10.4%)   79 (4.92%)                  
+    Other                    7903 (79.0%) 6492 (77.3%) 1411 (87.9%)                 
+AHEAD_CODA.miss                   .            .            .           .       0   
+BMI_LAST_60_v2               28.8 (6.40)  28.4 (6.17)  30.4 (7.30)   &lt;0.001   10004 
+BMI_LAST_60_v2.miss               .            .            .           .       0   
+HBP_EVER_LAST_60.fac:                                                &lt;0.001   10004 
+    No                       3063 (30.6%) 2796 (33.3%) 267 (16.6%)                  
+    Yes                      6941 (69.4%) 5603 (66.7%) 1338 (83.4%)                 
+HBP_EVER_LAST_60.miss             .            .            .           .       0   
+T2D_EVER_LAST_60.fac:                                                &lt;0.001   10004 
+    No                       7321 (73.2%) 6358 (75.7%) 963 (60.0%)                  
+    Yes                      2683 (26.8%) 2041 (24.3%) 642 (40.0%)                  
+T2D_EVER_LAST_60.miss             .            .            .           .       0   
+EVSTROKE_LAST_60.fac:                                                &lt;0.001   10004 
+    No                       8833 (88.3%) 7461 (88.8%) 1372 (85.5%)                 
+    Yes                      1171 (11.7%) 938 (11.2%)  233 (14.5%)                  
+EVSTROKE_LAST_60.miss             .            .            .           .       0   
+CESD_BIN.fac:                                                         0.005   10004 
+    No                       6392 (63.9%) 5417 (64.5%) 975 (60.7%)                  
+    Yes                      3612 (36.1%) 2982 (35.5%) 630 (39.3%)                  
+CESD_BIN.miss                     .            .            .           .       0   
+SMK_CURR_LAST_60.fac:                                                &lt;0.001   10004 
+    0                        4262 (42.6%) 3608 (43.0%) 654 (40.7%)                  
+    1                        4753 (47.5%) 4037 (48.1%) 716 (44.6%)                  
+    2                        989 (9.89%)  754 (8.98%)  235 (14.6%)                  
+SMK_CURR_LAST_60.miss             .            .            .           .       0   
+ALC_CURR_LAST_60.fac:                                                &lt;0.001   10004 
+    No                       5265 (52.6%) 4198 (50.0%) 1067 (66.5%)                 
+    Yes                      4739 (47.4%) 4201 (50.0%) 538 (33.5%)                  
+ALC_CURR_LAST_60.miss             .            .            .           .       0   
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯ </code></pre>
+<pre class="r"><code>export2word(univar.desc.pval, file =paste0(results_dir, &quot;HRS_PGS_Univariate_Include_Ancestry_&quot;, date, &quot;.docx&quot;))</code></pre>
+</div>
+</div>
+<div id="sensitivity-analysis-1-select-on-cohort" class="section level1">
+<h1>Sensitivity analysis 1: Select on cohort</h1>
+<pre class="r"><code>table(include$AHEAD_CODA, useNA = &quot;always&quot;)</code></pre>
+<pre><code>
+AHEAD  CODA Other  &lt;NA&gt; 
+ 1149   952  7903     0 </code></pre>
+<pre class="r"><code>sens1 &lt;- include[include$AHEAD_CODA == &quot;Other&quot;, ] # 8145
+table(sens1$AHEAD_CODA, useNA = &quot;always&quot;)</code></pre>
+<pre><code>
+Other  &lt;NA&gt; 
+ 7903     0 </code></pre>
+<pre class="r"><code>table(sens1$ancestry, useNA = &quot;always&quot;)</code></pre>
+<pre><code>
+ African European     &lt;NA&gt; 
+    1411     6492        0 </code></pre>
+<pre class="r"><code>include$sens1 &lt;- ifelse(include$AHEAD_CODA == &quot;Other&quot;, &quot;Include&quot;, &quot;Exclude&quot;)
+table(include$sens1)</code></pre>
+<pre><code>
+Exclude Include 
+   2101    7903 </code></pre>
+<pre class="r"><code>hrs$sens1 &lt;- ifelse(hrs$include==&quot;Included&quot; &amp; hrs$AHEAD_CODA == &quot;Other&quot;, &quot;Include&quot;, &quot;Exclude&quot;)
+table(hrs$sens1)</code></pre>
+<pre><code>
+Exclude Include 
+  35329    7903 </code></pre>
+<pre class="r"><code>include&lt;-hrs[hrs$include==&quot;Included&quot;, ]</code></pre>
+</div>
+<div id="sensitivity-analysis-1-select-on-cohort-flow-chart" class="section level1">
+<h1>Sensitivity analysis 1: Select on cohort, flow chart</h1>
+<pre class="r"><code>library(DiagrammeR)
+library(DiagrammeRsvg)
+library(rsvg)
+
+# graph: this sets the overall layout, themes of the plot
+# node: the boxes in the flowchart
+# edges: the lines used to connect each of the boxes
+
+## Need 2 columns (1, 2) with 2 rows (A-B)
+# Labels for column 1
+a1 &lt;- paste0(&quot;Primary analytic sample
+European n=&quot;, length(include$ancestry[include$ancestry == &quot;European&quot;]), &quot;\nAfrican n=&quot;, length(include$ancestry[include$ancestry == &quot;African&quot;]))
+
+b1 &lt;- paste0(&quot;Sensitivity analysis one
+ analytic sample
+European n=&quot;, length(include$ancestry[include$ancestry == &quot;European&quot; &amp; include$sens1 == &quot;Include&quot;]), &quot;\nAfrican n=&quot;, length(include$ancestry[include$ancestry == &quot;African&quot; &amp; include$sens1 == &quot;Include&quot;]))
+
+# Labels for column 2
+a2 &lt;- paste0(&quot;Exclude AHEAD and
+CODA cohorts
+European n=&quot;, length(include$ancestry[include$ancestry == &quot;European&quot; &amp; include$sens1 == &quot;Exclude&quot;]), &quot;\nAfrican n=&quot;, length(include$ancestry[include$ancestry == &quot;African&quot; &amp; include$sens1 == &quot;Exclude&quot;]))
+
+
+# Create a node dataframe
+ndf &lt;- create_node_df(
+  n = 3,
+  label = c(
+    a1, b1, # Column 1
+    a2
+  ), # Column 2
+  style = c(
+    rep(&quot;solid&quot;, 2), # Column 1
+    rep(&quot;dotted&quot;, 1)
+  ), # Column 2
+  shape = &quot;box&quot;,
+  fontname = &quot;Arial&quot;,
+  penwidth = 3,
+  fixedsize = F,
+  color = c(rep(&quot;black&quot;, 2), rep(&quot;silver&quot;, 1))
+)
+
+
+# Create an edge dataframe
+edf &lt;- create_edge_df(
+  from = c(
+    1, # Column 1
+    1 # Column 2
+  ),
+  to = c(
+    2, # Column 1
+    3 # Column 2
+  ),
+  arrowhead = &quot;normal&quot;,
+  style = c(rep(&quot;solid&quot;, 1), rep(&quot;dotted&quot;, 1)),
+  color = c(
+    rep(&quot;black&quot;, 1), # Column 1
+    rep(&quot;silver&quot;, 1)
+  ) # Column 2
+)
+
+g &lt;- create_graph(ndf,
+  edf,
+  attr_theme = NULL, directed = T
+)
+render_graph(g)</code></pre>
+<div id="htmlwidget-079b16cd712bc9580551" style="width:672px;height:480px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-079b16cd712bc9580551">{"x":{"diagram":"digraph {\n\n\n\n\n  \"1\" [label = \"Primary analytic sample\nEuropean n=8399\nAfrican n=1605\", style = \"solid\", shape = \"box\", fontname = \"Arial\", penwidth = \"3\", fixedsize = \"FALSE\", color = \"black\", fillcolor = \"#FFFFFF\", fontcolor = \"#000000\"] \n  \"2\" [label = \"Sensitivity analysis one\n analytic sample\nEuropean n=6492\nAfrican n=1411\", style = \"solid\", shape = \"box\", fontname = \"Arial\", penwidth = \"3\", fixedsize = \"FALSE\", color = \"black\", fillcolor = \"#FFFFFF\", fontcolor = \"#000000\"] \n  \"3\" [label = \"Exclude AHEAD and\nCODA cohorts\nEuropean n=1907\nAfrican n=194\", style = \"dotted\", shape = \"box\", fontname = \"Arial\", penwidth = \"3\", fixedsize = \"FALSE\", color = \"silver\", fillcolor = \"#FFFFFF\", fontcolor = \"#000000\"] \n\"1\"->\"2\" [arrowhead = \"normal\", style = \"solid\", color = \"black\"] \n\"1\"->\"3\" [arrowhead = \"normal\", style = \"dotted\", color = \"silver\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>export_graph(g, file_name =paste0(results_dir, &quot;HRS_PGS_Flowchart_Inclusion_Exclusion_Sensitivity_One_&quot;, date, &quot;.pdf&quot;), file_type = &quot;PDF&quot;)</code></pre>
+</div>
+<div id="sensitivity-analysis-1-select-on-cohort-inclusion-table" class="section level1">
+<h1>Sensitivity analysis 1: Select on cohort, inclusion table</h1>
+<pre class="r"><code>#PH13_KunkleOK2_PT_0.01
+#PH13_KunkleFULL_PT_0.01
+
+univar.desc.pval &lt;- descrTable(formula = sens1 ~ DC_60_2V.fac + DC_60_2V.miss + PH13_KunkleOK2_PT_0.01 + PH13_KunkleOK2_PT_0.01.miss+ PH13_KunkleFULL_PT_0.01 + PH13_KunkleFULL_PT_0.01.miss + APOE2010_imputed + APOE2010_imputed.miss + APOE2010_bin.fac + APOE2010_bin.miss + AGE_LAST_60 + AGE_LAST_60.miss + YEAR_LAST_60 + YEAR_LAST_60.miss + SEX.fac + SEX.miss + SCHLYRS + SCHLYRS.miss + ancestry.relevel + ancestry.miss + AHEAD_CODA + AHEAD_CODA.miss + BMI_LAST_60_v2 + BMI_LAST_60_v2.miss + HBP_EVER_LAST_60.fac + HBP_EVER_LAST_60.miss + T2D_EVER_LAST_60.fac + T2D_EVER_LAST_60.miss + EVSTROKE_LAST_60.fac + EVSTROKE_LAST_60.miss + CESD_BIN.fac + CESD_BIN.miss + SMK_CURR_LAST_60.fac + SMK_CURR_LAST_60.miss + ALC_CURR_LAST_60.fac + ALC_CURR_LAST_60.miss, data = include, na.action = na.pass, show.all = T, show.n = T, digits.p = 3)</code></pre>
+<pre><code>Warning in compare.i(X[, i], y = y, selec.i = selec[i], method.i =
+method[i], : Some levels of &#39;DC_60_2V.fac&#39; are removed since no observation
+in that/those levels</code></pre>
+<pre class="r"><code>print(univar.desc.pval)</code></pre>
+<pre><code>
+--------Summary descriptives table by &#39;sens1&#39;---------
+
+___________________________________________________________________________________ 
+                                [ALL]       Exclude      Include    p.overall   N   
+                               N=10004       N=2101       N=7903                    
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯ 
+DC_60_2V.fac:                                                        &lt;0.001   10004 
+    Dementia                 995 (9.95%)  506 (24.1%)  489 (6.19%)                  
+    CIND                     1061 (10.6%) 374 (17.8%)  687 (8.69%)                  
+    Borderline               1568 (15.7%) 405 (19.3%)  1163 (14.7%)                 
+    Normal                   6380 (63.8%) 816 (38.8%)  5564 (70.4%)                 
+DC_60_2V.miss                     .            .            .           .       0   
+PH13_KunkleOK2_PT_0.01       0.00 (1.00)  -0.04 (1.00) 0.01 (1.00)    0.050   10004 
+PH13_KunkleOK2_PT_0.01.miss       .            .            .           .       0   
+PH13_KunkleFULL_PT_0.01      0.00 (1.00)  -0.05 (1.00) 0.01 (1.00)    0.025   10004 
+PH13_KunkleFULL_PT_0.01.miss      .            .            .           .       0   
+APOE2010_imputed:                                                    &lt;0.001   10004 
+    e2/e2                     67 (0.67%)   21 (1.00%)   46 (0.58%)                  
+    e2/e3                    1298 (13.0%) 289 (13.8%)  1009 (12.8%)                 
+    e2/e4                    260 (2.60%)   49 (2.33%)  211 (2.67%)                  
+    e3/e3                    5839 (58.4%) 1276 (60.7%) 4563 (57.7%)                 
+    e3/e4                    2309 (23.1%) 435 (20.7%)  1874 (23.7%)                 
+    e4/e4                    231 (2.31%)   31 (1.48%)  200 (2.53%)                  
+APOE2010_imputed.miss             .            .            .           .       0   
+APOE2010_bin.fac:                                                    &lt;0.001   10004 
+    None                     7204 (72.0%) 1586 (75.5%) 5618 (71.1%)                 
+    E4                       2800 (28.0%) 515 (24.5%)  2285 (28.9%)                 
+APOE2010_bin.miss                 .            .            .           .       0   
+AGE_LAST_60                  74.8 (9.08)  87.1 (5.05)  71.6 (6.88)    0.000   10004 
+AGE_LAST_60.miss                  .            .            .           .       0   
+YEAR_LAST_60                 2013 (2.07)  2012 (2.67)  2013 (1.76)   &lt;0.001   10004 
+YEAR_LAST_60.miss                 .            .            .           .       0   
+SEX.fac:                                                             &lt;0.001   10004 
+    Male                     4205 (42.0%) 692 (32.9%)  3513 (44.5%)                 
+    Female                   5799 (58.0%) 1409 (67.1%) 4390 (55.5%)                 
+SEX.miss                          .            .            .           .       0   
+SCHLYRS                      13.0 (2.69)  12.5 (2.82)  13.1 (2.63)   &lt;0.001   10004 
+SCHLYRS.miss                      .            .            .           .       0   
+ancestry.relevel:                                                    &lt;0.001   10004 
+    European                 8399 (84.0%) 1907 (90.8%) 6492 (82.1%)                 
+    African                  1605 (16.0%) 194 (9.23%)  1411 (17.9%)                 
+ancestry.miss                     .            .            .           .       0   
+AHEAD_CODA:                                                           0.000   10004 
+    AHEAD                    1149 (11.5%) 1149 (54.7%)  0 (0.00%)                   
+    CODA                     952 (9.52%)  952 (45.3%)   0 (0.00%)                   
+    Other                    7903 (79.0%)  0 (0.00%)   7903 (100%)                  
+AHEAD_CODA.miss                   .            .            .           .       0   
+BMI_LAST_60_v2               28.8 (6.40)  26.3 (5.51)  29.4 (6.46)   &lt;0.001   10004 
+BMI_LAST_60_v2.miss               .            .            .           .       0   
+HBP_EVER_LAST_60.fac:                                                &lt;0.001   10004 
+    No                       3063 (30.6%) 547 (26.0%)  2516 (31.8%)                 
+    Yes                      6941 (69.4%) 1554 (74.0%) 5387 (68.2%)                 
+HBP_EVER_LAST_60.miss             .            .            .           .       0   
+T2D_EVER_LAST_60.fac:                                                 0.020   10004 
+    No                       7321 (73.2%) 1580 (75.2%) 5741 (72.6%)                 
+    Yes                      2683 (26.8%) 521 (24.8%)  2162 (27.4%)                 
+T2D_EVER_LAST_60.miss             .            .            .           .       0   
+EVSTROKE_LAST_60.fac:                                                &lt;0.001   10004 
+    No                       8833 (88.3%) 1702 (81.0%) 7131 (90.2%)                 
+    Yes                      1171 (11.7%) 399 (19.0%)  772 (9.77%)                  
+EVSTROKE_LAST_60.miss             .            .            .           .       0   
+CESD_BIN.fac:                                                        &lt;0.001   10004 
+    No                       6392 (63.9%) 1200 (57.1%) 5192 (65.7%)                 
+    Yes                      3612 (36.1%) 901 (42.9%)  2711 (34.3%)                 
+CESD_BIN.miss                     .            .            .           .       0   
+SMK_CURR_LAST_60.fac:                                                &lt;0.001   10004 
+    0                        4262 (42.6%) 1029 (49.0%) 3233 (40.9%)                 
+    1                        4753 (47.5%) 1005 (47.8%) 3748 (47.4%)                 
+    2                        989 (9.89%)   67 (3.19%)  922 (11.7%)                  
+SMK_CURR_LAST_60.miss             .            .            .           .       0   
+ALC_CURR_LAST_60.fac:                                                &lt;0.001   10004 
+    No                       5265 (52.6%) 1337 (63.6%) 3928 (49.7%)                 
+    Yes                      4739 (47.4%) 764 (36.4%)  3975 (50.3%)                 
+ALC_CURR_LAST_60.miss             .            .            .           .       0   
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯ </code></pre>
+<pre class="r"><code>export2word(univar.desc.pval, file = paste0(results_dir, &quot;HRS_PGS_Univariate_Sensitivity_One_Include_&quot;, date, &quot;.docx&quot;))</code></pre>
+</div>
+<div id="sensitivity-analysis-2-select-on-health-behaviors" class="section level1">
+<h1>Sensitivity analysis 2: Select on health behaviors</h1>
+<pre class="r"><code>save(hrs, file=paste0(derived_data_dir,&quot;HRS_PGS_AD_Analytic_Sample_20190814.rda&quot;))
+
+include&lt;-hrs[hrs$include==&quot;Included&quot;,]
+save(include, file=paste0(derived_data_dir,&quot;HRS_PGS_AD_Primary_Included_Sample_20190816.rda&quot;))
+
+ea &lt;- hrs[hrs$ancestry == &quot;European&quot; &amp; hrs$include==&quot;Included&quot;, ]
+dim(ea) # 8587</code></pre>
+<pre><code>[1] 8399 1158</code></pre>
+<pre class="r"><code>aa &lt;- hrs[hrs$ancestry == &quot;African&quot; &amp; hrs$include==&quot;Included&quot;, ]
+dim(aa) #1639</code></pre>
+<pre><code>[1] 1605 1158</code></pre>
+<pre class="r"><code>save(ea, file = paste0(derived_data_dir,&quot;HRS_PGS_AD_Euro_Analytic_Sample_20190814.rda&quot;))
+save(aa, file = paste0(derived_data_dir,&quot;HRS_PGS_AD_Afri_Analytic_Sample_20190814.rda&quot;))</code></pre>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 3.6.1 (2019-07-05)
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+Running under: macOS Mojave 10.14.5
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRblas.0.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] parallel  stats     graphics  grDevices utils     datasets  methods  
+[8] base     
+
+other attached packages:
+[1] compareGroups_4.1.0 SNPassoc_1.9-2      mvtnorm_1.0-11     
+[4] survival_2.44-1.1   haplo.stats_1.7.9   rsvg_1.3           
+[7] DiagrammeRsvg_0.1   DiagrammeR_1.0.1   
+
+loaded via a namespace (and not attached):
+  [1] TH.data_1.0-10      minqa_1.2.4         colorspace_1.4-1   
+  [4] rprojroot_1.3-2     htmlTable_1.13.1    base64enc_0.1-3    
+  [7] fs_1.3.1            rstudioapi_0.10     mice_3.6.0         
+ [10] MatrixModels_0.4-1  xml2_1.2.2          codetools_0.2-16   
+ [13] splines_3.6.1       knitr_1.24          zeallot_0.1.0      
+ [16] Formula_1.2-3       jsonlite_1.6        workflowr_1.4.0    
+ [19] nloptr_1.2.1        broom_0.5.2         cluster_2.1.0      
+ [22] readr_1.3.1         compiler_3.6.1      httr_1.4.1         
+ [25] backports_1.1.4     assertthat_0.2.1    Matrix_1.2-17      
+ [28] lazyeval_0.2.2      acepack_1.4.1       visNetwork_2.0.8   
+ [31] htmltools_0.3.6     quantreg_5.51       tools_3.6.1        
+ [34] igraph_1.2.4.1      gtable_0.3.0        glue_1.3.1         
+ [37] dplyr_0.8.3         V8_2.3              Rcpp_1.0.2         
+ [40] rgexf_0.15.3        vctrs_0.2.0         writexl_1.1        
+ [43] nlme_3.1-141        xfun_0.9            stringr_1.4.0      
+ [46] lme4_1.1-21         rvest_0.3.4         XML_3.98-1.20      
+ [49] polspline_1.1.15    pan_1.6             MASS_7.3-51.4      
+ [52] zoo_1.8-6           scales_1.0.0        hms_0.5.1          
+ [55] sandwich_2.5-1      SparseM_1.77        RColorBrewer_1.1-2 
+ [58] HardyWeinberg_1.6.3 yaml_2.2.0          curl_4.0           
+ [61] gridExtra_2.3       ggplot2_3.2.1       downloader_0.4     
+ [64] epitools_0.5-10     rms_5.1-3.1         rpart_4.1-15       
+ [67] latticeExtra_0.6-28 stringi_1.4.3       highr_0.8          
+ [70] Rook_1.1-1          checkmate_1.9.4     boot_1.3-23        
+ [73] truncnorm_1.0-8     chron_2.3-54        rlang_0.4.0        
+ [76] pkgconfig_2.0.2     Rsolnp_1.16         evaluate_0.14      
+ [79] lattice_0.20-38     purrr_0.3.2         htmlwidgets_1.3    
+ [82] tidyselect_0.2.5    magrittr_1.5        R6_2.4.0           
+ [85] generics_0.0.2      Hmisc_4.2-0         mitml_0.3-7        
+ [88] multcomp_1.4-10     pillar_1.4.2        foreign_0.8-72     
+ [91] nnet_7.3-12         tibble_2.1.3        crayon_1.3.4       
+ [94] jomo_2.6-9          rmarkdown_1.15      viridis_0.5.1      
+ [97] grid_3.6.1          data.table_1.12.2   influenceR_0.1.0   
+[100] git2r_0.26.1        webshot_0.5.1       digest_0.6.20      
+[103] tidyr_0.8.3         brew_1.0-6          munsell_0.5.0      
+[106] viridisLite_0.3.0   kableExtra_1.1.0   </code></pre>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

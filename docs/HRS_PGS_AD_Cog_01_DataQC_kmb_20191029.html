@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Kelly Bakulski" />
+
+<meta name="date" content="2019-10-29" />
+
+<title>Alzheimer’s disease PGS, APOE status, and summary cognitive status in the HRS</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">HRS_AD_PGS_main_effect</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Alzheimer’s disease PGS, APOE status, and summary cognitive status in the HRS</h1>
+<h3 class="subtitle">Data QC &amp; Variable Development</h3>
+<h4 class="author">Kelly Bakulski</h4>
+<h4 class="date">October 29, 2019</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2019-12-09
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>HRS_AD_PGS_main_effect/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.4.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20191209code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20191209)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20191209code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20191209)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrong972d40b"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> 972d40b </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrong972d40b" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .DS_Store
+    Ignored:    .Rproj.user/
+
+Untracked files:
+    Untracked:  Icon
+    Untracked:  analysis/Icon
+    Untracked:  code/Icon
+    Untracked:  data/Icon
+    Untracked:  docs/Icon
+    Untracked:  output/Icon
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+<p>
+There are no past versions. Publish this analysis with <code>wflow_publish()</code> to start tracking its development.
+</p>
+<hr>
+</div>
+</div>
+</div>
+<div id="goal-data-qc-and-variable-development" class="section level2">
+<h2>Goal: Data QC and Variable Development</h2>
+<pre class="r"><code>#Setting file paths for data, output, scripts
+
+source_dir&lt;-&quot;~/Google Drive/AD_R01_WB/Data/&quot; #location of the paxrent dataset
+
+results_dir&lt;-&quot;~/Google Drive/AD_R01_WB/AD_PGS_main_effect/Results/&quot; #location of output tables
+  
+derived_data_dir&lt;-&quot;~/Google Drive/AD_R01_WB/AD_PGS_main_effect/Derived_Datasets/&quot; #location of any new datasets I&#39;m building specifically for this paper
+
+script_dir&lt;-&quot;~/Google Drive/AD_R01_WB/AD_PGS_main_effect/Scripts/&quot; #location of this script, redundant with the knitr option above
+
+date&lt;-format(Sys.Date(), &quot;%Y%m%d&quot;)</code></pre>
+<p>#Load in the dataset from sas: HRS 1995-2014</p>
+<pre class="r"><code>library(haven)
+ hrs &lt;- read_sas(paste0(source_dir,&quot;hrs_democoggen_wide20190813.sas7bdat&quot;))
+  dim(hrs)
+# # [1] 43232  1075 #Note, we lost 93 variables from last time (was 1172)
+ hrs[hrs == &quot;&quot;] &lt;- NA #There are many 
+ save(hrs, file=paste0(source_dir, &quot;hrs_democoggen_wide20190813.rda&quot;))</code></pre>
+<p>Load in the dataset from Rda</p>
+<pre class="r"><code>#Note, can start from here without SAS step
+load(paste0(source_dir, &quot;hrs_democoggen_wide20190813.rda&quot;))
+dim(hrs)</code></pre>
+<pre><code>[1] 43232  1075</code></pre>
+<p>##QC the dataset #Outcome variables: Summary cogntion status</p>
+<pre class="r"><code>#############################################################
+#Primary outcome variable
+#############################################################
+table(hrs$DC_60_2V, useNA=&quot;always&quot;)</code></pre>
+<pre><code>
+    1     2     3     4     5  &lt;NA&gt; 
+ 3866  2846  3749 12449   534 19788 </code></pre>
+<pre class="r"><code> #    1     2     3     4     5  &lt;NA&gt; 
+ # 3866  2846  3749 12449   534 19788 
+# matches expected distributions</code></pre>
+<p>#Genetics variables:APOE E4 status, PCs</p>
+<pre class="r"><code>#############################################################
+#APOE variables
+#############################################################
+
+table(hrs$APOE2010_bin, useNA=&quot;always&quot;) # note, not split by ancestry, use this covariate</code></pre>
+<pre><code>
+    0     1  &lt;NA&gt; 
+11360  4205 27667 </code></pre>
+<pre class="r"><code>#     0     1  &lt;NA&gt; 
+# 11360  4205 27667 
+table(hrs$APOE2010_imputed, useNA = &quot;always&quot;) </code></pre>
+<pre><code>
+e2/e2 e2/e3 e2/e4 e3/e3 e3/e4 e4/e4  &lt;NA&gt; 
+  111  1916   382  9333  3475   348 27667 </code></pre>
+<pre class="r"><code># e2/e2 e2/e3 e2/e4 e3/e3 e3/e4 e4/e4  &lt;NA&gt; 
+#   111  1916   382  9333  3475   348 27667 
+
+hrs$APOE2010_E4dose&lt;-ifelse(hrs$APOE2010_imputed==&quot;e2/e2&quot; | hrs$APOE2010_imputed==&quot;e2/e3&quot; | hrs$APOE2010_imputed==&quot;e3/e3&quot;, 0, NA)
+hrs$APOE2010_E4dose&lt;-ifelse(hrs$APOE2010_imputed==&quot;e2/e4&quot; | hrs$APOE2010_imputed==&quot;e3/e4&quot; , 1, hrs$APOE2010_E4dose)
+hrs$APOE2010_E4dose&lt;-ifelse(hrs$APOE2010_imputed==&quot;e4/e4&quot;, 2, hrs$APOE2010_E4dose)
+table(hrs$APOE2010_E4dose)</code></pre>
+<pre><code>
+    0     1     2 
+11360  3857   348 </code></pre>
+<pre class="r"><code>#111+1916+9333
+
+table(hrs$EA_APOE4, useNA=&quot;always&quot;) #note, these frequencies of APOE4 seem really low, this is just the 2012 sample</code></pre>
+<pre><code>
+    0     1  &lt;NA&gt; 
+11874   216 31142 </code></pre>
+<pre class="r"><code>#     0     1  &lt;NA&gt; 
+# 11874   216 31144 
+table(hrs$AA_APOE4, useNA=&quot;always&quot;) # HRS 2012 data, not for this paper</code></pre>
+<pre><code>
+    0     1  &lt;NA&gt; 
+ 2997   103 40132 </code></pre>
+<pre class="r"><code> #    0     1  &lt;NA&gt; 
+ # 2997   103 40134 
+
+
+#############################################################
+#Genetic PC variables
+#############################################################
+summary(hrs$AA_2010_PC1)</code></pre>
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
+  -0.06   -0.01    0.00    0.00    0.02    0.04   40953 </code></pre>
+<pre class="r"><code>summary(hrs$AA_2010_PC2) </code></pre>
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
+  -0.08   -0.01    0.00    0.00    0.01    0.11   40953 </code></pre>
+<pre class="r"><code>summary(hrs$AA_2010_PC3)</code></pre>
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
+  -0.08   -0.01    0.00    0.00    0.01    0.10   40953 </code></pre>
+<pre class="r"><code>summary(hrs$AA_2010_PC4) </code></pre>
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
+  -0.10   -0.01    0.00    0.00    0.01    0.08   40953 </code></pre>
+<pre class="r"><code>summary(hrs$AA_2010_PC5)</code></pre>
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
+  -0.07   -0.01    0.00    0.00    0.01    0.09   40953 </code></pre>
+<pre class="r"><code>summary(hrs$EA_2010_PC1)</code></pre>
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
+  -0.05    0.00    0.00    0.00    0.01    0.02   33241 </code></pre>
+<pre class="r"><code>summary(hrs$EA_2010_PC2) </code></pre>
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
+  -0.07    0.00    0.00    0.00    0.01    0.04   33241 </code></pre>
+<pre class="r"><code>summary(hrs$EA_2010_PC3)</code></pre>
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
+  -0.03   -0.01    0.00    0.00    0.01    0.03   33241 </code></pre>
+<pre class="r"><code>summary(hrs$EA_2010_PC4)  </code></pre>
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
+  -0.05   -0.01    0.00    0.00    0.01    0.03   33241 </code></pre>
+<pre class="r"><code>summary(hrs$EA_2010_PC5)</code></pre>
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
+  -0.05   -0.01    0.00    0.00    0.01    0.03   33241 </code></pre>
+<pre class="r"><code># Don&#39;t see a genetic ancestry variable in the master dataset
+# create one based on the PCs
+table(!is.na(hrs$EA_2010_PC1))</code></pre>
+<pre><code>
+FALSE  TRUE 
+33241  9991 </code></pre>
+<pre class="r"><code>hrs$ancestry&lt;-ifelse(!is.na(hrs$EA_2010_PC1), &quot;European&quot;, NA) #EA coded
+hrs$ancestry&lt;-ifelse(!is.na(hrs$AA_2010_PC1), &quot;African&quot;, hrs$ancestry) #AA coded
+table(hrs$ancestry, useNA = &quot;always&quot;)</code></pre>
+<pre><code>
+ African European     &lt;NA&gt; 
+    2279     9991    30962 </code></pre>
+<pre class="r"><code> # African European     &lt;NA&gt; 
+ #    2279     9991    30962 
+
+hrs$PC1_2010&lt;-ifelse(!is.na(hrs$EA_2010_PC1), hrs$EA_2010_PC1, hrs$AA_2010_PC1) 
+hrs$PC2_2010&lt;-ifelse(!is.na(hrs$EA_2010_PC2), hrs$EA_2010_PC2, hrs$AA_2010_PC2) </code></pre>
+<p>Use EAph13_IGAP_pT_1_scale and AAph13_IGAP_pT_1_scale for PGS with APOE Pending variables for PGS without APOE Use APOE2010_bin for APOE status for both ancestries Use EA_2010_PC1 EA_2010_PC2 EA_2010_PC3 EA_2010_PC4 EA_2010_PC5 for European ancestry PCs Use AA_2010_PC1 AA_2010_PC2 AA_2010_PC3 AA_2010_PC4 AA_2010_PC5 for African ancestry PCs Make versions of these variables that keep both ancestries together for the included/excluded table</p>
+<p>Use the new Kunkle variable: PH13_KunkleNAPOE_PT_1 for primary PH13_KunkleYAPOE_PT_1</p>
+<p>#Merge in Kunkle PGS variables without APOE using higher threshold</p>
+<pre class="r"><code>#############################################################
+#PGS variables
+#############################################################
+
+
+# EAPH13_KunkleOK2_PT_0.01
+# AAPH13_KunkleOK2_PT_0.01
+
+load(paste0(derived_data_dir, &quot;African_Kunkle_PGSs2.rda&quot;))
+dim(afro_pgs) #2279</code></pre>
+<pre><code>[1] 2279   15</code></pre>
+<pre class="r"><code>head(afro_pgs)</code></pre>
+<pre><code>  local_id   hhid  pn AAPH13_KunkleFULL_PT_0.001 AAPH13_KunkleFULL_PT_0.01
+1    10014 501797 010                  0.9229598                 1.2027376
+2    10019 159858 020                 -1.4579612                 0.5680813
+3    10020 079266 020                  2.4996081                 1.4809699
+4    10022 016528 040                 -2.0507757                 0.4490832
+5    10024 039053 020                 -0.1449483                 0.4347888
+6    10042 033110 030                  1.0208353                 0.6225711
+  AAPH13_KunkleFULL_PT_0.05 AAPH13_KunkleFULL_PT_0.1
+1                 0.5610093                0.3866237
+2                 1.0345908                0.7899447
+3                 1.4925521                1.3047873
+4                 0.1030480               -0.1980811
+5                 0.8290404                0.5198045
+6                 0.2625673                0.4156562
+  AAPH13_KunkleFULL_PT_0.3 AAPH13_KunkleFULL_PT_1
+1               0.12640637             0.12580003
+2               1.14394761             1.16645258
+3               1.24855022             1.51272641
+4              -0.03105141            -0.03649633
+5               0.47133650             0.54585628
+6               0.03361969            -0.01460713
+  AAPH13_KunkleOK2_PT_0.001 AAPH13_KunkleOK2_PT_0.01
+1               0.739812599                1.1382275
+2              -1.302419480                0.6323967
+3               2.486501185                1.4612373
+4              -1.916288071                0.5107474
+5               0.001503343                0.4855518
+6               0.961121394                0.5965838
+  AAPH13_KunkleOK2_PT_0.05 AAPH13_KunkleOK2_PT_0.1 AAPH13_KunkleOK2_PT_0.3
+1                0.5382680               0.3713774              0.11765681
+2                1.0562389               0.8041273              1.15199421
+3                1.4848854               1.2995545              1.24535358
+4                0.1235871              -0.1844228             -0.02327892
+5                0.8460638               0.5310202              0.47769695
+6                0.2532872               0.4093525              0.03004669
+  AAPH13_KunkleOK2_PT_1
+1            0.11894538
+2            1.17273422
+3            1.51023792
+4           -0.03039512
+5            0.55090518
+6           -0.01741261</code></pre>
+<pre class="r"><code>str(afro_pgs)</code></pre>
+<pre><code>&#39;data.frame&#39;:   2279 obs. of  15 variables:
+ $ local_id                  : num  10014 10019 10020 10022 10024 ...
+ $ hhid                      : Factor w/ 13213 levels &quot;000003&quot;,&quot;010003&quot;,..: 9331 5618 4108 480 1799 1376 5831 4986 8592 9875 ...
+ $ pn                        : Factor w/ 13 levels &quot;010&quot;,&quot;011&quot;,&quot;012&quot;,..: 1 5 5 11 5 8 1 1 1 5 ...
+ $ AAPH13_KunkleFULL_PT_0.001: num  0.923 -1.458 2.5 -2.051 -0.145 ...
+ $ AAPH13_KunkleFULL_PT_0.01 : num  1.203 0.568 1.481 0.449 0.435 ...
+ $ AAPH13_KunkleFULL_PT_0.05 : num  0.561 1.035 1.493 0.103 0.829 ...
+ $ AAPH13_KunkleFULL_PT_0.1  : num  0.387 0.79 1.305 -0.198 0.52 ...
+ $ AAPH13_KunkleFULL_PT_0.3  : num  0.1264 1.1439 1.2486 -0.0311 0.4713 ...
+ $ AAPH13_KunkleFULL_PT_1    : num  0.1258 1.1665 1.5127 -0.0365 0.5459 ...
+ $ AAPH13_KunkleOK2_PT_0.001 : num  0.7398 -1.3024 2.4865 -1.9163 0.0015 ...
+ $ AAPH13_KunkleOK2_PT_0.01  : num  1.138 0.632 1.461 0.511 0.486 ...
+ $ AAPH13_KunkleOK2_PT_0.05  : num  0.538 1.056 1.485 0.124 0.846 ...
+ $ AAPH13_KunkleOK2_PT_0.1   : num  0.371 0.804 1.3 -0.184 0.531 ...
+ $ AAPH13_KunkleOK2_PT_0.3   : num  0.1177 1.152 1.2454 -0.0233 0.4777 ...
+ $ AAPH13_KunkleOK2_PT_1     : num  0.1189 1.1727 1.5102 -0.0304 0.5509 ...</code></pre>
+<pre class="r"><code>colnames(afro_pgs)</code></pre>
+<pre><code> [1] &quot;local_id&quot;                   &quot;hhid&quot;                      
+ [3] &quot;pn&quot;                         &quot;AAPH13_KunkleFULL_PT_0.001&quot;
+ [5] &quot;AAPH13_KunkleFULL_PT_0.01&quot;  &quot;AAPH13_KunkleFULL_PT_0.05&quot; 
+ [7] &quot;AAPH13_KunkleFULL_PT_0.1&quot;   &quot;AAPH13_KunkleFULL_PT_0.3&quot;  
+ [9] &quot;AAPH13_KunkleFULL_PT_1&quot;     &quot;AAPH13_KunkleOK2_PT_0.001&quot; 
+[11] &quot;AAPH13_KunkleOK2_PT_0.01&quot;   &quot;AAPH13_KunkleOK2_PT_0.05&quot;  
+[13] &quot;AAPH13_KunkleOK2_PT_0.1&quot;    &quot;AAPH13_KunkleOK2_PT_0.3&quot;   
+[15] &quot;AAPH13_KunkleOK2_PT_1&quot;     </code></pre>
+<pre class="r"><code>afro_pgs$hhid&lt;-as.character(afro_pgs$hhid)
+afro_pgs$pn&lt;-as.character(afro_pgs$pn)
+afro_pgs$FID[1:10]</code></pre>
+<pre><code>NULL</code></pre>
+<pre class="r"><code>typeof(afro_pgs$hhid)</code></pre>
+<pre><code>[1] &quot;character&quot;</code></pre>
+<pre class="r"><code>summary(afro_pgs$AAPH13_KunkleOK2_PT_0.01)</code></pre>
+<pre><code>    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+-3.29432 -0.67449  0.04322  0.00000  0.70239  3.48256 </code></pre>
+<pre class="r"><code>load(paste0(derived_data_dir,&quot;European_Kunkle_PGSs2.rda&quot;))
+dim(euro_pgs) #9991</code></pre>
+<pre><code>[1] 9989   15</code></pre>
+<pre class="r"><code>str(euro_pgs)</code></pre>
+<pre><code>&#39;data.frame&#39;:   9989 obs. of  15 variables:
+ $ local_id                  : num  10001 10003 10004 10005 10006 ...
+ $ hhid                      : Factor w/ 13213 levels &quot;000003&quot;,&quot;010003&quot;,..: 3374 4897 421 7801 9786 2364 8958 7535 3746 1329 ...
+ $ pn                        : Factor w/ 13 levels &quot;010&quot;,&quot;011&quot;,&quot;012&quot;,..: 5 1 1 1 1 1 1 5 11 8 ...
+ $ EAPH13_KunkleFULL_PT_0.001: num  0.1437 -0.1862 -0.0299 -0.27 -2.3729 ...
+ $ EAPH13_KunkleFULL_PT_0.01 : num  -0.156 0.516 0.169 0.236 -1.889 ...
+ $ EAPH13_KunkleFULL_PT_0.05 : num  -0.3084 0.4009 0.7019 -0.0456 -1.5313 ...
+ $ EAPH13_KunkleFULL_PT_0.1  : num  -0.0939 0.4701 0.9525 0.3708 -1.3525 ...
+ $ EAPH13_KunkleFULL_PT_0.3  : num  0.191 0.226 1.566 0.762 -1.291 ...
+ $ EAPH13_KunkleFULL_PT_1    : num  0.151 0.338 1.502 0.82 -1.362 ...
+ $ EAPH13_KunkleOK2_PT_0.001 : num  0.4438 -0.0886 0.2471 -0.0258 -2.4758 ...
+ $ EAPH13_KunkleOK2_PT_0.01  : num  -0.00526 0.60111 0.32968 0.39748 -1.86318 ...
+ $ EAPH13_KunkleOK2_PT_0.05  : num  -0.2277 0.4402 0.7919 0.0353 -1.4948 ...
+ $ EAPH13_KunkleOK2_PT_0.1   : num  -0.0315 0.4994 1.0204 0.4346 -1.3208 ...
+ $ EAPH13_KunkleOK2_PT_0.3   : num  0.234 0.245 1.612 0.805 -1.267 ...
+ $ EAPH13_KunkleOK2_PT_1     : num  0.187 0.353 1.539 0.856 -1.342 ...</code></pre>
+<pre class="r"><code>euro_pgs$hhid&lt;-as.character(euro_pgs$hhid)
+euro_pgs$pn&lt;-as.character(euro_pgs$pn)
+summary(euro_pgs$EAPH13_KunkleOK2_PT_0.01)</code></pre>
+<pre><code>     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+-3.482555 -0.688718 -0.005178  0.000000  0.689532  4.020296 </code></pre>
+<pre class="r"><code>dim(hrs) #43232</code></pre>
+<pre><code>[1] 43232  1079</code></pre>
+<pre class="r"><code>43232-2279</code></pre>
+<pre><code>[1] 40953</code></pre>
+<pre class="r"><code>hrs$HHID[1:10]</code></pre>
+<pre><code> [1] &quot;000001&quot; &quot;000002&quot; &quot;000003&quot; &quot;000003&quot; &quot;010001&quot; &quot;010003&quot; &quot;010003&quot;
+ [8] &quot;010004&quot; &quot;010004&quot; &quot;010013&quot;</code></pre>
+<pre class="r"><code>typeof(hrs$HHID)</code></pre>
+<pre><code>[1] &quot;character&quot;</code></pre>
+<pre class="r"><code>typeof(hrs$PN)</code></pre>
+<pre><code>[1] &quot;character&quot;</code></pre>
+<pre class="r"><code>hrs.a&lt;-merge(hrs,afro_pgs,by.x =c(&quot;HHID&quot;, &quot;PN&quot;),  by.y = c(&quot;hhid&quot;, &quot;pn&quot;), all=T)
+dim(hrs.a) #43232</code></pre>
+<pre><code>[1] 43232  1092</code></pre>
+<pre class="r"><code>summary(hrs.a$AAPH13_KunkleOK2_PT_0.01)</code></pre>
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
+  -3.29   -0.67    0.04    0.00    0.70    3.48   40953 </code></pre>
+<pre class="r"><code>head(hrs.a$HHID) #40953 NA, checks out</code></pre>
+<pre><code>[1] &quot;000001&quot; &quot;000002&quot; &quot;000003&quot; &quot;000003&quot; &quot;010001&quot; &quot;010003&quot;</code></pre>
+<pre class="r"><code>#euro_pgs has 2 people without a corresponding hrs row, drop them
+hrs.e&lt;-merge(hrs.a,euro_pgs,by.x =c(&quot;HHID&quot;, &quot;PN&quot;),  by.y = c(&quot;hhid&quot;, &quot;pn&quot;), all.x=T, all.y=F)
+dim(hrs.e) #43232</code></pre>
+<pre><code>[1] 43232  1105</code></pre>
+<pre class="r"><code>summary(hrs.e$EAPH13_KunkleOK2_PT_0.01) #33243 NA</code></pre>
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
+  -3.48   -0.69   -0.01    0.00    0.69    4.02   33243 </code></pre>
+<pre class="r"><code>hrs&lt;-hrs.e
+
+hrs$PH13_KunkleOK2_PT_0.01&lt;-ifelse(!is.na(hrs$EAPH13_KunkleOK2_PT_0.01),hrs$EAPH13_KunkleOK2_PT_0.01, hrs$AAPH13_KunkleOK2_PT_0.01)
+summary(hrs$PH13_KunkleOK2_PT_0.01) #30964 NA</code></pre>
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
+ -3.483  -0.686   0.005   0.000   0.694   4.020   30964 </code></pre>
+<pre class="r"><code>#Version with APOE region
+hrs$PH13_KunkleFULL_PT_0.01&lt;-ifelse(!is.na(hrs$EAPH13_KunkleFULL_PT_0.01),hrs$EAPH13_KunkleFULL_PT_0.01, hrs$AAPH13_KunkleFULL_PT_0.01 )
+summary(hrs$PH13_KunkleFULL_PT_0.01)</code></pre>
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
+ -3.609  -0.691   0.001   0.000   0.679   3.924   30964 </code></pre>
+<p>hrs$PH13_KunkleOK2_PT_0.01 is the primary variable fo interest</p>
+<p>#Primary model variables (age at last visit, year of last visit, sex, years of education, genetic ancestry)</p>
+<pre class="r"><code>#############################################################
+#Key covariates
+#############################################################
+summary(hrs$AGE_LAST_60) #age at last visit, no values before age 60</code></pre>
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
+  60.00   67.00   75.00   75.34   83.00  109.00   15792 </code></pre>
+<pre class="r"><code>  #  Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NAs 
+  # 60.00   67.00   75.00   75.34   83.00  109.00   15792 
+
+summary(hrs$YEAR_LAST_60) #year of last visit</code></pre>
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
+   1995    2004    2012    2009    2014    2014   15792 </code></pre>
+<pre class="r"><code>   # Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
+   # 1995    2004    2012    2009    2014    2014   15792 
+
+
+table(hrs$GENDER, useNA = &quot;always&quot;)</code></pre>
+<pre><code>
+    1     2  &lt;NA&gt; 
+19081 24129    22 </code></pre>
+<pre class="r"><code>#     1     2  &lt;NA&gt; 
+# 19081 24129    22
+colnames(hrs)[colnames(hrs)==&quot;GENDER&quot;]&lt;-&quot;SEX&quot; #rename GENDER as SEX appropriately
+table(hrs$SEX, useNA = &quot;always&quot;)</code></pre>
+<pre><code>
+    1     2  &lt;NA&gt; 
+19081 24129    22 </code></pre>
+<pre class="r"><code>summary(hrs$SCHLYRS) #Erin updated 99&#39;s to missing in this in the datastet 20190813</code></pre>
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
+   0.00   11.00   12.00   12.13   14.00   17.00    1240 </code></pre>
+<pre class="r"><code>   # Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
+   # 0.00   11.00   12.00   12.13   14.00   17.00    1240 </code></pre>
+<p>Use HRS variables: AGE_LAST_60, YEAR_LAST_60, GENDER Use new variables: SCHLYRS_miss, ancestry</p>
+</div>
+<div id="sensitivity-model-variables-cohort-bmi-at-last-visit-ever-hypertension-ever-diabetes-smoking-status-depression-status-ever-stroke" class="section level1">
+<h1>Sensitivity model variables (cohort, BMI at last visit, ever hypertension, ever diabetes, smoking status, depression status, ever stroke)</h1>
+<pre class="r"><code>#############################################################
+#Sensitivity model covariates
+#############################################################
+
+table(hrs$STUDY, useNA = &quot;always&quot;) #USE this instead of wtcohort to capture the spouses correctly. </code></pre>
+<pre><code>
+    1    11    21    31    41    51    61  &lt;NA&gt; 
+13834  8563  2461  2868  5146  5490  4862     8 </code></pre>
+<pre class="r"><code># Leave 11 (AHEAD) and 21 (CODA)
+hrs$AHEAD_CODA&lt;-ifelse(hrs$STUDY==11, &quot;AHEAD&quot;, NA) #1914-1923, AHEAD
+hrs$AHEAD_CODA&lt;-ifelse(hrs$STUDY==21, &quot;CODA&quot;, hrs$AHEAD_CODA) #1924-1930, CODA
+hrs$AHEAD_CODA&lt;-ifelse(hrs$STUDY==1 | hrs$STUDY&gt;30, &quot;Other&quot;, hrs$AHEAD_CODA)
+table(hrs$AHEAD_CODA, useNA=&quot;always&quot;)</code></pre>
+<pre><code>
+AHEAD  CODA Other  &lt;NA&gt; 
+ 8563  2461 32200     8 </code></pre>
+<pre class="r"><code># BMI
+summary(hrs$BMI_LAST_60) #Red flag, we have a ton of missing, Erin working on this</code></pre>
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
+  11.50   24.85   28.20   29.19   32.51   75.80   24748 </code></pre>
+<pre class="r"><code>  #  Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
+  # 11.50   24.85   28.20   29.19   32.51   75.80   24748 
+hrs$BMI_LAST_60_v2&lt;-hrs$BMI_LAST_60
+hrs$BMI_LAST_60_v2&lt;-ifelse(is.na(hrs$BMI_LAST_60) &amp; hrs$YEAR_LAST_60==2006, hrs$BMI_H04, hrs$BMI_LAST_60_v2)
+hrs$BMI_LAST_60_v2&lt;-ifelse(is.na(hrs$BMI_LAST_60_v2) &amp; hrs$YEAR_LAST_60==2006, hrs$R7BMI, hrs$BMI_LAST_60_v2)
+hrs$BMI_LAST_60_v2&lt;-ifelse(is.na(hrs$BMI_LAST_60) &amp; hrs$YEAR_LAST_60==2008, hrs$BMI_H06, hrs$BMI_LAST_60_v2)
+hrs$BMI_LAST_60_v2&lt;-ifelse(is.na(hrs$BMI_LAST_60_v2) &amp; hrs$YEAR_LAST_60==2008, hrs$R8BMI, hrs$BMI_LAST_60_v2)
+hrs$BMI_LAST_60_v2&lt;-ifelse(is.na(hrs$BMI_LAST_60) &amp; hrs$YEAR_LAST_60==2010, hrs$BMI_H08, hrs$BMI_LAST_60_v2)
+hrs$BMI_LAST_60_v2&lt;-ifelse(is.na(hrs$BMI_LAST_60_v2) &amp; hrs$YEAR_LAST_60==2010, hrs$R9BMI, hrs$BMI_LAST_60_v2)
+hrs$BMI_LAST_60_v2&lt;-ifelse(is.na(hrs$BMI_LAST_60) &amp; hrs$YEAR_LAST_60==2012, hrs$BMI_H10, hrs$BMI_LAST_60_v2)
+hrs$BMI_LAST_60_v2&lt;-ifelse(is.na(hrs$BMI_LAST_60_v2) &amp; hrs$YEAR_LAST_60==2012, hrs$R10BMI, hrs$BMI_LAST_60_v2)
+hrs$BMI_LAST_60_v2&lt;-ifelse(is.na(hrs$BMI_LAST_60) &amp; hrs$YEAR_LAST_60==2014, hrs$BMI_H12, hrs$BMI_LAST_60_v2)
+hrs$BMI_LAST_60_v2&lt;-ifelse(is.na(hrs$BMI_LAST_60_v2) &amp; hrs$YEAR_LAST_60==2014, hrs$R11BMI, hrs$BMI_LAST_60_v2)
+summary(hrs$BMI_LAST_60_v2)</code></pre>
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
+   7.00   24.40   27.80   28.74   32.10   78.34   18850 </code></pre>
+<pre class="r"><code>table(hrs$EVSTROKE_LAST_60, useNA = &quot;always&quot;)</code></pre>
+<pre><code>
+    0     1  &lt;NA&gt; 
+22586  3684 16962 </code></pre>
+<pre class="r"><code>#     0     1  &lt;NA&gt; 
+# 22586  3684 16962 
+hrs$EVSTROKE_LAST_60.fac&lt;-factor(hrs$EVSTROKE_LAST_60, levels=c(0,1), labels=c(&quot;No&quot;, &quot;Yes&quot;))
+table(hrs$EVSTROKE_LAST_60.fac, useNA = &quot;always&quot;)</code></pre>
+<pre><code>
+   No   Yes  &lt;NA&gt; 
+22586  3684 16962 </code></pre>
+<pre class="r"><code>#develop from Erin&#39;s code
+# SMK_CURR_LAST_60
+# ALC_CURR_LAST_60
+# HBP_EVER_LAST_60
+# T2D_EVER_LAST_60
+# CESD_AVG #After age 60
+
+#CODE TO CREATE alcohol, smoking (ever, current, never), hypertension, diabetes, cesd_avg)
+
+# Alcohol
+table(hrs$YEAR_LAST_60[hrs$YEAR_LAST_60==2006])</code></pre>
+<pre><code>
+2006 
+1394 </code></pre>
+<pre class="r"><code>table(hrs$R8DRINK, useNA = &quot;always&quot;)</code></pre>
+<pre><code>
+    0     1  &lt;NA&gt; 
+ 9294  9168 24770 </code></pre>
+<pre class="r"><code>hrs$ALC_CURR_LAST_60&lt;-ifelse(hrs$YEAR_LAST_60==2006, hrs$R8DRINK, NA)
+hrs$ALC_CURR_LAST_60&lt;-ifelse(hrs$YEAR_LAST_60==2008, hrs$R9DRINK, hrs$ALC_CURR_LAST_60)
+hrs$ALC_CURR_LAST_60&lt;-ifelse(hrs$YEAR_LAST_60==2010, hrs$R10DRINK, hrs$ALC_CURR_LAST_60)
+hrs$ALC_CURR_LAST_60&lt;-ifelse(hrs$YEAR_LAST_60==2012, hrs$R11DRINK, hrs$ALC_CURR_LAST_60)
+hrs$ALC_CURR_LAST_60&lt;-ifelse(hrs$YEAR_LAST_60==2014, hrs$R12DRINK, hrs$ALC_CURR_LAST_60)
+table(hrs$ALC_CURR_LAST_60, useNA=&quot;always&quot;)</code></pre>
+<pre><code>
+    0     1  &lt;NA&gt; 
+10955  8964 23313 </code></pre>
+<pre class="r"><code>hrs$ALC_CURR_LAST_60.fac&lt;-factor(hrs$ALC_CURR_LAST_60, levels=c(0,1), labels=c(&quot;No&quot;, &quot;Yes&quot;))
+table(hrs$ALC_CURR_LAST_60.fac, useNA=&quot;always&quot;)</code></pre>
+<pre><code>
+   No   Yes  &lt;NA&gt; 
+10955  8964 23313 </code></pre>
+<pre class="r"><code># Smoking
+table(hrs$smoke06, useNA = &quot;always&quot;)</code></pre>
+<pre><code>
+    0     1     2  &lt;NA&gt; 
+ 7851  7927  2531 24923 </code></pre>
+<pre class="r"><code>hrs$SMK_CURR_LAST_60&lt;-ifelse(hrs$YEAR_LAST_60==2006, hrs$smoke06, NA)
+hrs$SMK_CURR_LAST_60&lt;-ifelse(hrs$YEAR_LAST_60==2008, hrs$smoke08, hrs$SMK_CURR_LAST_60)
+hrs$SMK_CURR_LAST_60&lt;-ifelse(hrs$YEAR_LAST_60==2010, hrs$smoke10, hrs$SMK_CURR_LAST_60)
+hrs$SMK_CURR_LAST_60&lt;-ifelse(hrs$YEAR_LAST_60==2012, hrs$smoke12, hrs$SMK_CURR_LAST_60)
+hrs$SMK_CURR_LAST_60&lt;-ifelse(hrs$YEAR_LAST_60==2014, hrs$smoke14, hrs$SMK_CURR_LAST_60)
+table(hrs$SMK_CURR_LAST_60, useNA=&quot;always&quot;)</code></pre>
+<pre><code>
+    0     1     2  &lt;NA&gt; 
+ 8449  9259  2076 23448 </code></pre>
+<pre class="r"><code>hrs$SMK_CURR_LAST_60.fac&lt;-factor(hrs$SMK_CURR_LAST_60)
+table(hrs$SMK_CURR_LAST_60.fac, useNA=&quot;always&quot;)</code></pre>
+<pre><code>
+    0     1     2  &lt;NA&gt; 
+ 8449  9259  2076 23448 </code></pre>
+<pre class="r"><code># Hypertension
+table(hrs$R8HIBPE, useNA = &quot;always&quot;)</code></pre>
+<pre><code>
+    0     1  &lt;NA&gt; 
+ 8252 10189 24791 </code></pre>
+<pre class="r"><code>hrs$HBP_EVER_LAST_60&lt;-ifelse(hrs$YEAR_LAST_60==2006, hrs$R8HIBPE, NA)
+hrs$HBP_EVER_LAST_60&lt;-ifelse(hrs$YEAR_LAST_60==2008, hrs$R9HIBPE, hrs$HBP_EVER_LAST_60)
+hrs$HBP_EVER_LAST_60&lt;-ifelse(hrs$YEAR_LAST_60==2010, hrs$R10HIBPE, hrs$HBP_EVER_LAST_60)
+hrs$HBP_EVER_LAST_60&lt;-ifelse(hrs$YEAR_LAST_60==2012, hrs$R11HIBPE, hrs$HBP_EVER_LAST_60)
+hrs$HBP_EVER_LAST_60&lt;-ifelse(hrs$YEAR_LAST_60==2014, hrs$R12HIBPE, hrs$HBP_EVER_LAST_60)
+table(hrs$HBP_EVER_LAST_60, useNA=&quot;always&quot;)</code></pre>
+<pre><code>
+    0     1  &lt;NA&gt; 
+ 6016 13854 23362 </code></pre>
+<pre class="r"><code>hrs$HBP_EVER_LAST_60.fac&lt;-factor(hrs$HBP_EVER_LAST_60, levels=c(0,1), labels=c(&quot;No&quot;, &quot;Yes&quot;))
+table(hrs$HBP_EVER_LAST_60.fac, useNA=&quot;always&quot;)</code></pre>
+<pre><code>
+   No   Yes  &lt;NA&gt; 
+ 6016 13854 23362 </code></pre>
+<pre class="r"><code># Diabetes
+table(hrs$R8DIABE, useNA = &quot;always&quot;)</code></pre>
+<pre><code>
+    0     1  &lt;NA&gt; 
+14877  3559 24796 </code></pre>
+<pre class="r"><code>hrs$T2D_EVER_LAST_60&lt;-ifelse(hrs$YEAR_LAST_60==2006, hrs$R8HIBPE, NA)
+hrs$T2D_EVER_LAST_60&lt;-ifelse(hrs$YEAR_LAST_60==2008, hrs$R9DIABE, hrs$T2D_EVER_LAST_60)
+hrs$T2D_EVER_LAST_60&lt;-ifelse(hrs$YEAR_LAST_60==2010, hrs$R10DIABE, hrs$T2D_EVER_LAST_60)
+hrs$T2D_EVER_LAST_60&lt;-ifelse(hrs$YEAR_LAST_60==2012, hrs$R11DIABE, hrs$T2D_EVER_LAST_60)
+hrs$T2D_EVER_LAST_60&lt;-ifelse(hrs$YEAR_LAST_60==2014, hrs$R12DIABE, hrs$T2D_EVER_LAST_60)
+table(hrs$T2D_EVER_LAST_60, useNA=&quot;always&quot;)</code></pre>
+<pre><code>
+    0     1  &lt;NA&gt; 
+13645  6234 23353 </code></pre>
+<pre class="r"><code>hrs$T2D_EVER_LAST_60.fac&lt;-factor(hrs$T2D_EVER_LAST_60, levels=c(0,1), labels=c(&quot;No&quot;, &quot;Yes&quot;))
+table(hrs$T2D_EVER_LAST_60.fac, useNA=&quot;always&quot;)</code></pre>
+<pre><code>
+   No   Yes  &lt;NA&gt; 
+13645  6234 23353 </code></pre>
+<pre class="r"><code>#Depression
+summary(hrs$R3CESD)</code></pre>
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
+  0.000   0.000   1.000   1.355   2.000   8.000   26885 </code></pre>
+<pre class="r"><code>hrs$CESD_AVG&lt;-ifelse(hrs$YEAR_LAST_60==2006, rowMeans(hrs[,c(&quot;R3CESD&quot;, &quot;R4CESD&quot;,&quot;R5CESD&quot;, &quot;R6CESD&quot;, &quot;R7CESD&quot;, &quot;R8CESD&quot;)], na.rm = T), NA)
+hrs$CESD_AVG&lt;-ifelse(hrs$YEAR_LAST_60==2008, rowMeans(hrs[,c(&quot;R3CESD&quot;, &quot;R4CESD&quot;,&quot;R5CESD&quot;, &quot;R6CESD&quot;, &quot;R7CESD&quot;, &quot;R8CESD&quot;, &quot;R9CESD&quot;)], na.rm = T), hrs$CESD_AVG)
+hrs$CESD_AVG&lt;-ifelse(hrs$YEAR_LAST_60==2010, rowMeans(hrs[,c(&quot;R3CESD&quot;, &quot;R4CESD&quot;,&quot;R5CESD&quot;, &quot;R6CESD&quot;, &quot;R7CESD&quot;, &quot;R8CESD&quot;, &quot;R9CESD&quot;, &quot;R10CESD&quot;)], na.rm = T), hrs$CESD_AVG)
+hrs$CESD_AVG&lt;-ifelse(hrs$YEAR_LAST_60==2012, rowMeans(hrs[,c(&quot;R3CESD&quot;, &quot;R4CESD&quot;,&quot;R5CESD&quot;, &quot;R6CESD&quot;, &quot;R7CESD&quot;, &quot;R8CESD&quot;, &quot;R9CESD&quot;, &quot;R10CESD&quot;, &quot;R11CESD&quot;)], na.rm = T), hrs$CESD_AVG)
+hrs$CESD_AVG&lt;-ifelse(hrs$YEAR_LAST_60==2014, rowMeans(hrs[,c(&quot;R3CESD&quot;, &quot;R4CESD&quot;,&quot;R5CESD&quot;, &quot;R6CESD&quot;, &quot;R7CESD&quot;, &quot;R8CESD&quot;, &quot;R9CESD&quot;, &quot;R10CESD&quot;, &quot;R11CESD&quot;, &quot;R12CESD&quot;)], na.rm = T), hrs$CESD_AVG)
+summary(hrs$CESD_AVG)</code></pre>
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
+  0.000   0.333   1.000   1.506   2.200   8.000   23589 </code></pre>
+<pre class="r"><code>length(hrs$CESD_AVG[hrs$ancestry==&quot;African&quot; &amp; hrs$CESD_AVG&gt;=1.8295108])</code></pre>
+<pre><code>[1] 26306</code></pre>
+<pre class="r"><code>table(hrs$ancestry==&quot;African&quot;, hrs$CESD_AVG&gt;=1.8295108, useNA = &quot;always&quot;) #Expect 688</code></pre>
+<pre><code>       
+        FALSE  TRUE  &lt;NA&gt;
+  FALSE  6682  2035  1274
+  TRUE   1041   688   550
+  &lt;NA&gt;   5894  3303 21765</code></pre>
+<pre class="r"><code>hrs$CESD_BIN&lt;-ifelse(hrs$ancestry==&quot;African&quot; &amp; hrs$CESD_AVG&gt;=1.8295108, 1, NA)
+hrs$CESD_BIN&lt;-ifelse(hrs$ancestry==&quot;African&quot; &amp; hrs$CESD_AVG&lt;1.8295108, 0, hrs$CESD_BIN)
+table(hrs$CESD_BIN, useNA = &quot;always&quot;) # checks out</code></pre>
+<pre><code>
+    0     1  &lt;NA&gt; 
+ 1041   688 41503 </code></pre>
+<pre class="r"><code>table(hrs$ancestry==&quot;European&quot;, hrs$CESD_AVG&gt;=1.20643, useNA = &quot;always&quot;) #Expect 3137</code></pre>
+<pre><code>       
+        FALSE  TRUE  &lt;NA&gt;
+  FALSE   766   963   550
+  TRUE   5580  3137  1274
+  &lt;NA&gt;   4690  4507 21765</code></pre>
+<pre class="r"><code>hrs$CESD_BIN&lt;-ifelse(hrs$ancestry==&quot;European&quot; &amp; hrs$CESD_AVG&gt;=1.20643, 1, hrs$CESD_BIN)
+hrs$CESD_BIN&lt;-ifelse(hrs$ancestry==&quot;European&quot; &amp; hrs$CESD_AVG&lt;1.20643, 0, hrs$CESD_BIN)
+table(hrs$CESD_BIN, useNA = &quot;always&quot;)</code></pre>
+<pre><code>
+    0     1  &lt;NA&gt; 
+ 6621  3825 32786 </code></pre>
+<pre class="r"><code>hrs$CESD_BIN.fac&lt;-factor(hrs$CESD_BIN, levels=c(0,1), labels=c(&quot;No&quot;, &quot;Yes&quot;))
+table(hrs$CESD_BIN.fac, useNA=&quot;always&quot;)</code></pre>
+<pre><code>
+   No   Yes  &lt;NA&gt; 
+ 6621  3825 32786 </code></pre>
+<p>Use parent dataset variables: EVSTROKE_LAST_60 Use new variables: AHEAD_CODA, SMK_CURR_LAST_60, ALC_CURR_LAST_60, HBP_EVER_LAST_60, T2D_EVER_LAST_60, CESD_BIN, BMI_LAST_V2 #After age 60</p>
+<p>#Save Rda with newly derived variables (AHEAD_CODA, stroke_conserv, SCHLYRS_nomiss, ancestry)</p>
+<pre class="r"><code>save(hrs,  file=paste0(derived_data_dir,&quot;hrs_democoggen_wide20190813.rda&quot;))</code></pre>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 3.6.1 (2019-07-05)
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+Running under: macOS Mojave 10.14.5
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRblas.0.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+loaded via a namespace (and not attached):
+ [1] workflowr_1.4.0 Rcpp_1.0.2      digest_0.6.20   rprojroot_1.3-2
+ [5] backports_1.1.4 git2r_0.26.1    magrittr_1.5    evaluate_0.14  
+ [9] stringi_1.4.3   fs_1.3.1        rmarkdown_1.15  tools_3.6.1    
+[13] stringr_1.4.0   glue_1.3.1      xfun_0.9        yaml_2.2.0     
+[17] compiler_3.6.1  htmltools_0.3.6 knitr_1.24     </code></pre>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Kelly Bakulski" />
+
+<meta name="date" content="2019-10-29" />
+
+<title>Alzheimer’s disease PGS, APOE status, and summary cognitive status in the HRS</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">HRS_AD_PGS_main_effect</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Alzheimer’s disease PGS, APOE status, and summary cognitive status in the HRS</h1>
+<h3 class="subtitle">Bivariate Tables</h3>
+<h4 class="author">Kelly Bakulski</h4>
+<h4 class="date">October 29, 2019</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2019-12-09
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>HRS_AD_PGS_main_effect/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.4.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20191209code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20191209)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20191209code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20191209)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrong972d40b"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> 972d40b </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrong972d40b" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .DS_Store
+    Ignored:    .Rproj.user/
+
+Untracked files:
+    Untracked:  Icon
+    Untracked:  analysis/Icon
+    Untracked:  code/Icon
+    Untracked:  data/Icon
+    Untracked:  docs/Icon
+    Untracked:  output/Icon
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+<p>
+There are no past versions. Publish this analysis with <code>wflow_publish()</code> to start tracking its development.
+</p>
+<hr>
+</div>
+</div>
+</div>
+<div id="goal-producing-reproducible-bivariate-descriptive-statistics-tables" class="section level2">
+<h2>Goal: Producing reproducible bivariate descriptive statistics tables</h2>
+<pre class="r"><code>#Setting file paths for data, output, scripts
+
+source_dir&lt;-&quot;~/Google Drive/AD_R01_WB/Data/&quot; #location of the parent dataset
+
+results_dir&lt;-&quot;~/Google Drive/AD_R01_WB/AD_PGS_main_effect/Results/&quot; #location of output tables
+  
+derived_data_dir&lt;-&quot;~/Google Drive/AD_R01_WB/AD_PGS_main_effect/Derived_Datasets/&quot; #location of any new datasets I&#39;m building specifically for this paper
+
+script_dir&lt;-&quot;~/Google Drive/AD_R01_WB/AD_PGS_main_effect/Scripts/&quot; #location of this script, redundant with the knitr option above
+
+date&lt;-format(Sys.Date(), &quot;%Y%m%d&quot;)</code></pre>
+<p>#Load in the dataset from Rda: HRS 1995-2014</p>
+<pre class="r"><code>load(file=paste0(derived_data_dir, &quot;HRS_PGS_AD_Analytic_Sample_20190814.rda&quot;))
+dim(hrs)</code></pre>
+<pre><code>[1] 43232  1158</code></pre>
+<pre class="r"><code># [1] 43232  1196
+load(file=paste0(derived_data_dir, &quot;HRS_PGS_AD_Primary_Included_Sample_20190816.rda&quot;))
+dim(include)</code></pre>
+<pre><code>[1] 10004  1158</code></pre>
+<pre class="r"><code>load(file = paste0(derived_data_dir, &quot;HRS_PGS_AD_Euro_Analytic_Sample_20190814.rda&quot;))
+dim(ea)</code></pre>
+<pre><code>[1] 8399 1158</code></pre>
+<pre class="r"><code>load(file = paste0(derived_data_dir,&quot;HRS_PGS_AD_Afri_Analytic_Sample_20190814.rda&quot;))
+dim(aa)</code></pre>
+<pre><code>[1] 1605 1158</code></pre>
+</div>
+<div id="plot-pgs-density-curves-on-the-included-study-sample-split-by-ancestry" class="section level2">
+<h2>Plot PGS density curves on the included study sample, split by ancestry</h2>
+<pre class="r"><code>#PH13_KunkleOK2_PT_0.01
+#PH13_KunkleFULL_PT_0.01
+
+pdf(paste0(results_dir,&quot;HRS_PGS_Bivariate_Density_Plots_&quot;, date, &quot;.pdf&quot;))
+plot(density(ea$PH13_KunkleOK2_PT_0.01[ea$DC_60_2V == 1]),
+  lwd = 4, col = &quot;firebrick1&quot;, xlab = &quot;Polygenic score for Alzheimer&#39;s disease&quot;, las = 1,
+  ylab = &quot;Density&quot;, ylim = c(0, 0.5), main = &quot;European ancestry&quot;, cex.lab = 1.5, cex.main = 1.5, lty = 2, xlim = c(-3, 3)
+)
+lines(density(na.omit(ea$PH13_KunkleOK2_PT_0.01[ea$DC_60_2V == 2])), lty = 3, lwd = 4, col = &quot;deeppink2&quot;)
+lines(density(na.omit(ea$PH13_KunkleOK2_PT_0.01[ea$DC_60_2V == 3])), lty = 4, lwd = 4, col = &quot;darkorchid&quot;)
+lines(density(na.omit(ea$PH13_KunkleOK2_PT_0.01[ea$DC_60_2V == 4])), lty = 1, lwd = 4, col = &quot;dodgerblue&quot;)
+legend(&quot;topright&quot;, fill = c(&quot;firebrick1&quot;, &quot;deeppink2&quot;, &quot;darkorchid&quot;, &quot;dodgerblue&quot;), legend = c(&quot;Dementia&quot;, &quot;Cognitively impaired&quot;, &quot;Borderline impaired&quot;, &quot;Cognitively normal&quot;), bty = &quot;n&quot;)
+plot.new()
+plot(density(na.omit(aa$PH13_KunkleOK2_PT_0.01[aa$DC_60_2V == 1])),
+  lwd = 4, col = &quot;firebrick1&quot;, xlab = &quot;Polygenic score for Alzheimer&#39;s disease&quot;, las = 1,
+  ylab = &quot;Density&quot;, ylim = c(0, 0.5), main = &quot;African ancestry&quot;, cex.lab = 1.5, cex.main = 1.5, lty = 2, xlim = c(-3, 3)
+)
+lines(density(na.omit(aa$PH13_KunkleOK2_PT_0.01[aa$DC_60_2V == 2])), lty = 3, lwd = 4, col = &quot;deeppink2&quot;)
+lines(density(na.omit(aa$PH13_KunkleOK2_PT_0.01[aa$DC_60_2V == 3])), lty = 4, lwd = 4, col = &quot;darkorchid&quot;)
+lines(density(na.omit(aa$PH13_KunkleOK2_PT_0.01[aa$DC_60_2V == 4])), lty = 1, lwd = 4, col = &quot;dodgerblue&quot;)
+legend(&quot;topright&quot;, fill = c(&quot;firebrick1&quot;, &quot;deeppink2&quot;, &quot;darkorchid&quot;, &quot;dodgerblue&quot;), legend = c(&quot;Dementia&quot;, &quot;Cognitively impaired&quot;, &quot;Borderline impaired&quot;, &quot;Cognitively normal&quot;), bty = &quot;n&quot;)
+dev.off()</code></pre>
+<pre><code>quartz_off_screen 
+                2 </code></pre>
+<div id="plot-violin-plots-of-pgs-by-outcome-status." class="section level3">
+<h3>Plot violin plots of PGS by outcome status.</h3>
+<pre class="r"><code># Add boxes and data to the violin plots
+
+library(ggplot2)
+library(ggpubr)</code></pre>
+<pre><code>Loading required package: magrittr</code></pre>
+<pre class="r"><code>#PH13_KunkleOK2_PT_0.01
+#PH13_KunkleFULL_PT_0.01
+
+labels &lt;- c(European = paste0(&quot;European ancestry sample, n=&quot;, length(include$ancestry[include$ancestry == &quot;European&quot;])), African = paste0(&quot;African ancestry sample, n=&quot;, length(include$ancestry[include$ancestry == &quot;African&quot;])))
+labels</code></pre>
+<pre><code>                          European                            African 
+&quot;European ancestry sample, n=8399&quot;  &quot;African ancestry sample, n=1605&quot; </code></pre>
+<pre class="r"><code>pdf(file = paste0(results_dir,&quot;HRS_PGS_Bivariate_Violin_Plots_&quot;, date, &quot;.pdf&quot;))
+ggplot(include, aes(x = DC_60_2V.fac.relevel, y = PH13_KunkleOK2_PT_0.01, fill = DC_60_2V.fac.relevel)) + geom_violin(trim = FALSE, scale = &quot;area&quot;) + facet_grid(. ~ ancestry.relevel, labeller = labeller(ancestry.relevel = labels)) + scale_fill_grey(start = 0.9, end = 0.3) + theme(legend.position = &quot;none&quot;, axis.text.x = element_text(angle = 45, hjust = 1), panel.background = element_rect(fill = &quot;white&quot;, colour = &quot;grey&quot;)) + labs(x = &quot;Summary cognitive status&quot;, y = &quot;Polygenic score&quot;) +  geom_boxplot(width=0.1, fill=&quot;white&quot;, outlier.alpha=0) + stat_compare_means(method = &quot;anova&quot;, label.y = -5, size = 3) + stat_compare_means(label = &quot;p.format&quot;, method = &quot;t.test&quot;, ref.group = &quot;Normal&quot;, label.y = 5, size = 2.5, bracket.size = 5) 
+dev.off()</code></pre>
+<pre><code>quartz_off_screen 
+                2 </code></pre>
+<pre class="r"><code># data_summary &lt;- function(x) {
+#   m &lt;- mean(x)
+#   ymin &lt;- m - sd(x)
+#   ymax &lt;- m + sd(x)
+#   return(c(y = m, ymin = ymin, ymax = ymax))
+# }
+# + geom_jitter(shape=16, position=position_jitter(0.4), size=.1, alpha=.1)
+#+ geom_dotplot(binaxis=&#39;y&#39;, stackdir=&#39;center&#39;, dotsize=.1, alpha=.1)
+
+#, outlier.size=.2, outlier.alpha = .1</code></pre>
+</div>
+</div>
+<div id="produce-bivariate-table" class="section level2">
+<h2>Produce bivariate table</h2>
+<pre class="r"><code>library(compareGroups)</code></pre>
+<pre><code>Loading required package: SNPassoc</code></pre>
+<pre><code>Loading required package: haplo.stats</code></pre>
+<pre><code>Loading required package: survival</code></pre>
+<pre><code>Loading required package: mvtnorm</code></pre>
+<pre><code>Loading required package: parallel</code></pre>
+<pre><code>Registered S3 method overwritten by &#39;SNPassoc&#39;:
+  method            from       
+  summary.haplo.glm haplo.stats</code></pre>
+<pre class="r"><code>dim(hrs[hrs$include==&quot;Included&quot; &amp; hrs$ancestry == &quot;European&quot;, ])</code></pre>
+<pre><code>[1] 8399 1158</code></pre>
+<pre class="r"><code>#PH13_KunkleOK2_PT_0.01
+#PH13_KunkleFULL_PT_0.01
+
+univar.desc.pval &lt;- descrTable(formula = DC_60_2V.fac.relevel ~ DC_60_2V.fac  + PH13_KunkleOK2_PT_0.01 +PH13_KunkleFULL_PT_0.01 + APOE2010_imputed + APOE2010_imputed.miss + APOE2010_bin.fac +  AGE_LAST_60 + YEAR_LAST_60 +  SEX.fac +SCHLYRS +  ancestry.relevel + EA_2010_PC1 + EA_2010_PC2 + EA_2010_PC3 + EA_2010_PC4 + EA_2010_PC5+  AHEAD_CODA +  BMI_LAST_60_v2 + HBP_EVER_LAST_60.fac +  T2D_EVER_LAST_60.fac  + EVSTROKE_LAST_60.fac  + CESD_BIN.fac  + SMK_CURR_LAST_60.fac +  ALC_CURR_LAST_60.fac + DC_60_2V.miss + PH13_KunkleOK2_PT_0.01.miss + PH13_KunkleFULL_PT_0.01.miss + APOE2010_bin.miss  + AGE_LAST_60.miss + YEAR_LAST_60.miss + SEX.miss + SCHLYRS.miss +  AHEAD_CODA.miss +BMI_LAST_60_v2.miss +  HBP_EVER_LAST_60.miss + T2D_EVER_LAST_60.miss + EVSTROKE_LAST_60.miss + CESD_BIN.miss + SMK_CURR_LAST_60.miss + ALC_CURR_LAST_60.miss, data = hrs[hrs$include==&quot;Included&quot; &amp; hrs$ancestry == &quot;European&quot;, ], na.action = na.pass, digits.p = 3)</code></pre>
+<pre><code>Warning in compare.i(X[, i], y = y, selec.i = selec[i], method.i =
+method[i], : Some levels of &#39;DC_60_2V.fac&#39; are removed since no observation
+in that/those levels</code></pre>
+<pre><code>Warning in compare.i(X[, i], y = y, selec.i = selec[i], method.i =
+method[i], : Some levels of &#39;ancestry.relevel&#39; are removed since no
+observation in that/those levels</code></pre>
+<pre><code>Warning in cor(as.integer(x), as.integer(y)): the standard deviation is
+zero</code></pre>
+<pre class="r"><code>print(univar.desc.pval)</code></pre>
+<pre><code>
+--------Summary descriptives table by &#39;DC_60_2V.fac.relevel&#39;---------
+
+________________________________________________________________________________________ 
+                                Normal     Borderline   Impaired    Dementia   p.overall 
+                                N=5708       N=1256       N=711       N=724              
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯ 
+DC_60_2V.fac:                                                                    0.000   
+    Dementia                  0 (0.00%)    0 (0.00%)    0 (0.00%)  724 (100%)            
+    CIND                      0 (0.00%)    0 (0.00%)   711 (100%)   0 (0.00%)            
+    Borderline                0 (0.00%)   1256 (100%)   0 (0.00%)   0 (0.00%)            
+    Normal                   5708 (100%)   0 (0.00%)    0 (0.00%)   0 (0.00%)            
+PH13_KunkleOK2_PT_0.01       -0.03 (1.01) 0.09 (0.98)  0.02 (1.00) 0.03 (0.99)   0.003   
+PH13_KunkleFULL_PT_0.01      -0.03 (1.00) 0.10 (0.99)  0.03 (0.98) 0.06 (1.01)  &lt;0.001   
+APOE2010_imputed:                                                                  .     
+    e2/e2                     29 (0.51%)   12 (0.96%)   5 (0.70%)   1 (0.14%)            
+    e2/e3                    780 (13.7%)  144 (11.5%)  83 (11.7%)  72 (9.94%)            
+    e2/e4                    117 (2.05%)   23 (1.83%)  17 (2.39%)  26 (3.59%)            
+    e3/e3                    3528 (61.8%) 738 (58.8%)  408 (57.4%) 391 (54.0%)           
+    e3/e4                    1161 (20.3%) 306 (24.4%)  183 (25.7%) 211 (29.1%)           
+    e4/e4                     93 (1.63%)   33 (2.63%)  15 (2.11%)  23 (3.18%)            
+APOE2010_imputed.miss             .            .            .           .          .     
+APOE2010_bin.fac:                                                               &lt;0.001   
+    None                     4337 (76.0%) 894 (71.2%)  496 (69.8%) 464 (64.1%)           
+    E4                       1371 (24.0%) 362 (28.8%)  215 (30.2%) 260 (35.9%)           
+AGE_LAST_60                  72.9 (8.17)  78.1 (8.54)  80.8 (8.40) 84.2 (7.73)   0.000   
+YEAR_LAST_60                 2013 (1.93)  2013 (2.29)  2012 (2.45) 2012 (2.21)  &lt;0.001   
+SEX.fac:                                                                         0.004   
+    Male                     2403 (42.1%) 582 (46.3%)  333 (46.8%) 295 (40.7%)           
+    Female                   3305 (57.9%) 674 (53.7%)  378 (53.2%) 429 (59.3%)           
+SCHLYRS                      13.7 (2.31)  12.6 (2.37)  11.6 (2.70) 11.9 (2.90)  &lt;0.001   
+ancestry.relevel: European   5708 (100%)  1256 (100%)  711 (100%)  724 (100%)      .     
+EA_2010_PC1                  0.00 (0.01)  0.00 (0.01)  0.00 (0.01) 0.00 (0.01)   0.060   
+EA_2010_PC2                  0.00 (0.01)  0.00 (0.01)  0.00 (0.01) 0.00 (0.01)   0.024   
+EA_2010_PC3                  0.00 (0.01)  0.00 (0.01)  0.00 (0.01) 0.00 (0.01)   0.616   
+EA_2010_PC4                  0.00 (0.01)  0.00 (0.01)  0.00 (0.01) 0.00 (0.01)   0.628   
+EA_2010_PC5                  0.00 (0.01)  0.00 (0.01)  0.00 (0.01) 0.00 (0.01)   0.366   
+AHEAD_CODA:                                                                     &lt;0.001   
+    AHEAD                    371 (6.50%)  212 (16.9%)  176 (24.8%) 275 (38.0%)           
+    CODA                     428 (7.50%)  172 (13.7%)  126 (17.7%) 147 (20.3%)           
+    Other                    4909 (86.0%) 872 (69.4%)  409 (57.5%) 302 (41.7%)           
+BMI_LAST_60_v2               29.0 (6.14)  28.2 (6.11)  27.3 (6.22) 25.5 (5.36)  &lt;0.001   
+HBP_EVER_LAST_60.fac:                                                           &lt;0.001   
+    No                       2090 (36.6%) 330 (26.3%)  186 (26.2%) 190 (26.2%)           
+    Yes                      3618 (63.4%) 926 (73.7%)  525 (73.8%) 534 (73.8%)           
+T2D_EVER_LAST_60.fac:                                                           &lt;0.001   
+    No                       4420 (77.4%) 910 (72.5%)  488 (68.6%) 540 (74.6%)           
+    Yes                      1288 (22.6%) 346 (27.5%)  223 (31.4%) 184 (25.4%)           
+EVSTROKE_LAST_60.fac:                                                           &lt;0.001   
+    No                       5303 (92.9%) 1074 (85.5%) 576 (81.0%) 508 (70.2%)           
+    Yes                      405 (7.10%)  182 (14.5%)  135 (19.0%) 216 (29.8%)           
+CESD_BIN.fac:                                                                   &lt;0.001   
+    No                       3996 (70.0%) 700 (55.7%)  360 (50.6%) 361 (49.9%)           
+    Yes                      1712 (30.0%) 556 (44.3%)  351 (49.4%) 363 (50.1%)           
+SMK_CURR_LAST_60.fac:                                                           &lt;0.001   
+    0                        2509 (44.0%) 503 (40.0%)  267 (37.6%) 329 (45.4%)           
+    1                        2686 (47.1%) 621 (49.4%)  365 (51.3%) 365 (50.4%)           
+    2                        513 (8.99%)  132 (10.5%)  79 (11.1%)  30 (4.14%)            
+ALC_CURR_LAST_60.fac:                                                           &lt;0.001   
+    No                       2420 (42.4%) 725 (57.7%)  488 (68.6%) 565 (78.0%)           
+    Yes                      3288 (57.6%) 531 (42.3%)  223 (31.4%) 159 (22.0%)           
+DC_60_2V.miss                     .            .            .           .          .     
+PH13_KunkleOK2_PT_0.01.miss       .            .            .           .          .     
+PH13_KunkleFULL_PT_0.01.miss      .            .            .           .          .     
+APOE2010_bin.miss                 .            .            .           .          .     
+AGE_LAST_60.miss                  .            .            .           .          .     
+YEAR_LAST_60.miss                 .            .            .           .          .     
+SEX.miss                          .            .            .           .          .     
+SCHLYRS.miss                      .            .            .           .          .     
+AHEAD_CODA.miss                   .            .            .           .          .     
+BMI_LAST_60_v2.miss               .            .            .           .          .     
+HBP_EVER_LAST_60.miss             .            .            .           .          .     
+T2D_EVER_LAST_60.miss             .            .            .           .          .     
+EVSTROKE_LAST_60.miss             .            .            .           .          .     
+CESD_BIN.miss                     .            .            .           .          .     
+SMK_CURR_LAST_60.miss             .            .            .           .          .     
+ALC_CURR_LAST_60.miss             .            .            .           .          .     
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯ </code></pre>
+<pre class="r"><code>export2word(univar.desc.pval, file =paste0(results_dir,  &quot;HRS_PGS_Bivariate_Primary_European_&quot;, date, &quot;.docx&quot;))</code></pre>
+<pre class="r"><code>table(include$DC_60_2V.fac.relevel)</code></pre>
+<pre><code>
+    Normal Borderline   Impaired   Dementia 
+      6380       1568       1061        995 </code></pre>
+<pre class="r"><code>dim(hrs[hrs$include==&quot;Included&quot; &amp; hrs$ancestry == &quot;African&quot;, ])</code></pre>
+<pre><code>[1] 1605 1158</code></pre>
+<pre class="r"><code>#PH13_KunkleOK2_PT_0.01
+#PH13_KunkleFULL_PT_0.01
+
+univar.desc.pval &lt;- descrTable(formula = DC_60_2V.fac.relevel ~ DC_60_2V.fac  + PH13_KunkleOK2_PT_0.01 +PH13_KunkleFULL_PT_0.01 + APOE2010_imputed + APOE2010_imputed.miss + APOE2010_bin.fac +  AGE_LAST_60 + YEAR_LAST_60 +  SEX.fac +SCHLYRS +  ancestry.relevel + AA_2010_PC1 + AA_2010_PC2 + AA_2010_PC3 + AA_2010_PC4 + AA_2010_PC5+  AHEAD_CODA +  BMI_LAST_60_v2 + HBP_EVER_LAST_60.fac +  T2D_EVER_LAST_60.fac  + EVSTROKE_LAST_60.fac  + CESD_BIN.fac  + SMK_CURR_LAST_60.fac +  ALC_CURR_LAST_60.fac + DC_60_2V.miss + PH13_KunkleOK2_PT_0.01.miss + PH13_KunkleFULL_PT_0.01.miss + APOE2010_bin.miss  + AGE_LAST_60.miss + YEAR_LAST_60.miss + SEX.miss + SCHLYRS.miss +  AHEAD_CODA.miss +BMI_LAST_60_v2.miss +  HBP_EVER_LAST_60.miss + T2D_EVER_LAST_60.miss + EVSTROKE_LAST_60.miss + CESD_BIN.miss + SMK_CURR_LAST_60.miss + ALC_CURR_LAST_60.miss, data = hrs[hrs$include==&quot;Included&quot; &amp; hrs$ancestry == &quot;African&quot;, ], na.action = na.pass, digits.p = 3)</code></pre>
+<pre><code>Warning in compare.i(X[, i], y = y, selec.i = selec[i], method.i =
+method[i], : Some levels of &#39;DC_60_2V.fac&#39; are removed since no observation
+in that/those levels</code></pre>
+<pre><code>Warning in compare.i(X[, i], y = y, selec.i = selec[i], method.i =
+method[i], : Some levels of &#39;ancestry.relevel&#39; are removed since no
+observation in that/those levels</code></pre>
+<pre><code>Warning in cor(as.integer(x), as.integer(y)): the standard deviation is
+zero</code></pre>
+<pre class="r"><code>print(univar.desc.pval)</code></pre>
+<pre><code>
+--------Summary descriptives table by &#39;DC_60_2V.fac.relevel&#39;---------
+
+________________________________________________________________________________________ 
+                                Normal    Borderline    Impaired    Dementia   p.overall 
+                                N=672        N=312       N=350        N=271              
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯ 
+DC_60_2V.fac:                                                                    0.000   
+    Dementia                  0 (0.00%)    0 (0.00%)   0 (0.00%)   271 (100%)            
+    CIND                      0 (0.00%)    0 (0.00%)   350 (100%)   0 (0.00%)            
+    Borderline                0 (0.00%)   312 (100%)   0 (0.00%)    0 (0.00%)            
+    Normal                    672 (100%)   0 (0.00%)   0 (0.00%)    0 (0.00%)            
+PH13_KunkleOK2_PT_0.01       -0.10 (1.01) 0.00 (1.03) -0.02 (0.96) 0.15 (0.96)   0.007   
+PH13_KunkleFULL_PT_0.01      -0.10 (1.01) 0.00 (1.03) -0.02 (0.96) 0.15 (0.96)   0.005   
+APOE2010_imputed:                                                                  .     
+    e2/e2                     6 (0.89%)    5 (1.60%)   7 (2.00%)    2 (0.74%)            
+    e2/e3                     89 (13.2%)  41 (13.1%)   49 (14.0%)  40 (14.8%)            
+    e2/e4                     23 (3.42%)  19 (6.09%)   16 (4.57%)  19 (7.01%)            
+    e3/e3                    337 (50.1%)  153 (49.0%) 173 (49.4%)  111 (41.0%)           
+    e3/e4                    188 (28.0%)  80 (25.6%)   95 (27.1%)  85 (31.4%)            
+    e4/e4                     29 (4.32%)  14 (4.49%)   10 (2.86%)  14 (5.17%)            
+APOE2010_imputed.miss             .            .           .            .          .     
+APOE2010_bin.fac:                                                                0.093   
+    None                     432 (64.3%)  199 (63.8%) 229 (65.4%)  153 (56.5%)           
+    E4                       240 (35.7%)  113 (36.2%) 121 (34.6%)  118 (43.5%)           
+AGE_LAST_60                  68.4 (6.84)  71.4 (7.76) 75.1 (8.94)  78.8 (9.16)  &lt;0.001   
+YEAR_LAST_60                 2013 (1.57)  2013 (1.71) 2013 (2.29)  2012 (2.39)  &lt;0.001   
+SEX.fac:                                                                         0.067   
+    Male                     226 (33.6%)  116 (37.2%) 147 (42.0%)  103 (38.0%)           
+    Female                   446 (66.4%)  196 (62.8%) 203 (58.0%)  168 (62.0%)           
+SCHLYRS                      13.3 (2.35)  12.2 (2.37) 10.3 (2.90)  9.49 (3.82)  &lt;0.001   
+ancestry.relevel: African     672 (100%)  312 (100%)   350 (100%)  271 (100%)      .     
+AA_2010_PC1                  0.00 (0.02)  0.00 (0.02) 0.00 (0.02)  0.00 (0.02)   0.006   
+AA_2010_PC2                  0.00 (0.02)  0.00 (0.02) 0.00 (0.02)  0.00 (0.02)   0.379   
+AA_2010_PC3                  0.00 (0.02)  0.00 (0.02) 0.00 (0.02)  0.00 (0.02)   0.619   
+AA_2010_PC4                  0.00 (0.02)  0.00 (0.02) 0.00 (0.02)  0.00 (0.02)   0.916   
+AA_2010_PC5                  0.00 (0.02)  0.00 (0.02) 0.00 (0.02)  0.00 (0.02)   0.341   
+AHEAD_CODA:                                                                     &lt;0.001   
+    AHEAD                     12 (1.79%)  11 (3.53%)   38 (10.9%)  54 (19.9%)            
+    CODA                      5 (0.74%)   10 (3.21%)   34 (9.71%)  30 (11.1%)            
+    Other                    655 (97.5%)  291 (93.3%) 278 (79.4%)  187 (69.0%)           
+BMI_LAST_60_v2               31.5 (7.31)  30.7 (7.13) 30.2 (7.48)  27.7 (6.49)  &lt;0.001   
+HBP_EVER_LAST_60.fac:                                                           &lt;0.001   
+    No                       134 (19.9%)  61 (19.6%)   43 (12.3%)  29 (10.7%)            
+    Yes                      538 (80.1%)  251 (80.4%) 307 (87.7%)  242 (89.3%)           
+T2D_EVER_LAST_60.fac:                                                            0.005   
+    No                       437 (65.0%)  180 (57.7%) 198 (56.6%)  148 (54.6%)           
+    Yes                      235 (35.0%)  132 (42.3%) 152 (43.4%)  123 (45.4%)           
+EVSTROKE_LAST_60.fac:                                                           &lt;0.001   
+    No                       620 (92.3%)  282 (90.4%) 286 (81.7%)  184 (67.9%)           
+    Yes                       52 (7.74%)  30 (9.62%)   64 (18.3%)  87 (32.1%)            
+CESD_BIN.fac:                                                                   &lt;0.001   
+    No                       477 (71.0%)  206 (66.0%) 169 (48.3%)  123 (45.4%)           
+    Yes                      195 (29.0%)  106 (34.0%) 181 (51.7%)  148 (54.6%)           
+SMK_CURR_LAST_60.fac:                                                            0.434   
+    0                        288 (42.9%)  129 (41.3%) 129 (36.9%)  108 (39.9%)           
+    1                        289 (43.0%)  131 (42.0%) 168 (48.0%)  128 (47.2%)           
+    2                         95 (14.1%)  52 (16.7%)   53 (15.1%)  35 (12.9%)            
+ALC_CURR_LAST_60.fac:                                                           &lt;0.001   
+    No                       395 (58.8%)  198 (63.5%) 254 (72.6%)  220 (81.2%)           
+    Yes                      277 (41.2%)  114 (36.5%)  96 (27.4%)  51 (18.8%)            
+DC_60_2V.miss                     .            .           .            .          .     
+PH13_KunkleOK2_PT_0.01.miss       .            .           .            .          .     
+PH13_KunkleFULL_PT_0.01.miss      .            .           .            .          .     
+APOE2010_bin.miss                 .            .           .            .          .     
+AGE_LAST_60.miss                  .            .           .            .          .     
+YEAR_LAST_60.miss                 .            .           .            .          .     
+SEX.miss                          .            .           .            .          .     
+SCHLYRS.miss                      .            .           .            .          .     
+AHEAD_CODA.miss                   .            .           .            .          .     
+BMI_LAST_60_v2.miss               .            .           .            .          .     
+HBP_EVER_LAST_60.miss             .            .           .            .          .     
+T2D_EVER_LAST_60.miss             .            .           .            .          .     
+EVSTROKE_LAST_60.miss             .            .           .            .          .     
+CESD_BIN.miss                     .            .           .            .          .     
+SMK_CURR_LAST_60.miss             .            .           .            .          .     
+ALC_CURR_LAST_60.miss             .            .           .            .          .     
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯ </code></pre>
+<pre class="r"><code>export2word(univar.desc.pval, file = paste0(results_dir, &quot;HRS_PGS_Bivariate_Primary_African_&quot;, date, &quot;.docx&quot;))</code></pre>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 3.6.1 (2019-07-05)
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+Running under: macOS Mojave 10.14.5
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRblas.0.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] parallel  stats     graphics  grDevices utils     datasets  methods  
+[8] base     
+
+other attached packages:
+[1] compareGroups_4.1.0 SNPassoc_1.9-2      mvtnorm_1.0-11     
+[4] survival_2.44-1.1   haplo.stats_1.7.9   ggpubr_0.2.2       
+[7] magrittr_1.5        ggplot2_3.2.1      
+
+loaded via a namespace (and not attached):
+ [1] nlme_3.1-141        fs_1.3.1            rms_5.1-3.1        
+ [4] webshot_0.5.1       RColorBrewer_1.1-2  httr_1.4.1         
+ [7] rprojroot_1.3-2     tools_3.6.1         backports_1.1.4    
+[10] R6_2.4.0            rpart_4.1-15        Hmisc_4.2-0        
+[13] lazyeval_0.2.2      colorspace_1.4-1    jomo_2.6-9         
+[16] nnet_7.3-12         withr_2.1.2         tidyselect_0.2.5   
+[19] gridExtra_2.3       compiler_3.6.1      git2r_0.26.1       
+[22] chron_2.3-54        rvest_0.3.4         quantreg_5.51      
+[25] htmlTable_1.13.1    HardyWeinberg_1.6.3 mice_3.6.0         
+[28] SparseM_1.77        xml2_1.2.2          sandwich_2.5-1     
+[31] labeling_0.3        scales_1.0.0        checkmate_1.9.4    
+[34] polspline_1.1.15    readr_1.3.1         epitools_0.5-10    
+[37] stringr_1.4.0       digest_0.6.20       foreign_0.8-72     
+[40] minqa_1.2.4         rmarkdown_1.15      base64enc_0.1-3    
+[43] pkgconfig_2.0.2     htmltools_0.3.6     lme4_1.1-21        
+[46] highr_0.8           htmlwidgets_1.3     rlang_0.4.0        
+[49] rstudioapi_0.10     generics_0.0.2      zoo_1.8-6          
+[52] acepack_1.4.1       dplyr_0.8.3         kableExtra_1.1.0   
+[55] Formula_1.2-3       Matrix_1.2-17       Rcpp_1.0.2         
+[58] munsell_0.5.0       stringi_1.4.3       multcomp_1.4-10    
+[61] yaml_2.2.0          MASS_7.3-51.4       plyr_1.8.4         
+[64] grid_3.6.1          crayon_1.3.4        mitml_0.3-7        
+[67] lattice_0.20-38     splines_3.6.1       hms_0.5.1          
+[70] zeallot_0.1.0       knitr_1.24          pillar_1.4.2       
+[73] boot_1.3-23         ggsignif_0.6.0      reshape2_1.4.3     
+[76] codetools_0.2-16    pan_1.6             glue_1.3.1         
+[79] evaluate_0.14       latticeExtra_0.6-28 data.table_1.12.2  
+[82] vctrs_0.2.0         nloptr_1.2.1        MatrixModels_0.4-1 
+[85] gtable_0.3.0        purrr_0.3.2         tidyr_0.8.3        
+[88] assertthat_0.2.1    xfun_0.9            broom_0.5.2        
+[91] Rsolnp_1.16         viridisLite_0.3.0   truncnorm_1.0-8    
+[94] tibble_2.1.3        workflowr_1.4.0     cluster_2.1.0      
+[97] writexl_1.1         TH.data_1.0-10     </code></pre>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
