@@ -1,0 +1,610 @@
+---
+title: "Alzheimer's disease PGS, APOE status, and summary cognitive status in the HRS"
+subtitle: "Inclusion/Exclusion, Flowchart & Univariate Table"
+author: "Kelly Bakulski"
+date: "October 29, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = "~/Google Drive/AD_R01_WB/AD_PGS_main_effect/Scripts/")
+```
+
+## Goal: Producing reproducible inclusion/exclusion descriptive statistics tables, flowcharts
+
+```{r set source/output locations}
+#Setting file paths for data, output, scripts
+
+source_dir<-"~/Google Drive/AD_R01_WB/Data/" #location of the parent dataset
+
+results_dir<-"~/Google Drive/AD_R01_WB/AD_PGS_main_effect/Results/" #location of output tables
+  
+derived_data_dir<-"~/Google Drive/AD_R01_WB/AD_PGS_main_effect/Derived_Datasets/" #location of any new datasets I'm building specifically for this paper
+
+script_dir<-"~/Google Drive/AD_R01_WB/AD_PGS_main_effect/Scripts/" #location of this script, redundant with the knitr option above
+
+date<-format(Sys.Date(), "%Y%m%d")
+```
+
+#Load in the dataset from Rda: HRS 1995-2014
+```{r load}
+load(file = paste0(derived_data_dir,"hrs_democoggen_wide20190813.rda"))
+dim(hrs)
+```
+# Parent dataset file "~/Google Drive/AD_R01_WB/Data/hrs_democoggen_wide20190805.sas7bdat"
+# Reference file "~/Google Drive/AD_R01_WB/AD_PGS_main_effect/Scripts/HRS_PGS_AD_Cog_DataQC_kmb_20190809.Rmd" for derived variable development
+
+
+## Need ancestry agnostic genetic variables, dummy missing variables for univariate table
+```{r missing variable update}
+
+
+#PH13_KunkleOK2_PT_0.01
+#PH13_KunkleFULL_PT_0.01
+
+### Secondary PGS variable, with APOE
+summary(hrs$EAPH13_KunkleFULL_PT_0.01)
+summary(hrs$AAPH13_KunkleFULL_PT_0.01)
+table(is.na(hrs$EAPH13_KunkleFULL_PT_0.01), is.na(hrs$AAPH13_KunkleFULL_PT_0.01)) # Expect new variable to have 30962 missing
+
+hrs$PH13_KunkleOK2_PT_0.01.miss <- ifelse(is.na(hrs$PH13_KunkleOK2_PT_0.01), "(Missing)", NA)
+table(hrs$PH13_KunkleOK2_PT_0.01.miss)
+
+hrs$PH13_KunkleFULL_PT_0.01.miss <- ifelse(is.na(hrs$PH13_KunkleFULL_PT_0.01), "(Missing)", NA)
+table(hrs$PH13_KunkleFULL_PT_0.01.miss)
+
+### Main APOE variable
+table(hrs$APOE2010_bin, useNA = "always")
+hrs$APOE2010_bin.fac <- factor(hrs$APOE2010_bin, levels = c(0, 1), labels = c("None", "E4"))
+# hrs$APOE2010_bin.fac<-ifelse(is.na(hrs$APOE2010_bin.fac), "Missing", hrs$APOE2010_bin.fac)
+# hrs$APOE2010_bin.fac<-factor(hrs$APOE2010_bin.fac, levels=c(1,2,3), labels=c("None", "E4", "Missing"))
+table(hrs$APOE2010_bin.fac, useNA = "always")
+hrs$APOE2010_bin.miss <- ifelse(is.na(hrs$APOE2010_bin), "(Missing)", NA)
+table(hrs$APOE2010_bin.miss)
+
+### Secondary APOE multiple level variable
+# Okay as APOE2010_imputed
+table(hrs$APOE2010_imputed, useNA = "always")
+hrs$APOE2010_imputed.miss <- ifelse(is.na(hrs$APOE2010_imputed), "(Missing)", NA)
+table(hrs$APOE2010_bin.miss)
+
+# Need outcome varaiable as a factor
+table(hrs$DC_60_2V, useNA = "always")
+hrs$DC_60_2V.fac <- factor(hrs$DC_60_2V, levels = c(1:5), labels = c("Dementia", "CIND", "Borderline", "Normal", "Unclassified"))
+table(hrs$DC_60_2V.fac, useNA = "always")
+hrs$DC_60_2V.miss <- ifelse(is.na(hrs$DC_60_2V), "(Missing)", NA)
+table(hrs$DC_60_2V.miss, useNA = "always")
+
+hrs$DC_60_2V.fac.relevel <- factor(hrs$DC_60_2V.fac, levels = c("Normal", "Borderline", "CIND", "Dementia"), labels = c("Normal", "Borderline", "Impaired", "Dementia"))
+table(hrs$DC_60_2V.fac.relevel)
+
+hrs$DC_60_2V.relevel<-ifelse(hrs$DC_60_2V==4, 1, NA)
+hrs$DC_60_2V.relevel<-ifelse(hrs$DC_60_2V==3, 2, hrs$DC_60_2V.relevel)
+hrs$DC_60_2V.relevel<-ifelse(hrs$DC_60_2V==2, 3, hrs$DC_60_2V.relevel)
+hrs$DC_60_2V.relevel<-ifelse(hrs$DC_60_2V==1, 4, hrs$DC_60_2V.relevel)
+table(hrs$DC_60_2V.relevel)
+
+## Need sex as a factor
+table(hrs$SEX, useNA = "always")
+hrs$SEX.fac <- factor(hrs$SEX, levels = c(1, 2), labels = c("Male", "Female"))
+table(hrs$SEX.fac, useNA = "always")
+hrs$SEX.miss <- ifelse(is.na(hrs$SEX.fac), "(Missing)", NA)
+table(hrs$SEX.miss, useNA = "always")
+
+### Missing dummy variable for education
+summary(hrs$SCHLYRS)
+hrs$SCHLYRS.miss <- ifelse(is.na(hrs$SCHLYRS), "(Missing)", NA)
+table(hrs$SCHLYRS.miss)
+
+summary(hrs$AGE_LAST_60)
+hrs$AGE_LAST_60.miss <- ifelse(is.na(hrs$AGE_LAST_60), "(Missing)", NA)
+table(hrs$AGE_LAST_60.miss)
+
+summary(hrs$YEAR_LAST_60)
+hrs$YEAR_LAST_60.miss <- ifelse(is.na(hrs$YEAR_LAST_60), "(Missing)", NA)
+table(hrs$YEAR_LAST_60.miss)
+
+table(hrs$ancestry, useNA = "always")
+hrs$ancestry.miss <- ifelse(is.na(hrs$ancestry), "(Missing)", NA)
+table(hrs$ancestry.miss)
+
+hrs$ancestry.relevel <- factor(hrs$ancestry, levels = c("European", "African"))
+table(hrs$ancestry.miss)
+
+table(hrs$AHEAD_CODA, useNA = "always")
+hrs$AHEAD_CODA.miss <- ifelse(is.na(hrs$AHEAD_CODA), "(Missing)", NA)
+table(hrs$AHEAD_CODA.miss)
+
+summary(hrs$BMI_LAST_60_v2)
+hrs$BMI_LAST_60_v2.miss <- ifelse(is.na(hrs$BMI_LAST_60_v2), "(Missing)", NA)
+table(hrs$BMI_LAST_60_v2.miss)
+
+table(hrs$HBP_EVER_LAST_60, useNA = "always")
+hrs$HBP_EVER_LAST_60.miss <- ifelse(is.na(hrs$HBP_EVER_LAST_60), "(Missing)", NA)
+table(hrs$HBP_EVER_LAST_60.miss)
+
+table(hrs$T2D_EVER_LAST_60, useNA = "always")
+hrs$T2D_EVER_LAST_60.miss <- ifelse(is.na(hrs$T2D_EVER_LAST_60), "(Missing)", NA)
+table(hrs$T2D_EVER_LAST_60.miss)
+
+table(hrs$EVSTROKE_LAST_60, useNA = "always")
+hrs$EVSTROKE_LAST_60.miss <- ifelse(is.na(hrs$EVSTROKE_LAST_60), "(Missing)", NA)
+table(hrs$EVSTROKE_LAST_60.miss)
+
+table(hrs$CESD_BIN, useNA = "always")
+hrs$CESD_BIN.miss <- ifelse(is.na(hrs$CESD_BIN), "(Missing)", NA)
+table(hrs$CESD_BIN.miss)
+
+table(hrs$SMK_CURR_LAST_60, useNA = "always")
+hrs$SMK_CURR_LAST_60.miss <- ifelse(is.na(hrs$SMK_CURR_LAST_60), "(Missing)", NA)
+#table(hrs$SMK_CURR_LAST_60.miss, hrs$include.step1)
+
+table(hrs$ALC_CURR_LAST_60, useNA = "always")
+hrs$ALC_CURR_LAST_60.miss <- ifelse(is.na(hrs$ALC_CURR_LAST_60), "(Missing)", NA)
+table(hrs$ALC_CURR_LAST_60.miss)
+
+# library(forcats)
+# table(fct_explicit_na(hrs$DC_60_2V.fac, na_level = "(Missing)"))
+```
+
+
+Make exclusions (less than 3 visits, younger than 60, missing APOE, missing SCHLYRS, health behaviors), confirm matching SAS exclusions
+```{r exclusions}
+#Start with the 2010 PGS _T
+
+hrs$unique <- paste0(hrs$HHID, hrs$PN)
+# Step 1: Exclude missing genetic information 2010 polygenic scores
+#PH13_KunkleYAPOE_PT_1
+#PH13_KunkleOK2_PT_0.01
+
+table(!is.na(hrs$EAPH13_KunkleOK2_PT_0.01 | hrs$AAPH13_KunkleOK2_PT_0.01)) # Step 1 of flow chart
+
+step1 <- hrs[!is.na(hrs$PH13_KunkleOK2_PT_0.01), ]
+dim(step1) # checks out
+hrs$include.step1 <- ifelse(!is.na(hrs$PH13_KunkleOK2_PT_0.01), 1, 0)
+table(hrs$include.step1)
+# Note: Previous tables started at step 2 (those excluded at step 1 were not in the inclusion/exclusion table)
+
+# Step 2: At least 3 cognition variables
+table(!is.na(hrs$DC_60_2V), hrs$include.step1) # Differs from flow chart in expected direction, given we're including stroke
+step2 <- step1[!is.na(step1$DC_60_2V), ]
+dim(step2) 
+hrs$include.step2 <- ifelse(hrs$include.step1 == 1 & !is.na(hrs$DC_60_2V), 1, 0)
+table(hrs$include.step2)
+
+# Step 3: Drop unclassified cognition, think this can come out in the previous step
+#table(step2$DC_60_2V) 
+step3 <- step2[step2$DC_60_2V < 5, ]
+dim(step3) 
+table(hrs$include.step2, hrs$DC_60_2V==5)
+hrs$include.step3 <- ifelse(hrs$include.step2 == 1 & hrs$DC_60_2V < 5, 1, 0)
+table(hrs$include.step3)
+
+# Step 4: Drop missing SCHLYRS
+step4 <- step3[!is.na(step3$SCHLYRS), ]
+dim(step4)
+table(hrs$include.step3, !is.na(hrs$SCHLYRS), !is.na(hrs$BMI_LAST_60_v2))
+hrs$include.step4 <- ifelse(hrs$include.step3 == 1 & !is.na(hrs$SCHLYRS), 1, 0)
+
+table(hrs$include.step4, hrs$include.step3) #no missing on SCHLYRS
+table(hrs$include.step4, !is.na(hrs$BMI_LAST_60_v2))
+table(hrs$include.step4, hrs$include.step3) # Dropped 11
+
+# Step 5: Drop missing BMI
+step5 <- step4[!is.na(step4$BMI_LAST_60_v2), ]
+dim(step5)
+table(hrs$include.step4, !is.na(hrs$BMI_LAST_60_v2))
+hrs$include.step5 <- ifelse(hrs$include.step4 == 1 & !is.na(hrs$BMI_LAST_60_v2), 1, 0)
+table(hrs$include.step4)
+summary(step5$BMI_LAST_60_v2)
+summary(hrs$BMI_LAST_60_v2[hrs$include.step5==1])
+table(hrs$include.step5)
+table(hrs$include.step5, hrs$include.step4) #Dropped 88
+
+# Step 6: Drop missing Smk
+table(hrs$include.step5, !is.na(hrs$SMK_CURR_LAST_60))
+step6 <- step5[!is.na(step5$SMK_CURR_LAST_60), ]
+dim(step6)
+hrs$include.step6 <- ifelse(hrs$include.step5 == 1 & !is.na(hrs$SMK_CURR_LAST_60), 1, 0)
+table(hrs$include.step6)
+table(step6$SMK_CURR_LAST_60)
+table(hrs$SMK_CURR_LAST_60[hrs$include.step5==1])
+table(hrs$include.step6, hrs$include.step5) #dropped 64
+
+# Step 7: Drop missing HBP
+table(hrs$include.step6, !is.na(hrs$HBP_EVER_LAST_60)) #expect 25
+step7 <- step6[!is.na(step6$HBP_EVER_LAST_60), ]
+dim(step7)
+hrs$include.step7 <- ifelse(hrs$include.step6 == 1 & !is.na(hrs$HBP_EVER_LAST_60), 1, 0)
+table(hrs$include.step7)
+table(step7$HBP_EVER_LAST_60)
+table(hrs$HBP_EVER_LAST_60[hrs$include.step6==1])
+table(hrs$include.step7, hrs$include.step6) #dropped 25
+
+# Step 8: Drop missing T2D
+table(hrs$include.step7, !is.na(hrs$T2D_EVER_LAST_60)) #expect 14
+step8 <- step7[!is.na(step7$T2D_EVER_LAST_60), ]
+dim(step8)
+hrs$include.step8 <- ifelse(hrs$include.step7 == 1 & !is.na(hrs$T2D_EVER_LAST_60), 1, 0)
+table(hrs$include.step8)
+table(step8$T2D_EVER_LAST_60)
+table(hrs$T2D_EVER_LAST_60[hrs$include.step8==1])
+table(hrs$include.step8, hrs$include.step7) #dropped 14
+
+# Step 9: Drop missing stroke
+table(hrs$include.step8, !is.na(hrs$EVSTROKE_LAST_60)) #expect 12
+step9 <- step8[!is.na(step8$EVSTROKE_LAST_60), ]
+dim(step9)
+hrs$include.step9 <- ifelse(hrs$include.step8 == 1 & !is.na(hrs$EVSTROKE_LAST_60), 1, 0)
+table(hrs$include.step8)
+table(step9$EVSTROKE_LAST_60)
+table(hrs$EVSTROKE_LAST_60[hrs$include.step9==1])
+table(hrs$include.step9, hrs$include.step8) #dropped 12
+
+# Step 10: Drop missing alcohol
+table(hrs$include.step9, !is.na(hrs$ALC_CURR_LAST_60)) #expect 10
+step10 <- step9[!is.na(step9$ALC_CURR_LAST_60), ]
+dim(step10)
+hrs$include.step10 <- ifelse(hrs$include.step9 == 1 & !is.na(hrs$ALC_CURR_LAST_60), 1, 0)
+table(hrs$include.step10)
+table(step10$ALC_CURR_LAST_60)
+table(hrs$ALC_CURR_LAST_60[hrs$include.step10==1])
+table(hrs$include.step10, hrs$include.step9) #dropped 10
+
+# Step 11: Drop missing depression
+table(hrs$include.step10, !is.na(hrs$CESD_BIN)) #expect 0
+# step11 <- step10[!is.na(step10$CESD_BIN), ]
+# dim(step11)
+# hrs$include.step11 <- ifelse(hrs$include.step10 == 1 & !is.na(hrs$CESD_BIN), 1, 0)
+# table(hrs$include.step11)
+# table(step11$CESD_BIN)
+# table(hrs$CESD_BIN[hrs$include.step11==1])
+# table(hrs$include.step11, hrs$include.step10) #dropped 0
+
+#BMI_LAST_60_v2, EVSTROKE_LAST_60
+### Use new variables: SMK_CURR_LAST_60, ALC_CURR_LAST_60, HBP_EVER_LAST_60, T2D_EVER_LAST_60, CESD_BIN
+
+# table(!is.na(hrs$BMI_LAST_60_v2) & !is.na(hrs$EVSTROKE_LAST_60) & !is.na(hrs$SMK_CURR_LAST_60) & !is.na(hrs$ALC_CURR_LAST_60) & !is.na(hrs$HBP_EVER_LAST_60) & !is.na(hrs$T2D_EVER_LAST_60) & !is.na(hrs$CESD_BIN),hrs$include.step5,  useNA = "always")
+# 
+# dim(hrs[!is.na(hrs$BMI_LAST_60_v2) & !is.na(hrs$EVSTROKE_LAST_60) & !is.na(hrs$SMK_CURR_LAST_60) & !is.na(hrs$ALC_CURR_LAST_60) & !is.na(hrs$HBP_EVER_LAST_60) & !is.na(hrs$T2D_EVER_LAST_60) & !is.na(hrs$CESD_BIN) & hrs$include.step5==1,])
+# 
+# step6 <- hrs[!is.na(hrs$BMI_LAST_60_v2) & !is.na(hrs$EVSTROKE_LAST_60) & !is.na(hrs$SMK_CURR_LAST_60) & !is.na(hrs$ALC_CURR_LAST_60) & !is.na(hrs$HBP_EVER_LAST_60) & !is.na(hrs$T2D_EVER_LAST_60) & !is.na(hrs$CESD_BIN) & hrs$include.step5==1, ] 
+# dim(step6)
+length(hrs$unique[step10$unique])
+
+# hrs$include.step6 <- ifelse(!is.na(hrs$BMI_LAST_60_v2) & !is.na(hrs$EVSTROKE_LAST_60) & !is.na(hrs$SMK_CURR_LAST_60) & !is.na(hrs$ALC_CURR_LAST_60) & !is.na(hrs$HBP_EVER_LAST_60) & !is.na(hrs$T2D_EVER_LAST_60) & !is.na(hrs$CESD_BIN) & hrs$include.step5==1, 1, 0)
+# table(hrs$include.step6)
+
+
+# Summary
+#table(hrs$unique %in% step4$unique)
+table(hrs$unique %in% hrs$unique[hrs$include.step10==1])
+
+hrs$include <- ifelse(hrs$unique %in% hrs$unique[hrs$include.step10==1], "Included", "Excluded")
+
+include<-hrs[hrs$include=="Included",]
+dim(include)
+table(hrs$include, hrs$include.step10)
+table(hrs$ancestry, hrs$include)
+```
+### Made a new variable: include for if person made it in the primary analytic sample
+
+### Figure out which health behaviors are missing
+```{r , eval=F}
+install.packages("expss")
+library(expss)
+table(hrs$include.step4, hrs$include.step6)
+test<-hrs[hrs$include.step6==0 & hrs$include.step5==1,]
+cro(is.na(test$EVSTROKE_LAST_60), is.na(test$BMI_LAST_60_v2), is.na(test$SMK_CURR_LAST_60)) #88 additional BMI, 11 schoolyears, 14 stroke, 1 smk
+
+table(is.na(test$BMI_LAST_60_v2)) #88
+table(is.na(test$SMK_CURR_LAST_60)) #65
+table(is.na(test$HBP_EVER_LAST_60)) #26
+table(is.na(test$T2D_EVER_LAST_60)) #17
+table(is.na(test$EVSTROKE_LAST_60)) #14
+table(is.na(test$ALC_CURR_LAST_60)) #11
+
+
+table(!is.na(hrs$BMI_LAST_60_v2) & !is.na(hrs$EVSTROKE_LAST_60) & !is.na(hrs$SMK_CURR_LAST_60) & !is.na(hrs$ALC_CURR_LAST_60) & !is.na(hrs$HBP_EVER_LAST_60) & !is.na(hrs$T2D_EVER_LAST_60) & !is.na(hrs$CESD_BIN),hrs$include.step5,  useNA = "always")
+```
+
+
+
+### Make flow chart for inclusion/exclusion
+```{r primary flowchart}
+# install.packages("DiagrammeR")
+library(DiagrammeR)
+# install.packages("DiagrammeRsvg")
+library(DiagrammeRsvg)
+# install.packages("rsvg")
+library(rsvg)
+
+# graph: this sets the overall layout, themes of the plot
+# node: the boxes in the flowchart
+# edges: the lines used to connect each of the boxes
+
+## Need 2 columns (1, 2) with 5 rows (A-E)
+# Labels for column 1
+a1 <- paste0("Polygenic scores
+available
+n=", length(hrs$include.step1[hrs$include.step1 == 1]))
+b1 <- paste0("At least three cognition
+measures from ages 60
+and above
+n=", length(hrs$include.step2[hrs$include.step2 == 1]))
+c1 <- paste0("Summary cogntition
+status classified
+n=", length(hrs$include.step3[hrs$include.step3 == 1]))
+d1 <- paste0("Primary analytic
+sample
+n=", length(hrs$include.step10[hrs$include.step10 == 1]))
+e1 <- paste0("European ancestry 
+analytic sample
+n=", length(hrs$include[hrs$include == "Included" & hrs$ancestry == "European"]))
+
+# Labels for column 2
+a2 <- paste0("Less than three
+cognitive measures
+from ages 60
+and above
+n=", length(hrs$include.step1[hrs$include.step2 == 0 & hrs$include.step1 == 1]))
+b2 <- paste0("Cogntition status
+not classified
+n=", length(hrs$include.step1[hrs$include.step3 == 0 & hrs$include.step2 == 1]))
+c2 <- paste0("Missing education
+n=", length(hrs$include.step1[hrs$include.step4 == 0 & hrs$include.step3 == 1]), 
+"\nMissing BMI
+n=", length(hrs$include.step1[hrs$include.step5 == 0 & hrs$include.step4 == 1]),
+"\nMissing smoking
+n=", length(hrs$include.step1[hrs$include.step6 == 0 & hrs$include.step5 == 1]), 
+"\nMissing 
+hypertension
+n=", length(hrs$include.step1[hrs$include.step7 == 0 & hrs$include.step6 == 1]),
+"\nMissing diabetes
+n=", length(hrs$include.step1[hrs$include.step8 == 0 & hrs$include.step7 == 1]), 
+"\nMissing stroke
+n=", length(hrs$include.step1[hrs$include.step9 == 0 & hrs$include.step8 == 1]),
+"\nMissing alcohol
+n=", length(hrs$include.step1[hrs$include.step10 == 0 & hrs$include.step9 == 1]))
+
+d2 <- paste0("African ancestry 
+analytic sample
+n=", length(hrs$include[hrs$include == "Included" & hrs$ancestry == "African"]))
+
+# Create a node dataframe
+ndf <- create_node_df(
+  n = 9,
+  label = c(
+    a1, b1, c1, d1, e1, # Column 1
+    a2, b2, c2, d2
+  ), # Column 2
+  style = c(
+    rep("solid", 5), # Column 1
+    rep("dotted", 3), "solid"
+  ), # Column 2
+  shape = "box",
+  fontname = "Arial",
+  penwidth = 3,
+  fixedsize = F,
+  color = c(rep("black", 5), rep("silver", 3), "black")
+)
+
+
+# Create an edge dataframe
+edf <- create_edge_df(
+  from = c(
+    1, 2, 3, 4, # Column 1
+    1, 2, 3, 4 # Column 2
+  ),
+  to = c(
+    2, 3, 4, 5, # Column 1
+    6, 7, 8, 9 # Column 2
+  ),
+  arrowhead = "normal",
+  style = c(rep("solid", 4), rep("dotted", 3), "solid"),
+  color = c(
+    rep("black", 4), # Column 1
+    rep("silver", 3), "black"
+  ) # Column 2
+)
+
+g <- create_graph(ndf,
+  edf,
+  attr_theme = NULL, directed = T
+)
+render_graph(g)
+
+export_graph(g, file_name = paste0(results_dir,"HRS_PGS_Flowchart_Inclusion_Exclusion_", date, ".pdf"), file_type = "PDF")
+```
+
+
+
+## Producing reproducible descriptive statistics tables
+
+
+
+## Compare Groups to Produce Univariate Tables
+```{r univariate table}
+#install.packages("compareGroups")
+library(compareGroups)
+table(hrs$include)
+table(hrs$include.step1, hrs$include)
+
+#PH13_KunkleOK2_PT_0.01
+#PH13_KunkleFULL_PT_0.01
+
+# Note: The official genetic variables are split by ancestry. This summary table wants them together. New variables are developed above to combine them
+
+univar.desc.pval <- descrTable(formula = include ~ DC_60_2V.fac + DC_60_2V.miss + PH13_KunkleOK2_PT_0.01 + PH13_KunkleOK2_PT_0.01.miss+ PH13_KunkleFULL_PT_0.01 + PH13_KunkleFULL_PT_0.01.miss + APOE2010_imputed + APOE2010_imputed.miss + APOE2010_bin.fac + APOE2010_bin.miss + AGE_LAST_60 + AGE_LAST_60.miss + YEAR_LAST_60 + YEAR_LAST_60.miss + SEX.fac + SEX.miss + SCHLYRS + SCHLYRS.miss + ancestry.relevel + ancestry.miss + AHEAD_CODA + AHEAD_CODA.miss + BMI_LAST_60_v2 + BMI_LAST_60_v2.miss + HBP_EVER_LAST_60.fac + HBP_EVER_LAST_60.miss + T2D_EVER_LAST_60.fac + T2D_EVER_LAST_60.miss + EVSTROKE_LAST_60.fac + EVSTROKE_LAST_60.miss + CESD_BIN.fac + CESD_BIN.miss + SMK_CURR_LAST_60.fac + SMK_CURR_LAST_60.miss + ALC_CURR_LAST_60.fac + ALC_CURR_LAST_60.miss, data = hrs[hrs$include.step1 == 1, ], na.action = na.pass, show.all = T, show.n = T, digits.p = 3)
+print(univar.desc.pval)
+export2word(univar.desc.pval, file = paste0(results_dir, "HRS_PGS_Univariate_Include_P_", date, ".docx"))
+
+univar.desc.pval <- descrTable(formula = include ~ DC_60_2V.fac + DC_60_2V.miss + PH13_KunkleOK2_PT_0.01 + PH13_KunkleOK2_PT_0.01.miss+ PH13_KunkleFULL_PT_0.01  + APOE2010_imputed+ APOE2010_bin.fac + APOE2010_bin.miss + AGE_LAST_60  + YEAR_LAST_60  + SEX.fac + SCHLYRS  + ancestry.relevel  + AHEAD_CODA  + BMI_LAST_60_v2 + BMI_LAST_60_v2.miss + HBP_EVER_LAST_60.fac  + T2D_EVER_LAST_60.fac + EVSTROKE_LAST_60.fac  + CESD_BIN.fac + SMK_CURR_LAST_60.fac  + ALC_CURR_LAST_60.fac, data = hrs[hrs$include.step1 == 1, ], na.action = na.pass, show.all = T, show.n = T, digits.p = 3, include.miss=T)
+print(univar.desc.pval)
+export2word(univar.desc.pval, file = paste0(results_dir, "HRS_PGS_Univariate_Include_Miss_", date, ".docx"))
+
+```
+
+
+
+
+<!-- For those using Rstudio, I've found that setting Sys.setenv('R_MAX_VSIZE'=32000000000), as has been suggested on multiple StackOverflow posts, only works on the command line, and that setting that parameter while using Rstudio does not prevent this error: -->
+
+<!-- Error: vector memory exhausted (limit reached?) -->
+
+<!-- After doing some more reading, I found this thread, which clarifies the problem with Rstudio, and identifies a solution, shown below: -->
+
+<!-- Step 1: Open terminal, -->
+
+<!-- Step 2: -->
+
+<!-- cd ~ -->
+<!-- touch .Renviron -->
+<!-- open .Renviron -->
+
+<!-- Step 3: Save the following as the first line of .Renviron: -->
+
+<!-- R_MAX_VSIZE=100Gb  -->
+
+<!-- Note: This limit includes both physical and virtual memory; so setting _MAX_VSIZE=16Gb on a machine with 16Gb of physical memory may not prevent this error. You may have to play with this parameter, depending on the specs of your machine -->
+
+
+## Compare Groups to Produce Univariate Tables, split by ancestry
+```{r}
+library(compareGroups)
+
+#PH13_KunkleOK2_PT_0.01
+#PH13_KunkleFULL_PT_0.01
+
+# Note: The official genetic variables are split by ancestry. This summary table wants them together. New variables are developed above to combine them
+table(hrs$ancestry)
+univar.desc.pval <- descrTable(formula = ancestry.relevel ~ DC_60_2V.fac + DC_60_2V.miss + PH13_KunkleOK2_PT_0.01 + PH13_KunkleOK2_PT_0.01.miss+ PH13_KunkleFULL_PT_0.01 + PH13_KunkleFULL_PT_0.01.miss +APOE2010_imputed + APOE2010_imputed.miss + APOE2010_bin.fac + APOE2010_bin.miss +  AGE_LAST_60 + AGE_LAST_60.miss + YEAR_LAST_60 + YEAR_LAST_60.miss + SEX.fac + SEX.miss + SCHLYRS + SCHLYRS.miss + ancestry.relevel + ancestry.miss + AHEAD_CODA + AHEAD_CODA.miss + BMI_LAST_60_v2 + BMI_LAST_60_v2.miss + HBP_EVER_LAST_60.fac + HBP_EVER_LAST_60.miss + T2D_EVER_LAST_60.fac + T2D_EVER_LAST_60.miss + EVSTROKE_LAST_60.fac + EVSTROKE_LAST_60.miss + CESD_BIN.fac + CESD_BIN.miss + SMK_CURR_LAST_60.fac + SMK_CURR_LAST_60.miss + ALC_CURR_LAST_60.fac + ALC_CURR_LAST_60.miss, data = hrs[hrs$include == "Included", ], na.action = na.pass, show.all = T, show.n = T, digits.p = 3)
+
+print(univar.desc.pval)
+export2word(univar.desc.pval, file =paste0(results_dir, "HRS_PGS_Univariate_Include_Ancestry_", date, ".docx"))
+
+```
+
+
+# Sensitivity analysis 1: Select on cohort
+```{r sensitivity 1 selection}
+table(include$AHEAD_CODA, useNA = "always")
+sens1 <- include[include$AHEAD_CODA == "Other", ] # 8145
+table(sens1$AHEAD_CODA, useNA = "always")
+table(sens1$ancestry, useNA = "always")
+include$sens1 <- ifelse(include$AHEAD_CODA == "Other", "Include", "Exclude")
+table(include$sens1)
+hrs$sens1 <- ifelse(hrs$include=="Included" & hrs$AHEAD_CODA == "Other", "Include", "Exclude")
+table(hrs$sens1)
+
+include<-hrs[hrs$include=="Included", ]
+
+```
+# Sensitivity analysis 1: Select on cohort, flow chart
+```{r sensitivity 1 flow chart}
+library(DiagrammeR)
+library(DiagrammeRsvg)
+library(rsvg)
+
+# graph: this sets the overall layout, themes of the plot
+# node: the boxes in the flowchart
+# edges: the lines used to connect each of the boxes
+
+## Need 2 columns (1, 2) with 2 rows (A-B)
+# Labels for column 1
+a1 <- paste0("Primary analytic sample
+European n=", length(include$ancestry[include$ancestry == "European"]), "\nAfrican n=", length(include$ancestry[include$ancestry == "African"]))
+
+b1 <- paste0("Sensitivity analysis one
+ analytic sample
+European n=", length(include$ancestry[include$ancestry == "European" & include$sens1 == "Include"]), "\nAfrican n=", length(include$ancestry[include$ancestry == "African" & include$sens1 == "Include"]))
+
+# Labels for column 2
+a2 <- paste0("Exclude AHEAD and
+CODA cohorts
+European n=", length(include$ancestry[include$ancestry == "European" & include$sens1 == "Exclude"]), "\nAfrican n=", length(include$ancestry[include$ancestry == "African" & include$sens1 == "Exclude"]))
+
+
+# Create a node dataframe
+ndf <- create_node_df(
+  n = 3,
+  label = c(
+    a1, b1, # Column 1
+    a2
+  ), # Column 2
+  style = c(
+    rep("solid", 2), # Column 1
+    rep("dotted", 1)
+  ), # Column 2
+  shape = "box",
+  fontname = "Arial",
+  penwidth = 3,
+  fixedsize = F,
+  color = c(rep("black", 2), rep("silver", 1))
+)
+
+
+# Create an edge dataframe
+edf <- create_edge_df(
+  from = c(
+    1, # Column 1
+    1 # Column 2
+  ),
+  to = c(
+    2, # Column 1
+    3 # Column 2
+  ),
+  arrowhead = "normal",
+  style = c(rep("solid", 1), rep("dotted", 1)),
+  color = c(
+    rep("black", 1), # Column 1
+    rep("silver", 1)
+  ) # Column 2
+)
+
+g <- create_graph(ndf,
+  edf,
+  attr_theme = NULL, directed = T
+)
+render_graph(g)
+
+export_graph(g, file_name =paste0(results_dir, "HRS_PGS_Flowchart_Inclusion_Exclusion_Sensitivity_One_", date, ".pdf"), file_type = "PDF")
+```
+
+
+# Sensitivity analysis 1: Select on cohort, inclusion table
+```{r sensitivity 1 inclusion table}
+
+#PH13_KunkleOK2_PT_0.01
+#PH13_KunkleFULL_PT_0.01
+
+univar.desc.pval <- descrTable(formula = sens1 ~ DC_60_2V.fac + DC_60_2V.miss + PH13_KunkleOK2_PT_0.01 + PH13_KunkleOK2_PT_0.01.miss+ PH13_KunkleFULL_PT_0.01 + PH13_KunkleFULL_PT_0.01.miss + APOE2010_imputed + APOE2010_imputed.miss + APOE2010_bin.fac + APOE2010_bin.miss + AGE_LAST_60 + AGE_LAST_60.miss + YEAR_LAST_60 + YEAR_LAST_60.miss + SEX.fac + SEX.miss + SCHLYRS + SCHLYRS.miss + ancestry.relevel + ancestry.miss + AHEAD_CODA + AHEAD_CODA.miss + BMI_LAST_60_v2 + BMI_LAST_60_v2.miss + HBP_EVER_LAST_60.fac + HBP_EVER_LAST_60.miss + T2D_EVER_LAST_60.fac + T2D_EVER_LAST_60.miss + EVSTROKE_LAST_60.fac + EVSTROKE_LAST_60.miss + CESD_BIN.fac + CESD_BIN.miss + SMK_CURR_LAST_60.fac + SMK_CURR_LAST_60.miss + ALC_CURR_LAST_60.fac + ALC_CURR_LAST_60.miss, data = include, na.action = na.pass, show.all = T, show.n = T, digits.p = 3)
+print(univar.desc.pval)
+export2word(univar.desc.pval, file = paste0(results_dir, "HRS_PGS_Univariate_Sensitivity_One_Include_", date, ".docx"))
+```
+
+
+# Sensitivity analysis 2: Select on health behaviors
+```{r sensitivity 2 selection}
+
+```
+
+
+
+```{r save derived dataset with inclusion variables}
+save(hrs, file=paste0(derived_data_dir,"HRS_PGS_AD_Analytic_Sample_20190814.rda"))
+
+include<-hrs[hrs$include=="Included",]
+save(include, file=paste0(derived_data_dir,"HRS_PGS_AD_Primary_Included_Sample_20190816.rda"))
+
+ea <- hrs[hrs$ancestry == "European" & hrs$include=="Included", ]
+dim(ea) # 8587
+
+aa <- hrs[hrs$ancestry == "African" & hrs$include=="Included", ]
+dim(aa) #1639
+
+save(ea, file = paste0(derived_data_dir,"HRS_PGS_AD_Euro_Analytic_Sample_20190814.rda"))
+save(aa, file = paste0(derived_data_dir,"HRS_PGS_AD_Afri_Analytic_Sample_20190814.rda"))
+```
+

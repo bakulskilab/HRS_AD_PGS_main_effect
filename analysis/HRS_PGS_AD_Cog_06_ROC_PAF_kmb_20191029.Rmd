@@ -1,0 +1,352 @@
+---
+title: "Alzheimer's disease PGS, APOE status, and summary cognitive status in the HRS"
+subtitle: "Bivariate Tables"
+author: "Kelly Bakulski"
+date: "October 29, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = "~/Google Drive/AD_R01_WB/AD_PGS_main_effect/Scripts/")
+```
+
+## Goal: Complete PAF and ROC curve analysis for models 1-3
+
+```{r set source/output locations}
+#Setting file paths for data, output, scripts
+
+source_dir<-"~/Google Drive/AD_R01_WB/Data/" #location of the parent dataset
+
+results_dir<-"~/Google Drive/AD_R01_WB/AD_PGS_main_effect/Results/" #location of output tables
+  
+derived_data_dir<-"~/Google Drive/AD_R01_WB/AD_PGS_main_effect/Derived_Datasets/" #location of any new datasets I'm building specifically for this paper
+
+script_dir<-"~/Google Drive/AD_R01_WB/AD_PGS_main_effect/Scripts/" #location of this script, redundant with the knitr option above
+
+date<-format(Sys.Date(), "%Y%m%d")
+```
+
+
+#Load in the dataset from Rda: HRS 1995-2014
+```{r load}
+load(file=paste0(derived_data_dir, "HRS_PGS_AD_Analytic_Sample_20190814.rda"))
+dim(hrs)
+# [1] 43232  1196
+load(file=paste0(derived_data_dir, "HRS_PGS_AD_Primary_Included_Sample_20190816.rda"))
+dim(include)
+load(file = paste0(derived_data_dir, "HRS_PGS_AD_Euro_Analytic_Sample_20190814.rda"))
+dim(ea)
+load(file = paste0(derived_data_dir,"HRS_PGS_AD_Afri_Analytic_Sample_20190814.rda"))
+dim(aa)
+```
+
+```{r install packages, eval=FALSE}
+install.packages("AF")
+install.packages("Hmisc")
+install.packages("pROC")
+install.packages("wesanderson")
+```
+
+
+```{r load packages}
+library(Hmisc)
+library(AF)
+library(pROC)
+library(wesanderson)
+
+#library(tidyverse)
+#library(gtools) # quantile
+#library(writexl)
+
+```
+
+
+
+## PAF calculation, Top 20% versus Bottom 20% (whole population)
+
+# European Ancestry
+## Subset dataset to different cognitive status levels and normal & PGS dichotomize
+### Way 1: make the AD PGS quantcut for the whole population
+```{r PGS quantile 20%}
+#PH13_KunkleOK2_PT_0.01
+
+# European ancestry quantile PGS
+ea$AD_PGS_quantile<-cut2(ea$PH13_KunkleOK2_PT_0.01, g=5)
+table(ea$AD_PGS_quantile)
+levels(ea$AD_PGS_quantile)[1]
+ea$AD_PGS_high<-ifelse(ea$AD_PGS_quantile==levels(ea$AD_PGS_quantile)[5], 1, NA)
+ea$AD_PGS_high<-ifelse(ea$AD_PGS_quantile==levels(ea$AD_PGS_quantile)[1], 0, ea$AD_PGS_high)
+table(ea$AD_PGS_high)
+ea.paf<-ea[!is.na(ea$AD_PGS_high),]
+
+
+### Create outcome datasets and a dummy variable
+ea.dementia<-ea.paf[ea.paf$DC_60_2V==4 | ea.paf$DC_60_2V==1,]
+dim(ea.dementia)
+ea.dementia$outcome<-ifelse(ea.dementia$DC_60_2V==4, 0, 1)
+table(ea.dementia$outcome)
+typeof(ea.dementia$outcome)
+ea.cind<-ea.paf[ea.paf$DC_60_2V==4 | ea.paf$DC_60_2V==2,]
+ea.cind$outcome<-ifelse(ea.cind$DC_60_2V==4, 0, 1)
+table(ea.cind$outcome)
+ea.borderline<-ea.paf[ea.paf$DC_60_2V==4 | ea.paf$DC_60_2V==3,]
+ea.borderline$outcome<-ifelse(ea.borderline$DC_60_2V==4, 0, 1)
+table(ea.borderline$outcome)
+
+# African ancestry quantile PGS
+aa$AD_PGS_quantile<-cut2(aa$PH13_KunkleOK2_PT_0.01, g=5)
+table(aa$AD_PGS_quantile)
+levels(aa$AD_PGS_quantile)[1]
+aa$AD_PGS_high<-ifelse(aa$AD_PGS_quantile==levels(aa$AD_PGS_quantile)[5], 1, NA)
+aa$AD_PGS_high<-ifelse(aa$AD_PGS_quantile==levels(aa$AD_PGS_quantile)[1], 0, aa$AD_PGS_high)
+table(aa$AD_PGS_high)
+aa.paf<-aa[!is.na(aa$AD_PGS_high),]
+
+
+### Create outcome datasets and a dummy variable
+aa.dementia<-aa.paf[aa.paf$DC_60_2V==4 | aa.paf$DC_60_2V==1,]
+dim(aa.dementia)
+aa.dementia$outcome<-ifelse(aa.dementia$DC_60_2V==4, 0, 1)
+table(aa.dementia$outcome)
+table( aa.dementia$AD_PGS_high, aa.dementia$outcome)
+chisq.test(aa.dementia$AD_PGS_high, aa.dementia$outcome)
+table(aa.dementia$APOE2010_bin, aa.dementia$outcome)
+chisq.test(aa.dementia$APOE2010_bin, aa.dementia$outcome)
+aa.cind<-aa.paf[aa.paf$DC_60_2V==4 | aa.paf$DC_60_2V==2,]
+aa.cind$outcome<-ifelse(aa.cind$DC_60_2V==4, 0, 1)
+table(aa.cind$outcome)
+aa.borderline<-aa.paf[aa.paf$DC_60_2V==4 | aa.paf$DC_60_2V==3,]
+aa.borderline$outcome<-ifelse(aa.borderline$DC_60_2V==4, 0, 1)
+table(aa.borderline$outcome, aa.borderline$AD_PGS_high)
+
+```
+
+```{r initiate extract_AF function}
+
+extract_AF = function(regression_object, mark) {
+  
+  summary_reg = summary(regression_object)
+  AF_table = array(NA, dim=c(1,6))
+  
+  AF_est = regression_object$AF.est
+  N = regression_object$n
+  low_limit = summary_reg$confidence.interval[1]
+  upper_limit = summary_reg$confidence.interval[2]
+  p = summary_reg$AF[4]
+  
+  AF_table[1,1] = mark
+  AF_table[1,2] = N
+  AF_table[1,3] = sprintf('%.4f', AF_est)
+  AF_table[1,4] = sprintf('%.4f', low_limit)
+  AF_table[1,5] = sprintf('%.4f', upper_limit)
+  AF_table[1,6] = sprintf('%.3f', p)
+  
+  AF_table_final = as.data.frame(AF_table)
+  colnames(AF_table_final) = c('mark', 'N', 'AF', 'lower', 'upper', 'p-value')
+  
+  return(AF_table_final)
+}
+```
+
+
+
+### Calculate proportion attrubtable fraction
+```{r PAF try with get datasets}
+
+dataset_lst = c("ea.borderline",  "ea.cind", "ea.dementia",  "aa.borderline", "aa.cind","aa.dementia")
+output_table = data.frame()
+
+for (df in dataset_lst) {
+crude_model =  glm(formula = outcome ~ AD_PGS_high + APOE2010_bin, data = get(df), family = 'binomial')
+full_model = glm(formula = outcome ~ AD_PGS_high + APOE2010_bin + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + PC1_2010 + PC2_2010, data = get(df), family = 'binomial')  
+
+
+crude_PGS = AFglm(object = crude_model, data = get(df), exposure = "AD_PGS_high")
+crude_APOE = AFglm(object = crude_model, data = get(df) , exposure = "APOE2010_bin")
+full_PGS = AFglm(object = full_model, data = get(df), exposure = "AD_PGS_high")
+full_APOE = AFglm(object = full_model, data = get(df), exposure = "APOE2010_bin")
+
+
+table_together = rbind(extract_AF(crude_PGS, 'crude_PGS'), extract_AF(full_PGS, 'full_PGS'), extract_AF(crude_APOE, 'crude_APOE'), extract_AF(full_APOE, 'full_APOE'))
+table_together[['df_name']] = df 
+  
+output_table = rbind(output_table, table_together)
+}
+```
+
+
+## Write PAF outputs into csv file
+```{r PAF output}
+write.csv(output_table, file=paste0(results_dir, "HRS_PGS_PAF_", date, ".csv"))
+```
+
+```{r check linearity, eval=FALSE}
+library(mgcv)
+ea.dementia<-ea[ea$DC_60_2V==4 | ea$DC_60_2V==1,]
+dim(ea.dementia)
+ea.dementia$outcome<-ifelse(ea.dementia$DC_60_2V==4, 0, 1)
+table(ea.dementia$outcome)
+
+aa.dementia<-aa[aa$DC_60_2V==4 | aa$DC_60_2V==1,]
+dim(aa.dementia)
+aa.dementia$outcome<-ifelse(aa.dementia$DC_60_2V==4, 0, 1)
+table(aa.dementia$outcome)
+
+length(!is.na(ea.dementia$AGE_LAST_60))
+length(ea.dementia$outcome)
+
+mod.ea = gam(formula =  outcome ~  s(PH13_KunkleOK2_PT_0.01) +AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + PC1_2010 + PC2_2010 + APOE2010_bin, data = ea.dementia, family = 'binomial')
+
+
+mod.ea.apoe = gam(formula =  outcome ~  s(PH13_KunkleOK2_PT_0.01) +AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + PC1_2010 + PC2_2010, data = ea.dementia, family = 'binomial')
+
+mod.aa = gam(formula =  outcome ~  s(PH13_KunkleOK2_PT_0.01) + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + PC1_2010 + PC2_2010, data = aa.dementia, family = 'binomial')
+
+mod.aa.apoe = gam(formula =  outcome ~  s(PH13_KunkleOK2_PT_0.01) + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + PC1_2010 + PC2_2010 + APOE2010_bin, data = aa.dementia, family = 'binomial')
+
+pdf(file=paste0(results_dir, "AD_PGS_Spline_model_", date, ".pdf"))
+plot(mod.ea, main="European ancestry, covariate adjusted model")
+plot(mod.ea.apoe, main="European ancestry, covariate and APOE adjusted model")
+plot(mod.aa, main="African ancestry, covariate adjusted model")
+plot(mod.aa.apoe, main="African ancestry, covariate and APOE adjusted model")
+dev.off()
+
+
+ea$AD_PGS_decile<-cut2(ea$PH13_KunkleOK2_PT_0.01, g=10)
+table(ea$AD_PGS_decile)
+levels(ea$AD_PGS_decile)[5]
+
+ea$AD_PGS_decile5<-ifelse(ea$AD_PGS_quantile==levels(ea$AD_PGS_quantile)[5], 1, NA)
+ea$AD_PGS_high<-ifelse(ea$AD_PGS_quantile==levels(ea$AD_PGS_quantile)[1], 0, ea$AD_PGS_high)
+
+ea.dementia<-ea[ea$DC_60_2V==4 | ea$DC_60_2V==1,]
+dim(ea.dementia)
+ea.dementia$outcome<-ifelse(ea.dementia$DC_60_2V==4, 0, 1)
+table(ea.dementia$outcome)
+
+ea.dementia$AD_PGS_quantile[levels(ea.dementia$AD_PGS_quantile)[1 | 5]]
+
+for i in c(1:4,6:10) {
+  selected<-
+  return(chisq.test(ea.dementia$AD_PGS_quantile[levels(ea.dementia$AD_PGS_quantile)[i | 5]], ea.dementia$outcome))
+}
+
+```
+
+
+# ROC curve analysis
+```{r ROC datasets}
+#Set up datasets for ROC analyses
+
+
+### Create outcome datasets and a dummy variable
+ea.dementia<-ea[ea$DC_60_2V==4 | ea$DC_60_2V==1,]
+dim(ea.dementia)
+ea.dementia$outcome<-ifelse(ea.dementia$DC_60_2V==4, 0, 1)
+table(ea.dementia$outcome)
+typeof(ea.dementia$outcome)
+ea.cind<-ea[ea$DC_60_2V==4 | ea$DC_60_2V==2,]
+ea.cind$outcome<-ifelse(ea.cind$DC_60_2V==4, 0, 1)
+table(ea.cind$outcome)
+ea.borderline<-ea[ea$DC_60_2V==4 | ea$DC_60_2V==3,]
+ea.borderline$outcome<-ifelse(ea.borderline$DC_60_2V==4, 0, 1)
+table(ea.borderline$outcome)
+
+### Create outcome datasets and a dummy variable
+aa.dementia<-aa[aa$DC_60_2V==4 | aa$DC_60_2V==1,]
+dim(aa.dementia)
+aa.dementia$outcome<-ifelse(aa.dementia$DC_60_2V==4, 0, 1)
+table(aa.dementia$outcome)
+aa.cind<-aa[aa$DC_60_2V==4 | aa$DC_60_2V==2,]
+aa.cind$outcome<-ifelse(aa.cind$DC_60_2V==4, 0, 1)
+table(aa.cind$outcome)
+aa.borderline<-aa[aa$DC_60_2V==4 | aa$DC_60_2V==3,]
+aa.borderline$outcome<-ifelse(aa.borderline$DC_60_2V==4, 0, 1)
+table(aa.borderline$outcome, aa.borderline$AD_PGS_high)
+```
+
+
+
+## Build the ROC models in Euro
+```{r ROC models European}
+adjust_variable = 'AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + PC1_2010 + PC2_2010'
+
+# # Change the dataset for multiple figures
+# df = 'ea.dementia'
+# df = 'ea.cind'
+# df = 'ea.borderline'
+# 
+# # Code to generate ROC curve
+# data_df = get(df)
+
+dataset_lst = c("ea.borderline",  "ea.cind", "ea.dementia",  "aa.borderline", "aa.cind","aa.dementia")
+output_table = data.frame()
+
+pdf(paste0(results_dir, "HRS_PGS_ROC_", date, ".pdf"), width = 10, height = 6)
+for (df in dataset_lst) {
+
+data_df = get(df)
+
+crude = glm(formula = as.formula(paste('outcome ~ ', adjust_variable)), data = get(df), family = 'binomial')
+prob_crude = predict(crude, type = c("response"))
+  
+PGS_only = glm(formula = as.formula(paste('outcome ~ PH13_KunkleOK2_PT_0.01 + ', adjust_variable)), data = get(df), family = 'binomial')
+prob_PGS = predict(PGS_only,type = c("response"))
+  
+APOE_only = glm(formula = as.formula(paste('outcome ~ APOE2010_bin + ', adjust_variable)), data = get(df), family = 'binomial')
+prob_APOE = predict(APOE_only,type = c("response"))
+  
+full = glm(formula = as.formula(paste('outcome ~ PH13_KunkleOK2_PT_0.01 + APOE2010_bin + ', adjust_variable)), data = get(df), family = 'binomial')
+prob_full = predict(full,type = c("response"))
+
+
+data_df[['prob_crude']] = prob_crude
+data_df[['prob_PGS']] = prob_PGS
+data_df[['prob_APOE']] = prob_APOE
+data_df[['prob_full']] = prob_full
+  
+roc_crude = roc(outcome ~ prob_crude, data = get(df))
+roc_PGS = roc(outcome ~ prob_PGS, data = get(df))
+roc_APOE = roc(outcome ~ prob_APOE, data = get(df))
+roc_full = roc(outcome ~ prob_full, data = get(df))
+  
+
+roc_plot<- ggroc(list(crude = roc_crude, PGS_only = roc_PGS, APOE_only = roc_APOE, full = roc_full), aes = c("colour"), size=1.2,
+                   legacy.axes = TRUE) + theme_classic(base_size = 20) + labs(title=df, x = "1 - Specificity", y = "Sensitivity", colour = "Model") +
+                   scale_color_manual(values= c("seagreen3", "dodgerblue", "darkorchid", "firebrick3"), labels=
+                              c(paste0("Base (AUC:", round(roc_crude[['auc']][[1]], 3), ")"),
+                                paste0("Add PGS (AUC:", round(roc_PGS[['auc']][[1]], 3), ")"),
+                                paste0("Add APOE (AUC:", round(roc_APOE[['auc']][[1]], 3), ")"), 
+                                paste0("Add PGS & APOE (AUC:", round(roc_full[['auc']][[1]], 3), ")")))
+print(roc_plot)
+}
+dev.off()
+```
+
+
+## ROC Curve analysis
+```{r ROC test, eval=FALSE}
+
+#Another option: 
+legend.text=element_text(size=rel(0.5))
+geom_roc() in the plotROC package
+wes_palette("Zissou1", 4)
+  roc_plot = ggroc(list(crude = roc_crude, PGS_only = roc_PGS, APOE_only = roc_APOE, full = roc_full), aes = c("colour"), size=1.5,
+                   legacy.axes = TRUE) + theme_classic(base_size=22) + labs(title=get(df), x = "1 - Specificity", y = "Sensitivity", colour = "Model") +
+                   scale_color_discrete(labels=
+                              c(paste0("Crude (AUC = ", round(roc_crude[['auc']][[1]], 4), ")"),
+                                paste0("Add PGS only (AUC = ", round(roc_PGS[['auc']][[1]], 4), ")"),
+                                paste0("Add APOE only (AUC = ", round(roc_APOE[['auc']][[1]], 4), ")"), 
+                                paste0("Add PGS and APOE (AUC = ", round(roc_full[['auc']][[1]], 4), ")")))
+  print(roc_plot)
+  roc_plot = ggroc(list(crude = roc_crude, PGS_only = roc_PGS, APOE_only = roc_APOE, full = roc_full), aes = c("colour"),
+                   legacy.axes = TRUE) + xlim(0,1)  + theme(panel.border=element_blank(), panel.grid.major=element_blank(), panel.grid.minor=element_blank(), axis.line=element_line(colour = "black")) + labs(x = "1 - Specificity", y = "Sensitivity", colour = "Model (EA)") +
+                   scale_color_discrete(labels=
+                              c(paste0("Crude (AUC = ", round(roc_crude[['auc']][[1]], 4), ")"),
+                                paste0("Add PGS only (AUC = ", round(roc_PGS[['auc']][[1]], 4), ")"),
+                                paste0("Add APOE only (AUC = ", round(roc_APOE[['auc']][[1]], 4), ")"), 
+                                paste0("Add PGS and APOE (AUC = ", round(roc_full[['auc']][[1]], 4), ")")))
+roc_plot
+```
+

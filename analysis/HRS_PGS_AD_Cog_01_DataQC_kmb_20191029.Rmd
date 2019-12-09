@@ -1,0 +1,338 @@
+---
+title: "Alzheimer's disease PGS, APOE status, and summary cognitive status in the HRS"
+subtitle: "Data QC & Variable Development"
+author: "Kelly Bakulski"
+date: "October 29, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = '~/Google Drive/AD_R01_WB/AD_PGS_main_effect/Scripts/')
+```
+
+## Goal: Data QC and Variable Development 
+
+```{r set source/output locations}
+#Setting file paths for data, output, scripts
+
+source_dir<-"~/Google Drive/AD_R01_WB/Data/" #location of the paxrent dataset
+
+results_dir<-"~/Google Drive/AD_R01_WB/AD_PGS_main_effect/Results/" #location of output tables
+  
+derived_data_dir<-"~/Google Drive/AD_R01_WB/AD_PGS_main_effect/Derived_Datasets/" #location of any new datasets I'm building specifically for this paper
+
+script_dir<-"~/Google Drive/AD_R01_WB/AD_PGS_main_effect/Scripts/" #location of this script, redundant with the knitr option above
+
+date<-format(Sys.Date(), "%Y%m%d")
+```
+
+
+#Load in the dataset from sas: HRS 1995-2014
+```{r load sas, eval=FALSE}
+library(haven)
+ hrs <- read_sas(paste0(source_dir,"hrs_democoggen_wide20190813.sas7bdat"))
+  dim(hrs)
+# # [1] 43232  1075 #Note, we lost 93 variables from last time (was 1172)
+ hrs[hrs == ""] <- NA #There are many 
+ save(hrs, file=paste0(source_dir, "hrs_democoggen_wide20190813.rda"))
+```
+
+Load in the dataset from Rda
+```{r load}
+#Note, can start from here without SAS step
+load(paste0(source_dir, "hrs_democoggen_wide20190813.rda"))
+dim(hrs)
+```
+
+##QC the dataset
+#Outcome variables: Summary cogntion status
+```{r outcome var}
+#############################################################
+#Primary outcome variable
+#############################################################
+table(hrs$DC_60_2V, useNA="always")
+ #    1     2     3     4     5  <NA> 
+ # 3866  2846  3749 12449   534 19788 
+# matches expected distributions
+
+```
+
+#Genetics variables:APOE E4 status, PCs
+```{r genetics var}
+
+#############################################################
+#APOE variables
+#############################################################
+
+table(hrs$APOE2010_bin, useNA="always") # note, not split by ancestry, use this covariate
+#     0     1  <NA> 
+# 11360  4205 27667 
+table(hrs$APOE2010_imputed, useNA = "always") 
+# e2/e2 e2/e3 e2/e4 e3/e3 e3/e4 e4/e4  <NA> 
+#   111  1916   382  9333  3475   348 27667 
+
+hrs$APOE2010_E4dose<-ifelse(hrs$APOE2010_imputed=="e2/e2" | hrs$APOE2010_imputed=="e2/e3" | hrs$APOE2010_imputed=="e3/e3", 0, NA)
+hrs$APOE2010_E4dose<-ifelse(hrs$APOE2010_imputed=="e2/e4" | hrs$APOE2010_imputed=="e3/e4" , 1, hrs$APOE2010_E4dose)
+hrs$APOE2010_E4dose<-ifelse(hrs$APOE2010_imputed=="e4/e4", 2, hrs$APOE2010_E4dose)
+table(hrs$APOE2010_E4dose)
+#111+1916+9333
+
+table(hrs$EA_APOE4, useNA="always") #note, these frequencies of APOE4 seem really low, this is just the 2012 sample
+#     0     1  <NA> 
+# 11874   216 31144 
+table(hrs$AA_APOE4, useNA="always") # HRS 2012 data, not for this paper
+ #    0     1  <NA> 
+ # 2997   103 40134 
+
+
+#############################################################
+#Genetic PC variables
+#############################################################
+summary(hrs$AA_2010_PC1)
+summary(hrs$AA_2010_PC2) 
+summary(hrs$AA_2010_PC3)
+summary(hrs$AA_2010_PC4) 
+summary(hrs$AA_2010_PC5)
+summary(hrs$EA_2010_PC1)
+summary(hrs$EA_2010_PC2) 
+summary(hrs$EA_2010_PC3)
+summary(hrs$EA_2010_PC4)  
+summary(hrs$EA_2010_PC5)
+
+# Don't see a genetic ancestry variable in the master dataset
+# create one based on the PCs
+table(!is.na(hrs$EA_2010_PC1))
+hrs$ancestry<-ifelse(!is.na(hrs$EA_2010_PC1), "European", NA) #EA coded
+hrs$ancestry<-ifelse(!is.na(hrs$AA_2010_PC1), "African", hrs$ancestry) #AA coded
+table(hrs$ancestry, useNA = "always")
+ # African European     <NA> 
+ #    2279     9991    30962 
+
+hrs$PC1_2010<-ifelse(!is.na(hrs$EA_2010_PC1), hrs$EA_2010_PC1, hrs$AA_2010_PC1) 
+hrs$PC2_2010<-ifelse(!is.na(hrs$EA_2010_PC2), hrs$EA_2010_PC2, hrs$AA_2010_PC2) 
+```
+Use EAph13_IGAP_pT_1_scale and AAph13_IGAP_pT_1_scale for PGS with APOE
+Pending variables for PGS without APOE
+Use APOE2010_bin for APOE status for both ancestries
+Use EA_2010_PC1 EA_2010_PC2 EA_2010_PC3 EA_2010_PC4 EA_2010_PC5 for European ancestry PCs
+Use AA_2010_PC1 AA_2010_PC2 AA_2010_PC3 AA_2010_PC4 AA_2010_PC5 for African ancestry PCs
+Make versions of these variables that keep both ancestries together for the included/excluded table
+
+
+
+Use the new Kunkle variable: PH13_KunkleNAPOE_PT_1 for primary
+PH13_KunkleYAPOE_PT_1
+
+
+
+#Merge in Kunkle PGS variables without APOE using higher threshold
+```{r Kunkle 0.01}
+#############################################################
+#PGS variables
+#############################################################
+
+
+# EAPH13_KunkleOK2_PT_0.01
+# AAPH13_KunkleOK2_PT_0.01
+
+load(paste0(derived_data_dir, "African_Kunkle_PGSs2.rda"))
+dim(afro_pgs) #2279
+head(afro_pgs)
+str(afro_pgs)
+colnames(afro_pgs)
+afro_pgs$hhid<-as.character(afro_pgs$hhid)
+afro_pgs$pn<-as.character(afro_pgs$pn)
+afro_pgs$FID[1:10]
+typeof(afro_pgs$hhid)
+summary(afro_pgs$AAPH13_KunkleOK2_PT_0.01)
+load(paste0(derived_data_dir,"European_Kunkle_PGSs2.rda"))
+dim(euro_pgs) #9991
+str(euro_pgs)
+euro_pgs$hhid<-as.character(euro_pgs$hhid)
+euro_pgs$pn<-as.character(euro_pgs$pn)
+summary(euro_pgs$EAPH13_KunkleOK2_PT_0.01)
+
+dim(hrs) #43232
+43232-2279
+hrs$HHID[1:10]
+typeof(hrs$HHID)
+typeof(hrs$PN)
+hrs.a<-merge(hrs,afro_pgs,by.x =c("HHID", "PN"),  by.y = c("hhid", "pn"), all=T)
+dim(hrs.a) #43232
+summary(hrs.a$AAPH13_KunkleOK2_PT_0.01)
+head(hrs.a$HHID) #40953 NA, checks out
+
+#euro_pgs has 2 people without a corresponding hrs row, drop them
+hrs.e<-merge(hrs.a,euro_pgs,by.x =c("HHID", "PN"),  by.y = c("hhid", "pn"), all.x=T, all.y=F)
+dim(hrs.e) #43232
+summary(hrs.e$EAPH13_KunkleOK2_PT_0.01) #33243 NA
+
+hrs<-hrs.e
+
+hrs$PH13_KunkleOK2_PT_0.01<-ifelse(!is.na(hrs$EAPH13_KunkleOK2_PT_0.01),hrs$EAPH13_KunkleOK2_PT_0.01, hrs$AAPH13_KunkleOK2_PT_0.01)
+summary(hrs$PH13_KunkleOK2_PT_0.01) #30964 NA
+
+#Version with APOE region
+hrs$PH13_KunkleFULL_PT_0.01<-ifelse(!is.na(hrs$EAPH13_KunkleFULL_PT_0.01),hrs$EAPH13_KunkleFULL_PT_0.01, hrs$AAPH13_KunkleFULL_PT_0.01 )
+summary(hrs$PH13_KunkleFULL_PT_0.01)
+```
+hrs$PH13_KunkleOK2_PT_0.01 is the primary variable fo interest
+
+
+#Primary model variables (age at last visit, year of last visit, sex, years of education, genetic ancestry)
+```{r key covariates}
+#############################################################
+#Key covariates
+#############################################################
+summary(hrs$AGE_LAST_60) #age at last visit, no values before age 60
+  #  Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NAs 
+  # 60.00   67.00   75.00   75.34   83.00  109.00   15792 
+
+summary(hrs$YEAR_LAST_60) #year of last visit
+   # Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+   # 1995    2004    2012    2009    2014    2014   15792 
+
+
+table(hrs$GENDER, useNA = "always")
+#     1     2  <NA> 
+# 19081 24129    22
+colnames(hrs)[colnames(hrs)=="GENDER"]<-"SEX" #rename GENDER as SEX appropriately
+table(hrs$SEX, useNA = "always")
+
+summary(hrs$SCHLYRS) #Erin updated 99's to missing in this in the datastet 20190813
+   # Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+   # 0.00   11.00   12.00   12.13   14.00   17.00    1240 
+
+```
+Use HRS variables: AGE_LAST_60, YEAR_LAST_60, GENDER
+Use new variables: SCHLYRS_miss, ancestry
+
+
+
+# Sensitivity model variables (cohort, BMI at last visit, ever hypertension, ever diabetes, smoking status, depression status, ever stroke)
+```{r sensitivity covariates}
+#############################################################
+#Sensitivity model covariates
+#############################################################
+
+table(hrs$STUDY, useNA = "always") #USE this instead of wtcohort to capture the spouses correctly. 
+# Leave 11 (AHEAD) and 21 (CODA)
+hrs$AHEAD_CODA<-ifelse(hrs$STUDY==11, "AHEAD", NA) #1914-1923, AHEAD
+hrs$AHEAD_CODA<-ifelse(hrs$STUDY==21, "CODA", hrs$AHEAD_CODA) #1924-1930, CODA
+hrs$AHEAD_CODA<-ifelse(hrs$STUDY==1 | hrs$STUDY>30, "Other", hrs$AHEAD_CODA)
+table(hrs$AHEAD_CODA, useNA="always")
+
+
+# BMI
+summary(hrs$BMI_LAST_60) #Red flag, we have a ton of missing, Erin working on this
+  #  Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+  # 11.50   24.85   28.20   29.19   32.51   75.80   24748 
+hrs$BMI_LAST_60_v2<-hrs$BMI_LAST_60
+hrs$BMI_LAST_60_v2<-ifelse(is.na(hrs$BMI_LAST_60) & hrs$YEAR_LAST_60==2006, hrs$BMI_H04, hrs$BMI_LAST_60_v2)
+hrs$BMI_LAST_60_v2<-ifelse(is.na(hrs$BMI_LAST_60_v2) & hrs$YEAR_LAST_60==2006, hrs$R7BMI, hrs$BMI_LAST_60_v2)
+hrs$BMI_LAST_60_v2<-ifelse(is.na(hrs$BMI_LAST_60) & hrs$YEAR_LAST_60==2008, hrs$BMI_H06, hrs$BMI_LAST_60_v2)
+hrs$BMI_LAST_60_v2<-ifelse(is.na(hrs$BMI_LAST_60_v2) & hrs$YEAR_LAST_60==2008, hrs$R8BMI, hrs$BMI_LAST_60_v2)
+hrs$BMI_LAST_60_v2<-ifelse(is.na(hrs$BMI_LAST_60) & hrs$YEAR_LAST_60==2010, hrs$BMI_H08, hrs$BMI_LAST_60_v2)
+hrs$BMI_LAST_60_v2<-ifelse(is.na(hrs$BMI_LAST_60_v2) & hrs$YEAR_LAST_60==2010, hrs$R9BMI, hrs$BMI_LAST_60_v2)
+hrs$BMI_LAST_60_v2<-ifelse(is.na(hrs$BMI_LAST_60) & hrs$YEAR_LAST_60==2012, hrs$BMI_H10, hrs$BMI_LAST_60_v2)
+hrs$BMI_LAST_60_v2<-ifelse(is.na(hrs$BMI_LAST_60_v2) & hrs$YEAR_LAST_60==2012, hrs$R10BMI, hrs$BMI_LAST_60_v2)
+hrs$BMI_LAST_60_v2<-ifelse(is.na(hrs$BMI_LAST_60) & hrs$YEAR_LAST_60==2014, hrs$BMI_H12, hrs$BMI_LAST_60_v2)
+hrs$BMI_LAST_60_v2<-ifelse(is.na(hrs$BMI_LAST_60_v2) & hrs$YEAR_LAST_60==2014, hrs$R11BMI, hrs$BMI_LAST_60_v2)
+summary(hrs$BMI_LAST_60_v2)
+
+
+table(hrs$EVSTROKE_LAST_60, useNA = "always")
+#     0     1  <NA> 
+# 22586  3684 16962 
+hrs$EVSTROKE_LAST_60.fac<-factor(hrs$EVSTROKE_LAST_60, levels=c(0,1), labels=c("No", "Yes"))
+table(hrs$EVSTROKE_LAST_60.fac, useNA = "always")
+
+#develop from Erin's code
+# SMK_CURR_LAST_60
+# ALC_CURR_LAST_60
+# HBP_EVER_LAST_60
+# T2D_EVER_LAST_60
+# CESD_AVG #After age 60
+
+#CODE TO CREATE alcohol, smoking (ever, current, never), hypertension, diabetes, cesd_avg)
+
+# Alcohol
+table(hrs$YEAR_LAST_60[hrs$YEAR_LAST_60==2006])
+table(hrs$R8DRINK, useNA = "always")
+hrs$ALC_CURR_LAST_60<-ifelse(hrs$YEAR_LAST_60==2006, hrs$R8DRINK, NA)
+hrs$ALC_CURR_LAST_60<-ifelse(hrs$YEAR_LAST_60==2008, hrs$R9DRINK, hrs$ALC_CURR_LAST_60)
+hrs$ALC_CURR_LAST_60<-ifelse(hrs$YEAR_LAST_60==2010, hrs$R10DRINK, hrs$ALC_CURR_LAST_60)
+hrs$ALC_CURR_LAST_60<-ifelse(hrs$YEAR_LAST_60==2012, hrs$R11DRINK, hrs$ALC_CURR_LAST_60)
+hrs$ALC_CURR_LAST_60<-ifelse(hrs$YEAR_LAST_60==2014, hrs$R12DRINK, hrs$ALC_CURR_LAST_60)
+table(hrs$ALC_CURR_LAST_60, useNA="always")
+hrs$ALC_CURR_LAST_60.fac<-factor(hrs$ALC_CURR_LAST_60, levels=c(0,1), labels=c("No", "Yes"))
+table(hrs$ALC_CURR_LAST_60.fac, useNA="always")
+
+# Smoking
+table(hrs$smoke06, useNA = "always")
+hrs$SMK_CURR_LAST_60<-ifelse(hrs$YEAR_LAST_60==2006, hrs$smoke06, NA)
+hrs$SMK_CURR_LAST_60<-ifelse(hrs$YEAR_LAST_60==2008, hrs$smoke08, hrs$SMK_CURR_LAST_60)
+hrs$SMK_CURR_LAST_60<-ifelse(hrs$YEAR_LAST_60==2010, hrs$smoke10, hrs$SMK_CURR_LAST_60)
+hrs$SMK_CURR_LAST_60<-ifelse(hrs$YEAR_LAST_60==2012, hrs$smoke12, hrs$SMK_CURR_LAST_60)
+hrs$SMK_CURR_LAST_60<-ifelse(hrs$YEAR_LAST_60==2014, hrs$smoke14, hrs$SMK_CURR_LAST_60)
+table(hrs$SMK_CURR_LAST_60, useNA="always")
+hrs$SMK_CURR_LAST_60.fac<-factor(hrs$SMK_CURR_LAST_60)
+table(hrs$SMK_CURR_LAST_60.fac, useNA="always")
+
+# Hypertension
+table(hrs$R8HIBPE, useNA = "always")
+hrs$HBP_EVER_LAST_60<-ifelse(hrs$YEAR_LAST_60==2006, hrs$R8HIBPE, NA)
+hrs$HBP_EVER_LAST_60<-ifelse(hrs$YEAR_LAST_60==2008, hrs$R9HIBPE, hrs$HBP_EVER_LAST_60)
+hrs$HBP_EVER_LAST_60<-ifelse(hrs$YEAR_LAST_60==2010, hrs$R10HIBPE, hrs$HBP_EVER_LAST_60)
+hrs$HBP_EVER_LAST_60<-ifelse(hrs$YEAR_LAST_60==2012, hrs$R11HIBPE, hrs$HBP_EVER_LAST_60)
+hrs$HBP_EVER_LAST_60<-ifelse(hrs$YEAR_LAST_60==2014, hrs$R12HIBPE, hrs$HBP_EVER_LAST_60)
+table(hrs$HBP_EVER_LAST_60, useNA="always")
+hrs$HBP_EVER_LAST_60.fac<-factor(hrs$HBP_EVER_LAST_60, levels=c(0,1), labels=c("No", "Yes"))
+table(hrs$HBP_EVER_LAST_60.fac, useNA="always")
+
+# Diabetes
+table(hrs$R8DIABE, useNA = "always")
+hrs$T2D_EVER_LAST_60<-ifelse(hrs$YEAR_LAST_60==2006, hrs$R8HIBPE, NA)
+hrs$T2D_EVER_LAST_60<-ifelse(hrs$YEAR_LAST_60==2008, hrs$R9DIABE, hrs$T2D_EVER_LAST_60)
+hrs$T2D_EVER_LAST_60<-ifelse(hrs$YEAR_LAST_60==2010, hrs$R10DIABE, hrs$T2D_EVER_LAST_60)
+hrs$T2D_EVER_LAST_60<-ifelse(hrs$YEAR_LAST_60==2012, hrs$R11DIABE, hrs$T2D_EVER_LAST_60)
+hrs$T2D_EVER_LAST_60<-ifelse(hrs$YEAR_LAST_60==2014, hrs$R12DIABE, hrs$T2D_EVER_LAST_60)
+table(hrs$T2D_EVER_LAST_60, useNA="always")
+hrs$T2D_EVER_LAST_60.fac<-factor(hrs$T2D_EVER_LAST_60, levels=c(0,1), labels=c("No", "Yes"))
+table(hrs$T2D_EVER_LAST_60.fac, useNA="always")
+
+#Depression
+summary(hrs$R3CESD)
+hrs$CESD_AVG<-ifelse(hrs$YEAR_LAST_60==2006, rowMeans(hrs[,c("R3CESD", "R4CESD","R5CESD", "R6CESD", "R7CESD", "R8CESD")], na.rm = T), NA)
+hrs$CESD_AVG<-ifelse(hrs$YEAR_LAST_60==2008, rowMeans(hrs[,c("R3CESD", "R4CESD","R5CESD", "R6CESD", "R7CESD", "R8CESD", "R9CESD")], na.rm = T), hrs$CESD_AVG)
+hrs$CESD_AVG<-ifelse(hrs$YEAR_LAST_60==2010, rowMeans(hrs[,c("R3CESD", "R4CESD","R5CESD", "R6CESD", "R7CESD", "R8CESD", "R9CESD", "R10CESD")], na.rm = T), hrs$CESD_AVG)
+hrs$CESD_AVG<-ifelse(hrs$YEAR_LAST_60==2012, rowMeans(hrs[,c("R3CESD", "R4CESD","R5CESD", "R6CESD", "R7CESD", "R8CESD", "R9CESD", "R10CESD", "R11CESD")], na.rm = T), hrs$CESD_AVG)
+hrs$CESD_AVG<-ifelse(hrs$YEAR_LAST_60==2014, rowMeans(hrs[,c("R3CESD", "R4CESD","R5CESD", "R6CESD", "R7CESD", "R8CESD", "R9CESD", "R10CESD", "R11CESD", "R12CESD")], na.rm = T), hrs$CESD_AVG)
+summary(hrs$CESD_AVG)
+
+length(hrs$CESD_AVG[hrs$ancestry=="African" & hrs$CESD_AVG>=1.8295108])
+table(hrs$ancestry=="African", hrs$CESD_AVG>=1.8295108, useNA = "always") #Expect 688
+hrs$CESD_BIN<-ifelse(hrs$ancestry=="African" & hrs$CESD_AVG>=1.8295108, 1, NA)
+hrs$CESD_BIN<-ifelse(hrs$ancestry=="African" & hrs$CESD_AVG<1.8295108, 0, hrs$CESD_BIN)
+table(hrs$CESD_BIN, useNA = "always") # checks out
+
+table(hrs$ancestry=="European", hrs$CESD_AVG>=1.20643, useNA = "always") #Expect 3137
+hrs$CESD_BIN<-ifelse(hrs$ancestry=="European" & hrs$CESD_AVG>=1.20643, 1, hrs$CESD_BIN)
+hrs$CESD_BIN<-ifelse(hrs$ancestry=="European" & hrs$CESD_AVG<1.20643, 0, hrs$CESD_BIN)
+table(hrs$CESD_BIN, useNA = "always")
+hrs$CESD_BIN.fac<-factor(hrs$CESD_BIN, levels=c(0,1), labels=c("No", "Yes"))
+table(hrs$CESD_BIN.fac, useNA="always")
+
+```
+Use parent dataset variables: EVSTROKE_LAST_60
+Use new variables: AHEAD_CODA, SMK_CURR_LAST_60, ALC_CURR_LAST_60, HBP_EVER_LAST_60, T2D_EVER_LAST_60, CESD_BIN, BMI_LAST_V2 #After age 60 
+
+
+#Save Rda with newly derived variables (AHEAD_CODA, stroke_conserv, SCHLYRS_nomiss, ancestry)
+```{r save derived dataset}
+
+save(hrs,  file=paste0(derived_data_dir,"hrs_democoggen_wide20190813.rda"))
+
+```
+

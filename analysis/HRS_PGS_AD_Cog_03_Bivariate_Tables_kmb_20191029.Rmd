@@ -1,0 +1,127 @@
+---
+title: "Alzheimer's disease PGS, APOE status, and summary cognitive status in the HRS"
+subtitle: "Bivariate Tables"
+author: "Kelly Bakulski"
+date: "October 29, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = "~/Google Drive/AD_R01_WB/AD_PGS_main_effect/Scripts/")
+```
+
+## Goal: Producing reproducible bivariate descriptive statistics tables
+
+```{r set source/output locations}
+#Setting file paths for data, output, scripts
+
+source_dir<-"~/Google Drive/AD_R01_WB/Data/" #location of the parent dataset
+
+results_dir<-"~/Google Drive/AD_R01_WB/AD_PGS_main_effect/Results/" #location of output tables
+  
+derived_data_dir<-"~/Google Drive/AD_R01_WB/AD_PGS_main_effect/Derived_Datasets/" #location of any new datasets I'm building specifically for this paper
+
+script_dir<-"~/Google Drive/AD_R01_WB/AD_PGS_main_effect/Scripts/" #location of this script, redundant with the knitr option above
+
+date<-format(Sys.Date(), "%Y%m%d")
+```
+
+
+#Load in the dataset from Rda: HRS 1995-2014
+```{r load}
+load(file=paste0(derived_data_dir, "HRS_PGS_AD_Analytic_Sample_20190814.rda"))
+dim(hrs)
+# [1] 43232  1196
+load(file=paste0(derived_data_dir, "HRS_PGS_AD_Primary_Included_Sample_20190816.rda"))
+dim(include)
+load(file = paste0(derived_data_dir, "HRS_PGS_AD_Euro_Analytic_Sample_20190814.rda"))
+dim(ea)
+load(file = paste0(derived_data_dir,"HRS_PGS_AD_Afri_Analytic_Sample_20190814.rda"))
+dim(aa)
+```
+
+
+## Plot PGS density curves on the included study sample, split by ancestry
+```{r density plots}
+
+#PH13_KunkleOK2_PT_0.01
+#PH13_KunkleFULL_PT_0.01
+
+pdf(paste0(results_dir,"HRS_PGS_Bivariate_Density_Plots_", date, ".pdf"))
+plot(density(ea$PH13_KunkleOK2_PT_0.01[ea$DC_60_2V == 1]),
+  lwd = 4, col = "firebrick1", xlab = "Polygenic score for Alzheimer's disease", las = 1,
+  ylab = "Density", ylim = c(0, 0.5), main = "European ancestry", cex.lab = 1.5, cex.main = 1.5, lty = 2, xlim = c(-3, 3)
+)
+lines(density(na.omit(ea$PH13_KunkleOK2_PT_0.01[ea$DC_60_2V == 2])), lty = 3, lwd = 4, col = "deeppink2")
+lines(density(na.omit(ea$PH13_KunkleOK2_PT_0.01[ea$DC_60_2V == 3])), lty = 4, lwd = 4, col = "darkorchid")
+lines(density(na.omit(ea$PH13_KunkleOK2_PT_0.01[ea$DC_60_2V == 4])), lty = 1, lwd = 4, col = "dodgerblue")
+legend("topright", fill = c("firebrick1", "deeppink2", "darkorchid", "dodgerblue"), legend = c("Dementia", "Cognitively impaired", "Borderline impaired", "Cognitively normal"), bty = "n")
+plot.new()
+plot(density(na.omit(aa$PH13_KunkleOK2_PT_0.01[aa$DC_60_2V == 1])),
+  lwd = 4, col = "firebrick1", xlab = "Polygenic score for Alzheimer's disease", las = 1,
+  ylab = "Density", ylim = c(0, 0.5), main = "African ancestry", cex.lab = 1.5, cex.main = 1.5, lty = 2, xlim = c(-3, 3)
+)
+lines(density(na.omit(aa$PH13_KunkleOK2_PT_0.01[aa$DC_60_2V == 2])), lty = 3, lwd = 4, col = "deeppink2")
+lines(density(na.omit(aa$PH13_KunkleOK2_PT_0.01[aa$DC_60_2V == 3])), lty = 4, lwd = 4, col = "darkorchid")
+lines(density(na.omit(aa$PH13_KunkleOK2_PT_0.01[aa$DC_60_2V == 4])), lty = 1, lwd = 4, col = "dodgerblue")
+legend("topright", fill = c("firebrick1", "deeppink2", "darkorchid", "dodgerblue"), legend = c("Dementia", "Cognitively impaired", "Borderline impaired", "Cognitively normal"), bty = "n")
+dev.off()
+```
+
+### Plot violin plots of PGS by outcome status. 
+```{r violin}
+# Add boxes and data to the violin plots
+
+library(ggplot2)
+library(ggpubr)
+
+#PH13_KunkleOK2_PT_0.01
+#PH13_KunkleFULL_PT_0.01
+
+labels <- c(European = paste0("European ancestry sample, n=", length(include$ancestry[include$ancestry == "European"])), African = paste0("African ancestry sample, n=", length(include$ancestry[include$ancestry == "African"])))
+labels
+
+
+pdf(file = paste0(results_dir,"HRS_PGS_Bivariate_Violin_Plots_", date, ".pdf"))
+ggplot(include, aes(x = DC_60_2V.fac.relevel, y = PH13_KunkleOK2_PT_0.01, fill = DC_60_2V.fac.relevel)) + geom_violin(trim = FALSE, scale = "area") + facet_grid(. ~ ancestry.relevel, labeller = labeller(ancestry.relevel = labels)) + scale_fill_grey(start = 0.9, end = 0.3) + theme(legend.position = "none", axis.text.x = element_text(angle = 45, hjust = 1), panel.background = element_rect(fill = "white", colour = "grey")) + labs(x = "Summary cognitive status", y = "Polygenic score") +  geom_boxplot(width=0.1, fill="white", outlier.alpha=0) + stat_compare_means(method = "anova", label.y = -5, size = 3) + stat_compare_means(label = "p.format", method = "t.test", ref.group = "Normal", label.y = 5, size = 2.5, bracket.size = 5) 
+dev.off()
+
+
+# data_summary <- function(x) {
+#   m <- mean(x)
+#   ymin <- m - sd(x)
+#   ymax <- m + sd(x)
+#   return(c(y = m, ymin = ymin, ymax = ymax))
+# }
+# + geom_jitter(shape=16, position=position_jitter(0.4), size=.1, alpha=.1)
+#+ geom_dotplot(binaxis='y', stackdir='center', dotsize=.1, alpha=.1)
+
+#, outlier.size=.2, outlier.alpha = .1
+```
+
+## Produce bivariate table
+
+```{r bivariate european}
+library(compareGroups)
+dim(hrs[hrs$include=="Included" & hrs$ancestry == "European", ])
+
+#PH13_KunkleOK2_PT_0.01
+#PH13_KunkleFULL_PT_0.01
+
+univar.desc.pval <- descrTable(formula = DC_60_2V.fac.relevel ~ DC_60_2V.fac  + PH13_KunkleOK2_PT_0.01 +PH13_KunkleFULL_PT_0.01 + APOE2010_imputed + APOE2010_imputed.miss + APOE2010_bin.fac +  AGE_LAST_60 + YEAR_LAST_60 +  SEX.fac +SCHLYRS +  ancestry.relevel + EA_2010_PC1 + EA_2010_PC2 + EA_2010_PC3 + EA_2010_PC4 + EA_2010_PC5+  AHEAD_CODA +  BMI_LAST_60_v2 + HBP_EVER_LAST_60.fac +  T2D_EVER_LAST_60.fac  + EVSTROKE_LAST_60.fac  + CESD_BIN.fac  + SMK_CURR_LAST_60.fac +  ALC_CURR_LAST_60.fac + DC_60_2V.miss + PH13_KunkleOK2_PT_0.01.miss + PH13_KunkleFULL_PT_0.01.miss + APOE2010_bin.miss  + AGE_LAST_60.miss + YEAR_LAST_60.miss + SEX.miss + SCHLYRS.miss +  AHEAD_CODA.miss +BMI_LAST_60_v2.miss +  HBP_EVER_LAST_60.miss + T2D_EVER_LAST_60.miss + EVSTROKE_LAST_60.miss + CESD_BIN.miss + SMK_CURR_LAST_60.miss + ALC_CURR_LAST_60.miss, data = hrs[hrs$include=="Included" & hrs$ancestry == "European", ], na.action = na.pass, digits.p = 3)
+print(univar.desc.pval)
+export2word(univar.desc.pval, file =paste0(results_dir,  "HRS_PGS_Bivariate_Primary_European_", date, ".docx"))
+```
+```{r bivariate african}
+table(include$DC_60_2V.fac.relevel)
+dim(hrs[hrs$include=="Included" & hrs$ancestry == "African", ])
+
+#PH13_KunkleOK2_PT_0.01
+#PH13_KunkleFULL_PT_0.01
+
+univar.desc.pval <- descrTable(formula = DC_60_2V.fac.relevel ~ DC_60_2V.fac  + PH13_KunkleOK2_PT_0.01 +PH13_KunkleFULL_PT_0.01 + APOE2010_imputed + APOE2010_imputed.miss + APOE2010_bin.fac +  AGE_LAST_60 + YEAR_LAST_60 +  SEX.fac +SCHLYRS +  ancestry.relevel + AA_2010_PC1 + AA_2010_PC2 + AA_2010_PC3 + AA_2010_PC4 + AA_2010_PC5+  AHEAD_CODA +  BMI_LAST_60_v2 + HBP_EVER_LAST_60.fac +  T2D_EVER_LAST_60.fac  + EVSTROKE_LAST_60.fac  + CESD_BIN.fac  + SMK_CURR_LAST_60.fac +  ALC_CURR_LAST_60.fac + DC_60_2V.miss + PH13_KunkleOK2_PT_0.01.miss + PH13_KunkleFULL_PT_0.01.miss + APOE2010_bin.miss  + AGE_LAST_60.miss + YEAR_LAST_60.miss + SEX.miss + SCHLYRS.miss +  AHEAD_CODA.miss +BMI_LAST_60_v2.miss +  HBP_EVER_LAST_60.miss + T2D_EVER_LAST_60.miss + EVSTROKE_LAST_60.miss + CESD_BIN.miss + SMK_CURR_LAST_60.miss + ALC_CURR_LAST_60.miss, data = hrs[hrs$include=="Included" & hrs$ancestry == "African", ], na.action = na.pass, digits.p = 3)
+
+print(univar.desc.pval)
+export2word(univar.desc.pval, file = paste0(results_dir, "HRS_PGS_Bivariate_Primary_African_", date, ".docx"))
+```

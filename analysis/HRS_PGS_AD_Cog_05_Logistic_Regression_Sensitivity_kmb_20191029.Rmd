@@ -1,0 +1,596 @@
+---
+title: "Alzheimer's disease PGS, APOE status, and summary cognitive status in the HRS"
+subtitle: "Sensitivity Logistic Regression"
+author: "Kelly Bakulski"
+date: "October 29, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = "~/Google Drive/AD_R01_WB/AD_PGS_main_effect/Scripts/")
+```
+
+
+## Goal: Sensitivity regression models: 
+## Sensitivity 1: model 3 + COHORT
+## Sensitivity 2: model 3 (subset to health behaviors) and model 4
+## Sensitivity 3: model 1 + APOE dose and model 1 + APOE dose + PGS
+
+```{r set source/output locations}
+#Setting file paths for data, output, scripts
+
+source_dir<-"~/Google Drive/AD_R01_WB/Data/" #location of the parent dataset
+
+results_dir<-"~/Google Drive/AD_R01_WB/AD_PGS_main_effect/Results/" #location of output tables
+  
+derived_data_dir<-"~/Google Drive/AD_R01_WB/AD_PGS_main_effect/Derived_Datasets/" #location of any new datasets I'm building specifically for this paper
+
+script_dir<-"~/Google Drive/AD_R01_WB/AD_PGS_main_effect/Scripts/" #location of this script, redundant with the knitr option above
+
+date<-format(Sys.Date(), "%Y%m%d")
+```
+
+
+#Load in the dataset from Rda: HRS 1995-2014
+```{r load}
+load(file=paste0(derived_data_dir, "HRS_PGS_AD_Analytic_Sample_20190814.rda"))
+dim(hrs)
+# [1] 43232  1196
+load(file = paste0(derived_data_dir, "HRS_PGS_AD_Euro_Analytic_Sample_20190814.rda"))
+dim(ea)
+load(file = paste0(derived_data_dir,"HRS_PGS_AD_Afri_Analytic_Sample_20190814.rda"))
+dim(aa)
+```
+
+```{r sensitivity 1 cohort european}
+library(epiDisplay)
+ea.sens1<-hrs[hrs$sens1=="Include" & hrs$ancestry=="European",]
+table(hrs$sens1)
+dim(ea.sens1)
+table(ea$sens1)
+
+table(hrs$ancestry, hrs$DC_60_2V.fac.relevel,  hrs$sens1)
+
+#PH13_KunkleOK2_PT_0.01
+#PH13_KunkleFULL_PT_0.01
+
+#Subset to people not in AHEAD or CODA, ea.sens1
+
+output<-data.frame(matrix(NA, nrow=12, ncol=13))
+colnames(output)<-c("Ancestry", "Variable", "Outcome", "n.3","OR.3", "LCI.3", "UCI.3", "p.3","n.3.cohort", "OR.3.cohort", "LCI.3.cohort", "UCI.3.cohort", "p.3.cohort")
+output$Ancestry<-c(rep("European", 6), rep("African", 6))
+output$Variable<-c(rep("PGS", 3), rep("APOE", 3), rep("PGS", 3), rep("APOE", 3))
+output$Outcome<-c(rep(c("Borderline","CIND", "Dementia"),4))
+
+# European ancestry
+for (i in 2:4) {
+# Model 3 PGS
+  #Rows 1-3
+
+#Model 3 PGS, original sample
+model3<-glm(DC_60_2V.fac.relevel ~ PH13_KunkleOK2_PT_0.01 + APOE2010_bin + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + EA_2010_PC1 + EA_2010_PC2, data=ea[ea$DC_60_2V.relevel==i | ea$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model3)
+output[i-1,4]<-length(model3$residuals)
+output[i-1,5]<-round(logistic.display(model3, decimal=2)$table[1,1], digits=2)
+output[i-1,6]<-round(logistic.display(model3, decimal=2)$table[1,2], digits=2)
+output[i-1,7]<-round(logistic.display(model3, decimal=2)$table[1,3], digits=2)
+output[i-1,8]<-round(logistic.display(model3, decimal=2)$table[1,4], digits=3)
+
+#Model 3 APOE, original sample
+output[i+2,4]<-length(model3$residuals)
+output[i+2,5]<-round(logistic.display(model3, decimal=2)$table[2,1], digits=2)
+output[i+2,6]<-round(logistic.display(model3, decimal=2)$table[2,2], digits=2)
+output[i+2,7]<-round(logistic.display(model3, decimal=2)$table[2,3], digits=2)
+output[i+2,8]<-round(logistic.display(model3, decimal=2)$table[2,4], digits=3)
+
+# Model 3 COHORT PGS, subset to people not in AHEAD or CODA
+model4<-glm(DC_60_2V.fac.relevel ~ PH13_KunkleOK2_PT_0.01 + APOE2010_bin + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + EA_2010_PC1 + EA_2010_PC2, data=ea.sens1[ea.sens1$DC_60_2V.relevel==1 | ea.sens1$DC_60_2V.relevel==i,] , family=binomial, na.action = na.omit)
+summary(model4)
+output[i-1,9]<-length(model4$residuals)
+output[i-1,10]<-round(logistic.display(model4, decimal=2)$table[1,1], digits=2)
+output[i-1,11]<-round(logistic.display(model4, decimal=2)$table[1,2], digits=2)
+output[i-1,12]<-round(logistic.display(model4, decimal=2)$table[1,3], digits=2)
+output[i-1,13]<-round(logistic.display(model4, decimal=2)$table[1,4], digits=3)
+
+#Model 3 COHORT APOE, subset to people not in AHEAD or CODA
+output[i+2,9]<-length(model4$residuals)
+output[i+2,10]<-round(logistic.display(model4, decimal=2)$table[2,1], digits=2)
+output[i+2,11]<-round(logistic.display(model4, decimal=2)$table[2,2], digits=2)
+output[i+2,12]<-round(logistic.display(model4, decimal=2)$table[2,3], digits=2)
+output[i+2,13]<-round(logistic.display(model4, decimal=2)$table[2,4], digits=3)
+}
+output
+
+```
+
+```{r sensitivity 1 cohort african}
+aa.sens1<-hrs[hrs$sens1=="Include" & hrs$ancestry=="African",]
+dim(aa.sens1)
+table(aa$sens1)
+
+# African ancestry
+for (i in 2:4) {
+# Model 3 PGS
+  #Rows 1-3
+
+#Subset to people not in AHEAD or CODA (aa.sens1)
+  
+#Model 3 PGS, original sample
+model3<-glm(DC_60_2V.fac.relevel ~ PH13_KunkleOK2_PT_0.01 + APOE2010_bin + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + AA_2010_PC1 + AA_2010_PC2, data=aa[aa$DC_60_2V.relevel==i | aa$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model3)
+output[i+5,4]<-length(model3$residuals)
+output[i+5,5]<-round(logistic.display(model3, decimal=2)$table[1,1], digits=2)
+output[i+5,6]<-round(logistic.display(model3, decimal=2)$table[1,2], digits=2)
+output[i+5,7]<-round(logistic.display(model3, decimal=2)$table[1,3], digits=2)
+output[i+5,8]<-round(logistic.display(model3, decimal=2)$table[1,4], digits=3)
+
+#Model 3 APOE, original sample
+output[i+8,4]<-length(model3$residuals)
+output[i+8,5]<-round(logistic.display(model3, decimal=2)$table[2,1], digits=2)
+output[i+8,6]<-round(logistic.display(model3, decimal=2)$table[2,2], digits=2)
+output[i+8,7]<-round(logistic.display(model3, decimal=2)$table[2,3], digits=2)
+output[i+8,8]<-round(logistic.display(model3, decimal=2)$table[2,4], digits=3)
+
+# Model 3 COHORT PGS, subset to people not in AHEAD or CODA
+model4<-glm(DC_60_2V.fac.relevel ~ PH13_KunkleOK2_PT_0.01 + APOE2010_bin + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + AA_2010_PC1 + AA_2010_PC2, data=aa.sens1[aa.sens1$DC_60_2V.relevel==1 | aa.sens1$DC_60_2V.relevel==i,] , family=binomial, na.action = na.omit)
+summary(model4)
+output[i+5,9]<-length(model4$residuals)
+output[i+5,10]<-round(logistic.display(model4, decimal=2)$table[1,1], digits=2)
+output[i+5,11]<-round(logistic.display(model4, decimal=2)$table[1,2], digits=2)
+output[i+5,12]<-round(logistic.display(model4, decimal=2)$table[1,3], digits=2)
+output[i+5,13]<-round(logistic.display(model4, decimal=2)$table[1,4], digits=3)
+
+#Model 3 COHORT APOE, subset to people not in AHEAD or CODA
+output[i+8,9]<-length(model3$residuals)
+output[i+8,10]<-round(logistic.display(model4, decimal=2)$table[2,1], digits=2)
+output[i+8,11]<-round(logistic.display(model4, decimal=2)$table[2,2], digits=2)
+output[i+8,12]<-round(logistic.display(model4, decimal=2)$table[2,3], digits=2)
+output[i+8,13]<-round(logistic.display(model4, decimal=2)$table[2,4], digits=3)
+}
+
+output
+write.csv(output, file=paste0(results_dir,"HRS_PGS_Logistic_Cohort_Sensitivity_", date, ".csv"))
+```
+
+
+```{r sensitivity 2: model 4 in separate table european}
+
+
+ea.sens2<-hrs[hrs$sens2=="Included" & hrs$ancestry=="European",]
+dim(ea.sens2)
+table(ea$sens2)
+
+table(ea.sens2$DC_60_2V.fac.relevel)
+table(ea.sens2$SEX.fac)
+table(ea.sens2$T2D_EVER_LAST_60.fac)
+table(ea.sens2$HBP_EVER_LAST_60.fac)
+table(ea.sens2$EVSTROKE_LAST_60.fac)
+table(ea.sens2$CESD_BIN.fac)
+table(ea.sens2$SMK_CURR_LAST_60.fac)
+table(ea.sens2$ALC_CURR_LAST_60.fac)
+summary(ea.sens2$AGE_LAST_60)
+summary(ea.sens2$YEAR_LAST_60)
+summary(ea.sens2$ph13_IGAP_pT_1_scale)
+table(ea.sens2$APOE2010_bin)
+
+
+output<-data.frame(matrix(NA, nrow=12, ncol=13))
+colnames(output)<-c("Ancestry", "Variable", "Outcome", "n.3","OR.3", "LCI.3", "UCI.3", "p.3","n.4", "OR.4", "LCI.4", "UCI.4", "p.4")
+output$Ancestry<-c(rep("European", 6), rep("African", 6))
+output$Variable<-c(rep("PGS", 3), rep("APOE", 3), rep("PGS", 3), rep("APOE", 3))
+output$Outcome<-c(rep(c("Borderline","CIND", "Dementia"),4))
+
+# European ancestry
+for (i in 2:4) {
+# Model 2a PGS
+  #Rows 1-3
+
+
+#Model 3 PGS, subset to health behaviors sample
+model3<-glm(DC_60_2V.fac.relevel ~ PH13_KunkleOK2_PT_0.01 + APOE2010_bin + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + EA_2010_PC1 + EA_2010_PC2, data=ea[ea$DC_60_2V.relevel==i | ea$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model3)
+output[i-1,4]<-length(model3$residuals)
+output[i-1,5]<-round(logistic.display(model3, decimal=2)$table[1,1], digits=2)
+output[i-1,6]<-round(logistic.display(model3, decimal=2)$table[1,2], digits=2)
+output[i-1,7]<-round(logistic.display(model3, decimal=2)$table[1,3], digits=2)
+output[i-1,8]<-round(logistic.display(model3, decimal=2)$table[1,4], digits=3)
+
+#Model 3 APOE, subset to health behaviors sample
+output[i+2,4]<-length(model3$residuals)
+output[i+2,5]<-round(logistic.display(model3, decimal=2)$table[2,1], digits=2)
+output[i+2,6]<-round(logistic.display(model3, decimal=2)$table[2,2], digits=2)
+output[i+2,7]<-round(logistic.display(model3, decimal=2)$table[2,3], digits=2)
+output[i+2,8]<-round(logistic.display(model3, decimal=2)$table[2,4], digits=3)
+
+# Model 4 PGS, subset to health behaviors sample
+model4<-glm(DC_60_2V.fac.relevel ~ PH13_KunkleOK2_PT_0.01 + APOE2010_bin + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + EA_2010_PC1 + EA_2010_PC2 + BMI_LAST_60_v2 + HBP_EVER_LAST_60.fac +  T2D_EVER_LAST_60.fac  + EVSTROKE_LAST_60.fac  + CESD_BIN.fac +  SMK_CURR_LAST_60.fac + ALC_CURR_LAST_60.fac, data=ea[ea$DC_60_2V.relevel==1 | ea$DC_60_2V.relevel==i,] , family=binomial, na.action = na.omit)
+summary(model4)
+output[i-1,9]<-length(model4$residuals)
+output[i-1,10]<-round(logistic.display(model4, decimal=2)$table[1,1], digits=2)
+output[i-1,11]<-round(logistic.display(model4, decimal=2)$table[1,2], digits=2)
+output[i-1,12]<-round(logistic.display(model4, decimal=2)$table[1,3], digits=2)
+output[i-1,13]<-round(logistic.display(model4, decimal=2)$table[1,4], digits=3)
+
+#Model 4 APOE
+output[i+2,9]<-length(model4$residuals)
+output[i+2,10]<-round(logistic.display(model4, decimal=2)$table[2,1], digits=2)
+output[i+2,11]<-round(logistic.display(model4, decimal=2)$table[2,2], digits=2)
+output[i+2,12]<-round(logistic.display(model4, decimal=2)$table[2,3], digits=2)
+output[i+2,13]<-round(logistic.display(model4, decimal=2)$table[2,4], digits=3)
+}
+output
+```
+
+```{r sensitivity 2: model 4 in separate table african}
+
+aa.sens2<-hrs[hrs$sens2=="Included" & hrs$ancestry=="African",]
+
+# African ancestry
+for (i in 2:4) {
+  #Rows 1-3
+
+#Model 3 PGS, subset to health behaviors sample
+model3<-glm(DC_60_2V.fac.relevel ~ PH13_KunkleOK2_PT_0.01 + APOE2010_bin + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + AA_2010_PC1 + AA_2010_PC2, data=aa[aa$DC_60_2V.relevel==i | aa$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model3)
+output[i+5,4]<-length(model3$residuals)
+output[i+5,5]<-round(logistic.display(model3, decimal=2)$table[1,1], digits=2)
+output[i+5,6]<-round(logistic.display(model3, decimal=2)$table[1,2], digits=2)
+output[i+5,7]<-round(logistic.display(model3, decimal=2)$table[1,3], digits=2)
+output[i+5,8]<-round(logistic.display(model3, decimal=2)$table[1,4], digits=3)
+
+#Model 3 APOE, subset to health behaviors sample
+output[i+8,4]<-length(model3$residuals)
+output[i+8,5]<-round(logistic.display(model3, decimal=2)$table[2,1], digits=2)
+output[i+8,6]<-round(logistic.display(model3, decimal=2)$table[2,2], digits=2)
+output[i+8,7]<-round(logistic.display(model3, decimal=2)$table[2,3], digits=2)
+output[i+8,8]<-round(logistic.display(model3, decimal=2)$table[2,4], digits=3)
+
+#Erin vars: CESD_BIN, SMK_CURR_LAST_60, BMI_LAST_60_v2, HBP_EVER_LAST_60, T2D_EVER_LAST_60, 
+#EVSTROKE_LAST_60
+
+# Model 4 PGS, subset to health behaviors sample
+model4<-glm(DC_60_2V.fac.relevel ~ PH13_KunkleOK2_PT_0.01 + APOE2010_bin + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + AA_2010_PC1 + AA_2010_PC2 + BMI_LAST_60_v2 + HBP_EVER_LAST_60.fac +  T2D_EVER_LAST_60.fac  + EVSTROKE_LAST_60.fac  + CESD_BIN.fac +  SMK_CURR_LAST_60.fac + ALC_CURR_LAST_60.fac, data=aa[aa$DC_60_2V.relevel==1 | aa$DC_60_2V.relevel==i,] , family=binomial, na.action = na.omit)
+summary(model4)
+output[i+5,9]<-length(model4$residuals)
+output[i+5,10]<-round(logistic.display(model4, decimal=2)$table[1,1], digits=2)
+output[i+5,11]<-round(logistic.display(model4, decimal=2)$table[1,2], digits=2)
+output[i+5,12]<-round(logistic.display(model4, decimal=2)$table[1,3], digits=2)
+output[i+5,13]<-round(logistic.display(model4, decimal=2)$table[1,4], digits=3)
+
+#Model 4 APOE, subset to health behaviors sample
+output[i+8,9]<-length(model3$residuals)
+output[i+8,10]<-round(logistic.display(model4, decimal=2)$table[2,1], digits=2)
+output[i+8,11]<-round(logistic.display(model4, decimal=2)$table[2,2], digits=2)
+output[i+8,12]<-round(logistic.display(model4, decimal=2)$table[2,3], digits=2)
+output[i+8,13]<-round(logistic.display(model4, decimal=2)$table[2,4], digits=3)
+}
+
+output
+write.csv(output, file=paste0(results_dir,"HRS_PGS_Logistic_Health_Sensitivity_", date, ".csv"))
+```
+
+```{r sensitivity 3a: APOE E4 category in European}
+output<-data.frame(matrix(NA, nrow=30, ncol=13))
+#colnames(output)<-c("Ancestry", "Variable", "Outcome", "n.2b","OR.2b", "LCI.2b", "UCI.2b", "p.2b", "n.2bdose", "OR.2bdose", "LCI.2bdose", "UCI.2bdose", "p.2bdose", "n.3","OR.3", "LCI.3", "UCI.3", "p.3", "n.3dose","OR.3dose", "LCI.3dose", "UCI.3dose", "p.3cat")
+colnames(output)<-c("Ancestry", "Variable", "Outcome","n.2b", "OR.2b", "LCI.2b", "UCI.2b", "p.2b", "n.3","OR.3", "LCI.3", "UCI.3", "p.3")
+output$Ancestry<-c(rep("European", 15), rep("African", 15))
+output$Variable<-c(rep("PGS", 3), rep("APOEbin", 3), rep("PGS", 3), rep("APOEcat1", 3), rep("APOEcat2", 3))
+output$Outcome<-c(rep(c("Borderline","CIND", "Dementia"),10))
+
+table(ea$APOE2010_E4dose, ea$DC_60_2V.fac.relevel)
+
+# European ancestry
+for (i in 2:4) {
+# Model 2b APOE binary
+  #Rows 1-3
+model2b<-glm(DC_60_2V.fac.relevel ~ APOE2010_bin + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + EA_2010_PC1 + EA_2010_PC2, data=ea[ea$DC_60_2V.relevel==i | ea$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model2b)
+#Starts at row 4 through row 6
+output[i+2,4]<-length(model2b$residuals)
+output[i+2,5]<-round(logistic.display(model2b, decimal=2)$table[1,1], digits=2)
+output[i+2,6]<-round(logistic.display(model2b, decimal=2)$table[1,2], digits=2)
+output[i+2,7]<-round(logistic.display(model2b, decimal=2)$table[1,3], digits=2)
+output[i+2,8]<-round(logistic.display(model2b, decimal=2)$table[1,4], digits=3)
+
+# Model 2b APOE dose
+table(hrs$APOE2010_imputed)
+model2b<-glm(DC_60_2V.fac.relevel ~ as.factor(APOE2010_E4dose) + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + EA_2010_PC1 + EA_2010_PC2, data=ea[ea$DC_60_2V.relevel==i | ea$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model2b)
+#Dose level 1
+#Starts at row 10 through row 12
+output[i+8,4]<-length(model2b$residuals)
+output[i+8,5]<-round(logistic.display(model2b, decimal=2)$table[1,1], digits=2)
+output[i+8,6]<-round(logistic.display(model2b, decimal=2)$table[1,2], digits=2)
+output[i+8,7]<-round(logistic.display(model2b, decimal=2)$table[1,3], digits=2)
+output[i+8,8]<-round(logistic.display(model2b, decimal=2)$table[1,4], digits=3)
+#Dose level 2
+#Starts at row 13 through row 15
+output[i+11,4]<-length(model2b$residuals)
+output[i+11,5]<-round(logistic.display(model2b, decimal=2)$table[2,1], digits=2)
+output[i+11,6]<-round(logistic.display(model2b, decimal=2)$table[2,2], digits=2)
+output[i+11,7]<-round(logistic.display(model2b, decimal=2)$table[2,3], digits=2)
+output[i+11,8]<-round(logistic.display(model2b, decimal=2)$table[2,4], digits=3)
+
+
+#Model 3 PGS (with APOE modeled as binary)
+model3<-glm(DC_60_2V.fac.relevel ~ PH13_KunkleOK2_PT_0.01 + APOE2010_bin + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + EA_2010_PC1 + EA_2010_PC2, data=ea[ea$DC_60_2V.relevel==i | ea$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model3)
+output[i-1,9]<-length(model3$residuals)
+output[i-1,10]<-round(logistic.display(model3, decimal=2)$table[1,1], digits=2)
+output[i-1,11]<-round(logistic.display(model3, decimal=2)$table[1,2], digits=2)
+output[i-1,12]<-round(logistic.display(model3, decimal=2)$table[1,3], digits=2)
+output[i-1,13]<-round(logistic.display(model3, decimal=2)$table[1,4], digits=3)
+
+#Model 3 APOE binary
+output[i+2,9]<-length(model3$residuals)
+output[i+2,10]<-round(logistic.display(model3, decimal=2)$table[2,1], digits=2)
+output[i+2,11]<-round(logistic.display(model3, decimal=2)$table[2,2], digits=2)
+output[i+2,12]<-round(logistic.display(model3, decimal=2)$table[2,3], digits=2)
+output[i+2,13]<-round(logistic.display(model3, decimal=2)$table[2,4], digits=3)
+
+#Model 3 PGS (with APOE modeled as dose)
+model3<-glm(DC_60_2V.fac.relevel ~ PH13_KunkleOK2_PT_0.01 + as.factor(APOE2010_E4dose) + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + EA_2010_PC1 + EA_2010_PC2, data=ea[ea$DC_60_2V.relevel==i | ea$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model3)
+# Starts at row 7 through row 9
+output[i+5,9]<-length(model3$residuals)
+output[i+5,10]<-round(logistic.display(model3, decimal=2)$table[1,1], digits=2)
+output[i+5,11]<-round(logistic.display(model3, decimal=2)$table[1,2], digits=2)
+output[i+5,12]<-round(logistic.display(model3, decimal=2)$table[1,3], digits=2)
+output[i+5,13]<-round(logistic.display(model3, decimal=2)$table[1,4], digits=3)
+
+#Model 3 APOE dose
+#Dose level1
+#Starts at row 10 through row 12
+output[i+8,9]<-length(model3$residuals)
+output[i+8,10]<-round(logistic.display(model3, decimal=2)$table[2,1], digits=2)
+output[i+8,11]<-round(logistic.display(model3, decimal=2)$table[2,2], digits=2)
+output[i+8,12]<-round(logistic.display(model3, decimal=2)$table[2,3], digits=2)
+output[i+8,13]<-round(logistic.display(model3, decimal=2)$table[2,4], digits=3)
+#Dose level2
+#Starts at row 13 through row 15
+output[i+11,9]<-length(model2b$residuals)
+output[i+11,10]<-round(logistic.display(model3, decimal=2)$table[3,1], digits=2)
+output[i+11,11]<-round(logistic.display(model3, decimal=2)$table[3,2], digits=2)
+output[i+11,12]<-round(logistic.display(model3, decimal=2)$table[3,3], digits=2)
+output[i+11,13]<-round(logistic.display(model3, decimal=2)$table[3,4], digits=3)
+}
+output
+
+```
+
+
+```{r sensitivity 3a: APOE E4 cat in African}
+
+table(aa$APOE2010_E4dose, aa$DC_60_2V.fac.relevel)
+
+# African ancestry
+for (i in 2:4) {
+# Model 2b APOE binary
+  #Rows 19-21
+model2b<-glm(DC_60_2V.fac.relevel ~ APOE2010_bin + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + AA_2010_PC1 + AA_2010_PC2, data=aa[aa$DC_60_2V.relevel==i | aa$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model2b)
+#Starts at row 16 through row 18
+output[i+17,4]<-length(model2b$residuals)
+output[i+17,5]<-round(logistic.display(model2b, decimal=2)$table[1,1], digits=2)
+output[i+17,6]<-round(logistic.display(model2b, decimal=2)$table[1,2], digits=2)
+output[i+17,7]<-round(logistic.display(model2b, decimal=2)$table[1,3], digits=2)
+output[i+17,8]<-round(logistic.display(model2b, decimal=2)$table[1,4], digits=3)
+
+# Model 2b APOE dose
+table(hrs$APOE2010_imputed)
+model2b<-glm(DC_60_2V.fac.relevel ~ as.factor(APOE2010_E4dose) + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + AA_2010_PC1 + AA_2010_PC2, data=aa[aa$DC_60_2V.relevel==i | aa$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model2b)
+#Dose level 1
+#Starts at row 25 through row 27
+output[i+23,4]<-length(model2b$residuals)
+output[i+23,5]<-round(logistic.display(model2b, decimal=2)$table[1,1], digits=2)
+output[i+23,6]<-round(logistic.display(model2b, decimal=2)$table[1,2], digits=2)
+output[i+23,7]<-round(logistic.display(model2b, decimal=2)$table[1,3], digits=2)
+output[i+23,8]<-round(logistic.display(model2b, decimal=2)$table[1,4], digits=3)
+#Dose level 2
+#Starts at row 28 through row 30
+output[i+26,4]<-length(model2b$residuals)
+output[i+26,5]<-round(logistic.display(model2b, decimal=2)$table[2,1], digits=2)
+output[i+26,6]<-round(logistic.display(model2b, decimal=2)$table[2,2], digits=2)
+output[i+26,7]<-round(logistic.display(model2b, decimal=2)$table[2,3], digits=2)
+output[i+26,8]<-round(logistic.display(model2b, decimal=2)$table[2,4], digits=3)
+
+
+#Model 3 PGS (with APOE modeled as binary)
+model3<-glm(DC_60_2V.fac.relevel ~ PH13_KunkleOK2_PT_0.01 + APOE2010_bin + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + AA_2010_PC1 + AA_2010_PC2, data=aa[aa$DC_60_2V.relevel==i | aa$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model3)
+# Starts at row 16 through 18
+output[i+14,9]<-length(model3$residuals)
+output[i+14,10]<-round(logistic.display(model3, decimal=2)$table[1,1], digits=2)
+output[i+14,11]<-round(logistic.display(model3, decimal=2)$table[1,2], digits=2)
+output[i+14,12]<-round(logistic.display(model3, decimal=2)$table[1,3], digits=2)
+output[i+14,13]<-round(logistic.display(model3, decimal=2)$table[1,4], digits=3)
+
+#Model 3 APOE binary
+# Starts at row 19 through 21
+output[i+17,9]<-length(model3$residuals)
+output[i+17,10]<-round(logistic.display(model3, decimal=2)$table[2,1], digits=2)
+output[i+17,11]<-round(logistic.display(model3, decimal=2)$table[2,2], digits=2)
+output[i+17,12]<-round(logistic.display(model3, decimal=2)$table[2,3], digits=2)
+output[i+17,13]<-round(logistic.display(model3, decimal=2)$table[2,4], digits=3)
+
+#Model 3 PGS (with APOE modeled as dose)
+model3<-glm(DC_60_2V.fac.relevel ~ PH13_KunkleOK2_PT_0.01 + as.factor(APOE2010_E4dose) + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + AA_2010_PC1 + AA_2010_PC2, data=aa[aa$DC_60_2V.relevel==i | aa$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model3)
+# Starts at row 22 through row 24
+output[i+20,9]<-length(model3$residuals)
+output[i+20,10]<-round(logistic.display(model3, decimal=2)$table[1,1], digits=2)
+output[i+20,11]<-round(logistic.display(model3, decimal=2)$table[1,2], digits=2)
+output[i+20,12]<-round(logistic.display(model3, decimal=2)$table[1,3], digits=2)
+output[i+20,13]<-round(logistic.display(model3, decimal=2)$table[1,4], digits=3)
+
+#Model 3 APOE dose
+#Dose level1
+# Starts at row 25 through row 27
+output[i+23,9]<-length(model3$residuals)
+output[i+23,10]<-round(logistic.display(model3, decimal=2)$table[2,1], digits=2)
+output[i+23,11]<-round(logistic.display(model3, decimal=2)$table[2,2], digits=2)
+output[i+23,12]<-round(logistic.display(model3, decimal=2)$table[2,3], digits=2)
+output[i+23,13]<-round(logistic.display(model3, decimal=2)$table[2,4], digits=3)
+#Dose level2
+#Starts at row 28 through row 30
+output[i+26,9]<-length(model2b$residuals)
+output[i+26,10]<-round(logistic.display(model3, decimal=2)$table[3,1], digits=2)
+output[i+26,11]<-round(logistic.display(model3, decimal=2)$table[3,2], digits=2)
+output[i+26,12]<-round(logistic.display(model3, decimal=2)$table[3,3], digits=2)
+output[i+26,13]<-round(logistic.display(model3, decimal=2)$table[3,4], digits=3)
+}
+output
+
+write.csv(output, file=paste0(results_dir,"HRS_PGS_Logistic_APOEcategory_Sensitivity_", date, ".csv"))
+```
+
+
+```{r sensitivity 3b: APOE E4 dose in European}
+#table(include$APOE2010_E4dose, include$DC_60_2V.fac.relevel,   include$ancestry)
+
+output<-data.frame(matrix(NA, nrow=24, ncol=13))
+#colnames(output)<-c("Ancestry", "Variable", "Outcome", "n.2b","OR.2b", "LCI.2b", "UCI.2b", "p.2b", "n.2bdose", "OR.2bdose", "LCI.2bdose", "UCI.2bdose", "p.2bdose", "n.3","OR.3", "LCI.3", "UCI.3", "p.3", "n.3dose","OR.3dose", "LCI.3dose", "UCI.3dose", "p.3cat")
+colnames(output)<-c("Ancestry", "Variable", "Outcome","n.2b", "OR.2b", "LCI.2b", "UCI.2b", "p.2b", "n.3","OR.3", "LCI.3", "UCI.3", "p.3")
+output$Ancestry<-c(rep("European", 12), rep("African", 12))
+output$Variable<-c(rep("PGS", 3), rep("APOEbin", 3), rep("PGS", 3), rep("APOEdose", 3))
+output$Outcome<-c(rep(c("Borderline","CIND", "Dementia"),8))
+
+table(ea$APOE2010_E4dose)
+# European ancestry
+for (i in 2:4) {
+# Model 2b APOE binary
+  #Rows 1-3
+model2b<-glm(DC_60_2V.fac.relevel ~ APOE2010_bin + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + EA_2010_PC1 + EA_2010_PC2, data=ea[ea$DC_60_2V.relevel==i | ea$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model2b)
+#Starts at row 4 through row 6
+output[i+2,4]<-length(model2b$residuals)
+output[i+2,5]<-round(logistic.display(model2b, decimal=2)$table[1,1], digits=2)
+output[i+2,6]<-round(logistic.display(model2b, decimal=2)$table[1,2], digits=2)
+output[i+2,7]<-round(logistic.display(model2b, decimal=2)$table[1,3], digits=2)
+output[i+2,8]<-round(logistic.display(model2b, decimal=2)$table[1,4], digits=3)
+
+# Model 2b APOE dose
+table(hrs$APOE2010_imputed)
+model2b<-glm(DC_60_2V.fac.relevel ~ as.numeric(APOE2010_E4dose) + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + EA_2010_PC1 + EA_2010_PC2, data=ea[ea$DC_60_2V.relevel==i | ea$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model2b)
+#Dose 
+#Starts at row 10 through row 12
+output[i+8,4]<-length(model2b$residuals)
+output[i+8,5]<-round(logistic.display(model2b, decimal=2)$table[1,1], digits=2)
+output[i+8,6]<-round(logistic.display(model2b, decimal=2)$table[1,2], digits=2)
+output[i+8,7]<-round(logistic.display(model2b, decimal=2)$table[1,3], digits=2)
+output[i+8,8]<-round(logistic.display(model2b, decimal=2)$table[1,4], digits=3)
+#Dose level 2
+
+#Model 3 PGS (with APOE modeled as binary)
+model3<-glm(DC_60_2V.fac.relevel ~ PH13_KunkleOK2_PT_0.01 + APOE2010_bin + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + EA_2010_PC1 + EA_2010_PC2, data=ea[ea$DC_60_2V.relevel==i | ea$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model3)
+output[i-1,9]<-length(model3$residuals)
+output[i-1,10]<-round(logistic.display(model3, decimal=2)$table[1,1], digits=2)
+output[i-1,11]<-round(logistic.display(model3, decimal=2)$table[1,2], digits=2)
+output[i-1,12]<-round(logistic.display(model3, decimal=2)$table[1,3], digits=2)
+output[i-1,13]<-round(logistic.display(model3, decimal=2)$table[1,4], digits=3)
+
+#Model 3 APOE binary
+output[i+2,9]<-length(model3$residuals)
+output[i+2,10]<-round(logistic.display(model3, decimal=2)$table[2,1], digits=2)
+output[i+2,11]<-round(logistic.display(model3, decimal=2)$table[2,2], digits=2)
+output[i+2,12]<-round(logistic.display(model3, decimal=2)$table[2,3], digits=2)
+output[i+2,13]<-round(logistic.display(model3, decimal=2)$table[2,4], digits=3)
+
+#Model 3 PGS (with APOE modeled as dose)
+model3<-glm(DC_60_2V.fac.relevel ~ PH13_KunkleOK2_PT_0.01 + as.numeric(APOE2010_E4dose) + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + EA_2010_PC1 + EA_2010_PC2, data=ea[ea$DC_60_2V.relevel==i | ea$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model3)
+# Starts at row 7 through row 9
+output[i+5,9]<-length(model3$residuals)
+output[i+5,10]<-round(logistic.display(model3, decimal=2)$table[1,1], digits=2)
+output[i+5,11]<-round(logistic.display(model3, decimal=2)$table[1,2], digits=2)
+output[i+5,12]<-round(logistic.display(model3, decimal=2)$table[1,3], digits=2)
+output[i+5,13]<-round(logistic.display(model3, decimal=2)$table[1,4], digits=3)
+
+#Model 3 APOE dose
+#Dose 
+#Starts at row 10 through row 12
+output[i+8,9]<-length(model3$residuals)
+output[i+8,10]<-round(logistic.display(model3, decimal=2)$table[2,1], digits=2)
+output[i+8,11]<-round(logistic.display(model3, decimal=2)$table[2,2], digits=2)
+output[i+8,12]<-round(logistic.display(model3, decimal=2)$table[2,3], digits=2)
+output[i+8,13]<-round(logistic.display(model3, decimal=2)$table[2,4], digits=3)
+}
+output
+
+```
+
+
+```{r sensitivity 3b: APOE E4 cat in African}
+
+table(aa$APOE2010_E4dose)
+# African ancestry
+for (i in 2:4) {
+# Model 2b APOE binary
+  #Rows 19-21
+model2b<-glm(DC_60_2V.fac.relevel ~ APOE2010_bin + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + AA_2010_PC1 + AA_2010_PC2, data=aa[aa$DC_60_2V.relevel==i | aa$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model2b)
+#Starts at row 16 through row 18
+output[i+14,4]<-length(model2b$residuals)
+output[i+14,5]<-round(logistic.display(model2b, decimal=2)$table[1,1], digits=2)
+output[i+14,6]<-round(logistic.display(model2b, decimal=2)$table[1,2], digits=2)
+output[i+14,7]<-round(logistic.display(model2b, decimal=2)$table[1,3], digits=2)
+output[i+14,8]<-round(logistic.display(model2b, decimal=2)$table[1,4], digits=3)
+
+# Model 2b APOE dose
+table(hrs$APOE2010_imputed)
+model2b<-glm(DC_60_2V.fac.relevel ~ as.numeric(APOE2010_E4dose) + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + AA_2010_PC1 + AA_2010_PC2, data=aa[aa$DC_60_2V.relevel==i | aa$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model2b)
+#Dose level
+#Starts at row 22 through row 24
+output[i+20,4]<-length(model2b$residuals)
+output[i+20,5]<-round(logistic.display(model2b, decimal=2)$table[1,1], digits=2)
+output[i+20,6]<-round(logistic.display(model2b, decimal=2)$table[1,2], digits=2)
+output[i+20,7]<-round(logistic.display(model2b, decimal=2)$table[1,3], digits=2)
+output[i+20,8]<-round(logistic.display(model2b, decimal=2)$table[1,4], digits=3)
+
+
+#Model 3 PGS (with APOE modeled as binary)
+model3<-glm(DC_60_2V.fac.relevel ~ PH13_KunkleOK2_PT_0.01 + APOE2010_bin + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + AA_2010_PC1 + AA_2010_PC2, data=aa[aa$DC_60_2V.relevel==i | aa$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model3)
+# Starts at row 13 through 15
+output[i+11,9]<-length(model3$residuals)
+output[i+11,10]<-round(logistic.display(model3, decimal=2)$table[1,1], digits=2)
+output[i+11,11]<-round(logistic.display(model3, decimal=2)$table[1,2], digits=2)
+output[i+11,12]<-round(logistic.display(model3, decimal=2)$table[1,3], digits=2)
+output[i+11,13]<-round(logistic.display(model3, decimal=2)$table[1,4], digits=3)
+
+#Model 3 APOE binary
+# Starts at row 16 through 18
+output[i+14,9]<-length(model3$residuals)
+output[i+14,10]<-round(logistic.display(model3, decimal=2)$table[2,1], digits=2)
+output[i+14,11]<-round(logistic.display(model3, decimal=2)$table[2,2], digits=2)
+output[i+14,12]<-round(logistic.display(model3, decimal=2)$table[2,3], digits=2)
+output[i+14,13]<-round(logistic.display(model3, decimal=2)$table[2,4], digits=3)
+
+#Model 3 PGS (with APOE modeled as dose)
+model3<-glm(DC_60_2V.fac.relevel ~ PH13_KunkleOK2_PT_0.01 + as.numeric(APOE2010_E4dose) + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + AA_2010_PC1 + AA_2010_PC2, data=aa[aa$DC_60_2V.relevel==i | aa$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model3)
+# Starts at row 19 through row 21
+output[i+17,9]<-length(model3$residuals)
+output[i+17,10]<-round(logistic.display(model3, decimal=2)$table[1,1], digits=2)
+output[i+17,11]<-round(logistic.display(model3, decimal=2)$table[1,2], digits=2)
+output[i+17,12]<-round(logistic.display(model3, decimal=2)$table[1,3], digits=2)
+output[i+17,13]<-round(logistic.display(model3, decimal=2)$table[1,4], digits=3)
+
+#Model 3 APOE dose
+#Dose
+# Starts at row 22 through row 25
+output[i+20,9]<-length(model3$residuals)
+output[i+20,10]<-round(logistic.display(model3, decimal=2)$table[2,1], digits=2)
+output[i+20,11]<-round(logistic.display(model3, decimal=2)$table[2,2], digits=2)
+output[i+20,12]<-round(logistic.display(model3, decimal=2)$table[2,3], digits=2)
+output[i+20,13]<-round(logistic.display(model3, decimal=2)$table[2,4], digits=3)
+}
+output
+
+write.csv(output, file=paste0(results_dir,"HRS_PGS_Logistic_APOEdose_Sensitivity_", date, ".csv"))
+```

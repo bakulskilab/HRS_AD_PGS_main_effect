@@ -1,0 +1,171 @@
+---
+title: "Alzheimer's disease PGS, APOE status, and summary cognitive status in the HRS"
+subtitle: "Logistic Regression"
+author: "Kelly Bakulski"
+date: "October 29, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = "~/Google Drive/AD_R01_WB/AD_PGS_main_effect/Scripts/")
+```
+
+## Goal: Primary logistic regression models 1-3
+
+```{r set source/output locations}
+#Setting file paths for data, output, scripts
+
+source_dir<-"~/Google Drive/AD_R01_WB/Data/" #location of the parent dataset
+
+results_dir<-"~/Google Drive/AD_R01_WB/AD_PGS_main_effect/Results/" #location of output tables
+  
+derived_data_dir<-"~/Google Drive/AD_R01_WB/AD_PGS_main_effect/Derived_Datasets/" #location of any new datasets I'm building specifically for this paper
+
+script_dir<-"~/Google Drive/AD_R01_WB/AD_PGS_main_effect/Scripts/" #location of this script, redundant with the knitr option above
+
+date<-format(Sys.Date(), "%Y%m%d")
+```
+
+
+#Load in the dataset from Rda: HRS 1995-2014
+```{r load}
+load(file = paste0(derived_data_dir, "HRS_PGS_AD_Euro_Analytic_Sample_20190814.rda"))
+dim(ea)
+load(file = paste0(derived_data_dir,"HRS_PGS_AD_Afri_Analytic_Sample_20190814.rda"))
+dim(aa)
+```
+
+```{r model 1}
+#European Dementia
+model1<-glm(DC_60_2V.fac.relevel ~AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + EA_2010_PC1 + EA_2010_PC2, data=ea[ea$DC_60_2V.relevel==4 | ea$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model1)
+#European CIND
+model1<-glm(DC_60_2V.fac.relevel ~AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + EA_2010_PC1 + EA_2010_PC2, data=ea[ea$DC_60_2V.relevel==3 | ea$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model1)
+#European Borderline
+model1<-glm(DC_60_2V.fac.relevel ~AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + EA_2010_PC1 + EA_2010_PC2, data=ea[ea$DC_60_2V.relevel==2 | ea$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model1)
+
+
+#African Dementia
+model1<-glm(DC_60_2V.fac.relevel ~AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + AA_2010_PC1 + AA_2010_PC2, data=aa[aa$DC_60_2V.relevel==4 | aa$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model1)
+#African CIND
+model1<-glm(DC_60_2V.fac.relevel ~AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + AA_2010_PC1 + AA_2010_PC2, data=aa[aa$DC_60_2V.relevel==3 | aa$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model1)
+#African Borderline
+model1<-glm(DC_60_2V.fac.relevel ~AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + AA_2010_PC1 + AA_2010_PC2, data=aa[aa$DC_60_2V.relevel==2 | aa$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model1)
+```
+
+
+```{r european ancestry regressions looped}
+#install.packages("epiDisplay")
+library(epiDisplay)
+#library(stargazer)
+
+table(ea$DC_60_2V)
+table(ea$DC_60_2V.relevel)
+
+#PH13_KunkleOK2_PT_0.01
+#PH13_KunkleFULL_PT_0.01
+
+output<-data.frame(matrix(NA, nrow=12, ncol=18))
+colnames(output)<-c("Ancestry", "Variable", "Outcome", "n.2a","OR.2a", "LCI.2a", "UCI.2a", "p.2a", "n.2b", "OR.2b", "LCI.2b", "UCI.2b", "p.2b", "n.3","OR.3", "LCI.3", "UCI.3", "p.3")
+output$Ancestry<-c(rep("European", 6), rep("African", 6))
+output$Variable<-c(rep("PGS", 3), rep("APOE", 3), rep("PGS", 3), rep("APOE", 3))
+output$Outcome<-c(rep(c("Borderline","CIND", "Dementia"),4))
+
+# European ancestry
+for (i in 2:4) {
+# Model 2a PGS
+  #Rows 1-3
+model2a<-glm(DC_60_2V.fac.relevel ~ PH13_KunkleOK2_PT_0.01 + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + EA_2010_PC1 + EA_2010_PC2, data=ea[ea$DC_60_2V.relevel==i | ea$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model2a)
+output[i-1,4]<-length(model2a$residuals)
+output[i-1,5]<-round(logistic.display(model2a, decimal=2)$table[1,1], digits=2)
+output[i-1,6]<-round(logistic.display(model2a, decimal=2)$table[1,2], digits=2)
+output[i-1,7]<-round(logistic.display(model2a, decimal=2)$table[1,3], digits=2)
+output[i-1,8]<-round(logistic.display(model2a, decimal=2)$table[1,4], digits=3)
+
+# Model 2b
+#Rows 4-6
+model2b<-glm(DC_60_2V.fac.relevel ~ APOE2010_bin + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + EA_2010_PC1 + EA_2010_PC2, data=ea[ea$DC_60_2V.relevel==i | ea$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model2b)
+output[i+2,9]<-length(model2b$residuals)
+output[i+2,10]<-round(logistic.display(model2b, decimal=2)$table[1,1], digits=2)
+output[i+2,11]<-round(logistic.display(model2b, decimal=2)$table[1,2], digits=2)
+output[i+2,12]<-round(logistic.display(model2b, decimal=2)$table[1,3], digits=2)
+output[i+2,13]<-round(logistic.display(model2b, decimal=2)$table[1,4], digits=3)
+
+#Model 3 PGS
+model3<-glm(DC_60_2V.fac.relevel ~ PH13_KunkleOK2_PT_0.01 + APOE2010_bin + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + EA_2010_PC1 + EA_2010_PC2, data=ea[ea$DC_60_2V.relevel==i | ea$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model3)
+output[i-1,14]<-length(model3$residuals)
+output[i-1,15]<-round(logistic.display(model3, decimal=2)$table[1,1], digits=2)
+output[i-1,16]<-round(logistic.display(model3, decimal=2)$table[1,2], digits=2)
+output[i-1,17]<-round(logistic.display(model3, decimal=2)$table[1,3], digits=2)
+output[i-1,18]<-round(logistic.display(model3, decimal=2)$table[1,4], digits=3)
+
+#Model 3 APOE
+output[i+2,14]<-length(model3$residuals)
+output[i+2,15]<-round(logistic.display(model3, decimal=2)$table[2,1], digits=2)
+output[i+2,16]<-round(logistic.display(model3, decimal=2)$table[2,2], digits=2)
+output[i+2,17]<-round(logistic.display(model3, decimal=2)$table[2,3], digits=2)
+output[i+2,18]<-round(logistic.display(model3, decimal=2)$table[2,4], digits=3)
+}
+output
+```
+
+
+```{r African ancestry regressions}
+
+table(aa$DC_60_2V)
+table(aa$DC_60_2V.relevel)
+
+# African ancestry
+for (i in 2:4) {
+# Model 2a PGS
+  #Rows 7-9
+model2a<-glm(DC_60_2V.fac.relevel ~ PH13_KunkleOK2_PT_0.01 + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + AA_2010_PC1 + AA_2010_PC2, data=aa[aa$DC_60_2V.relevel==i | aa$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model2a)
+output[i+5,4]<-length(model2a$residuals)
+output[i+5,5]<-round(logistic.display(model2a, decimal=2)$table[1,1], digits=2)
+output[i+5,6]<-round(logistic.display(model2a, decimal=2)$table[1,2], digits=2)
+output[i+5,7]<-round(logistic.display(model2a, decimal=2)$table[1,3], digits=2)
+output[i+5,8]<-round(logistic.display(model2a, decimal=2)$table[1,4], digits=3)
+
+# Model 2b
+#Rows 10-12
+model2b<-glm(DC_60_2V.fac.relevel ~ APOE2010_bin + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + AA_2010_PC1 + AA_2010_PC2, data=aa[aa$DC_60_2V.relevel==i | aa$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model2b)
+output[i+8,9]<-length(model2b$residuals)
+output[i+8,10]<-round(logistic.display(model2b, decimal=2)$table[1,1], digits=2)
+output[i+8,11]<-round(logistic.display(model2b, decimal=2)$table[1,2], digits=2)
+output[i+8,12]<-round(logistic.display(model2b, decimal=2)$table[1,3], digits=2)
+output[i+8,13]<-round(logistic.display(model2b, decimal=2)$table[1,4], digits=3)
+
+#Model 3 PGS
+model3<-glm(DC_60_2V.fac.relevel ~ PH13_KunkleOK2_PT_0.01 + APOE2010_bin + AGE_LAST_60 + as.factor(SEX.fac) + SCHLYRS + YEAR_LAST_60 + AA_2010_PC1 + AA_2010_PC2, data=aa[aa$DC_60_2V.relevel==i | aa$DC_60_2V.relevel==1,] , family=binomial, na.action = na.omit)
+summary(model3)
+output[i+5,14]<-length(model3$residuals)
+output[i+5,15]<-round(logistic.display(model3, decimal=2)$table[1,1], digits=2)
+output[i+5,16]<-round(logistic.display(model3, decimal=2)$table[1,2], digits=2)
+output[i+5,17]<-round(logistic.display(model3, decimal=2)$table[1,3], digits=2)
+output[i+5,18]<-round(logistic.display(model3, decimal=2)$table[1,4], digits=3)
+
+#Model 3 APOE
+output[i+8,14]<-length(model3$residuals)
+output[i+8,15]<-round(logistic.display(model3, decimal=2)$table[2,1], digits=2)
+output[i+8,16]<-round(logistic.display(model3, decimal=2)$table[2,2], digits=2)
+output[i+8,17]<-round(logistic.display(model3, decimal=2)$table[2,3], digits=2)
+output[i+8,18]<-round(logistic.display(model3, decimal=2)$table[2,4], digits=3)
+}
+
+output
+write.csv(output, file=paste0(results_dir,"/HRS_PGS_Logistic_", date, ".csv"))
+```
+
+
+
