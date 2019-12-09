@@ -1,7 +1,7 @@
-name: "HRS_AD_PGS_main_effect"
+name: HRS_AD_PGS_main_effect
 output_dir: ../docs
 navbar:
-  title: "HRS_AD_PGS_main_effect"
+  title: HRS_AD_PGS_main_effect
   left:
   - text: Home
     href: index.html
@@ -9,6 +9,10 @@ navbar:
     href: about.html
   - text: License
     href: license.html
+  right:
+  - icon: fa-github
+    text: Source code
+    href: https://github.com/bakulski/HRS_AD_PGS_main_effect
 output:
   workflowr::wflow_html:
     toc: yes
